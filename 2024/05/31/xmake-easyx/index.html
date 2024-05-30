@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   
   
-  <title>Iris</title>
+  <title>使用xmake来配置EasyX | Iris</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="随便写写的个人博客~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Iris">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="下载 EasyX进入官网链接后，直接下载安装即可。EasyX 官网 配置 xmake 文件使用 xmake 创建项目后，打开对应的 xmake.lua 文件 1234567891011add_rules(&quot;mode.debug&quot;, &quot;mode.release&quot;)add_rules(&quot;win.sdk.application&quot;) -- 添加w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用xmake来配置EasyX">
+<meta property="og:url" content="http://example.com/2024/05/31/xmake-easyx/index.html">
 <meta property="og:site_name" content="Iris">
-<meta property="og:description" content="随便写写的个人博客~">
+<meta property="og:description" content="下载 EasyX进入官网链接后，直接下载安装即可。EasyX 官网 配置 xmake 文件使用 xmake 创建项目后，打开对应的 xmake.lua 文件 1234567891011add_rules(&quot;mode.debug&quot;, &quot;mode.release&quot;)add_rules(&quot;win.sdk.application&quot;) -- 添加w">
 <meta property="og:locale" content="zh_CH">
+<meta property="og:image" content="http://example.com/assets/xmake-easyx/image.png">
+<meta property="article:published_time" content="2024-05-30T16:20:35.000Z">
+<meta property="article:modified_time" content="2024-05-30T16:36:05.670Z">
 <meta property="article:author" content="Iris">
+<meta property="article:tag" content="cpp">
+<meta property="article:tag" content="EasyX">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/assets/xmake-easyx/image.png">
   
     <link rel="alternate" href="/atom.xml" title="Iris" type="application/atom+xml">
   
@@ -73,9 +79,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-xmake-easyx" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-xmake-easyx" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/05/31/xmake-easyx/" class="article-date">
   <time class="dt-published" datetime="2024-05-30T16:20:35.000Z" itemprop="datePublished">2024-05-31</time>
@@ -88,8 +92,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/31/xmake-easyx/">使用xmake来配置EasyX</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      使用xmake来配置EasyX
     </h1>
   
 
@@ -118,53 +122,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/05/30/test/" class="article-date">
-  <time class="dt-published" datetime="2024-05-30T15:06:23.000Z" itemprop="datePublished">2024-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/05/30/test/">第一篇博客（测试）</a>
-    </h1>
+    <a href="/2024/05/30/test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">第一篇博客（测试）</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="这是我的第一篇博客"><a href="#这是我的第一篇博客" class="headerlink" title="这是我的第一篇博客"></a>这是我的第一篇博客</h2><p>测试一下是否可用</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的测试案例</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Testing&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="图片引用教程"><a href="#图片引用教程" class="headerlink" title="图片引用教程"></a>图片引用教程</h3><p>将<code>_config.yml中</code>的<code>post_asset_folder</code>设置 true 即可，如下图所示，添加资源文件<br><img src="/../assets/resource_setting.jpg"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/05/30/test/" data-id="clwte4x5j0000g0wh6202gcn2" data-title="第一篇博客（测试）" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
