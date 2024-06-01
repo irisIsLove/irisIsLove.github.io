@@ -123,10 +123,18 @@
 </li>
 <li><p><strong>时间复杂度 O(n)</strong></p>
 <ul>
-<li>定义：算法中基本运算的执行次数量级（最坏情况）</li>
-<li>规则：<br>$$<br>T(n)&#x3D;O(f(n))+O(g(n))&#x3D;O(max(f(n),g(n)))\<br>T(n)&#x3D;O(f(n))O(g(n))&#x3D;O(f(n)\times g(n))<br>$$</li>
-<li>排序：<br>$$<br>O(1)&lt;(log_2n)&lt;O(n)&lt;O(nlog_2n)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n<br>$$<br>只挑循环中的一个基本操作分析它的执行次数于 n 的关系即可<br>多层嵌套循环时，只考虑最深层的循环<br>计算时，一般找到循环头 i 与 n 的关系 –&gt; i ≤ f(n)</li>
-<li>分类：最坏时间复杂度、最好时间复杂度、平均时间复杂度</li>
+<li><p>定义：算法中基本运算的执行次数量级（最坏情况）</p>
+</li>
+<li><p>规则：</p>
+<p>$$<br>T(n)&#x3D;O(f(n))+O(g(n))&#x3D;O(max(f(n),g(n)))<br>$$</p>
+<p>$$<br>T(n)&#x3D;O(f(n))O(g(n))&#x3D;O(f(n) \times g(n))<br>$$</p>
+</li>
+<li><p>排序：</p>
+<p>$$<br>O(1)&lt;(log_2n)&lt;O(n)&lt;O(nlog_2n)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)<br>$$</p>
+<p>只挑循环中的一个基本操作分析它的执行次数于 n 的关系即可<br>多层嵌套循环时，只考虑最深层的循环<br>计算时，一般找到循环头 i 与 n 的关系 –&gt; i ≤ f(n)</p>
+</li>
+<li><p>分类：最坏时间复杂度、最好时间复杂度、平均时间复杂度</p>
+</li>
 </ul>
 </li>
 <li><p><strong>空间复杂度 S(n)</strong></p>
