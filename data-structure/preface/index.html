@@ -6,15 +6,15 @@
   
   <title>1-绪论 | Iris&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="随便写写的个人博客~">
+  <meta name="description" content="数据结构的基本概念 数据结构相互之间存在一种或多种特定关系的数据元素结合  *数据对象拥有相同性质的数据元素的几何，是数据的一个子集  *数据元素数据的基本单位，通常作为一个整体进行考虑和处理  *数据项是构成数据元素的不可分割的最小单位，一个数据元素有多个数据项  *数据类型  原子类型：其值不能再分的数据类型 结构类型：其值可以再分解为若干成分的数据类型 抽象数据类型 ADT(Abstract">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1-绪论">
 <meta property="og:url" content="https://irisislove.github.io/data-structure/preface/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="随便写写的个人博客~">
+<meta property="og:description" content="数据结构的基本概念 数据结构相互之间存在一种或多种特定关系的数据元素结合  *数据对象拥有相同性质的数据元素的几何，是数据的一个子集  *数据元素数据的基本单位，通常作为一个整体进行考虑和处理  *数据项是构成数据元素的不可分割的最小单位，一个数据元素有多个数据项  *数据类型  原子类型：其值不能再分的数据类型 结构类型：其值可以再分解为若干成分的数据类型 抽象数据类型 ADT(Abstract">
 <meta property="og:locale" content="zh_CH">
 <meta property="article:published_time" content="2024-06-01T04:18:09.000Z">
-<meta property="article:modified_time" content="2024-06-01T06:42:38.910Z">
+<meta property="article:modified_time" content="2024-06-01T07:41:18.765Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -91,7 +91,59 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="数据结构的基本概念"><a href="#数据结构的基本概念" class="headerlink" title="数据结构的基本概念"></a>数据结构的基本概念</h2><ul>
+<li><p><strong>数据结构</strong><br>相互之间存在一种或多种特定关系的数据元素结合</p>
+</li>
+<li><p>*数据对象<br>拥有相同性质的数据元素的几何，是数据的一个子集</p>
+</li>
+<li><p>*数据元素<br>数据的基本单位，通常作为一个整体进行考虑和处理</p>
+</li>
+<li><p>*数据项<br>是构成数据元素的不可分割的最小单位，一个数据元素有多个数据项</p>
+</li>
+<li><p>*数据类型</p>
+<ul>
+<li>原子类型：其值不能再分的数据类型</li>
+<li>结构类型：其值可以再分解为若干成分的数据类型</li>
+<li>抽象数据类型 ADT(Abstract Data Type)<br>定义数据的逻辑结构、定义运算</li>
+</ul>
+</li>
+<li><p><strong>三要素</strong></p>
+<ul>
+<li>逻辑结构：数据元素之间的逻辑关系<br>线性、集合、树、图</li>
+<li>数据结构再计算机中的表示<br>顺序、链式、索引、散列&#x2F;Hash</li>
+<li>数据运算</li>
+<li>关系：逻辑结构独立于存储结构，存储结构是逻辑结构于 PC 的映射</li>
+</ul>
+</li>
+<li><p><strong>算法</strong></p>
+<ul>
+<li>定义：对特定问题求解步骤的一种描述</li>
+<li>5 个特性：有穷性、确定性、可行性、输入、输出</li>
+<li>特质&#x2F;正确性、可读性、健壮性、高效率和低存储量需求</li>
+</ul>
+</li>
+<li><p><strong>时间复杂度 O(n)</strong></p>
+<ul>
+<li>定义：算法中基本运算的执行次数量级（最坏情况）</li>
+<li>规则：<br>$$<br>T(n)&#x3D;O(f(n))+O(g(n))&#x3D;O(max(f(n),g(n)))\<br>T(n)&#x3D;O(f(n))O(g(n))&#x3D;O(f(n)\times g(n))<br>$$</li>
+<li>排序：<br>$$<br>O(1)&lt;(log_2n)&lt;O(n)&lt;O(nlog_2n)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n<br>$$<br>只挑循环中的一个基本操作分析它的执行次数于 n 的关系即可<br>多层嵌套循环时，只考虑最深层的循环<br>计算时，一般找到循环头 i 与 n 的关系 –&gt; i ≤ f(n)</li>
+<li>分类：最坏时间复杂度、最好时间复杂度、平均时间复杂度</li>
+</ul>
+</li>
+<li><p><strong>空间复杂度 S(n)</strong></p>
+<ul>
+<li>定义：算法所消耗的存储空间</li>
+<li>规则：同 O(n)</li>
+<li>*术语：原地工作算法所需的辅助空间时常量</li>
+<li>原则：<ol>
+<li>出现存储空间大小和问题规模相关的变量</li>
+<li>递归函数，取决于递归调用深度</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
