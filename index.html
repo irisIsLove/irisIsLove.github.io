@@ -68,6 +68,80 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-ds-linear-list-basic-concept" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/data-structure/linear-list/basic-concept/" class="article-date">
+  <time datetime="2024-06-02T04:57:38.000Z" itemprop="datePublished">2024-06-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/data-structure/linear-list/basic-concept/">2-线性表-基本概念</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>相同数据类型的 n 个数据元素的有限序列。n 为<strong>表长</strong>，n&#x3D;0 时为<strong>空表</strong><br>写作：</p>
+<p>$$<br>L &#x3D; (a_1, a_2,…,a_i, a_{i+1}…,a_n)<br>$$</p>
+<h3 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h3><p>序列，元素之间有先后关系</p>
+<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ol>
+<li><p>创销</p>
+<ul>
+<li><code>InitList(&amp;L)</code>：初始化表</li>
+<li><code>DestroyList(&amp;L)</code>：销毁表</li>
+</ul>
+</li>
+<li><p>增删查</p>
+<ul>
+<li><code>ListInsert(&amp;L, i, e)</code>：第 i 个位置插入元素 e（增）</li>
+<li><code>ListDelete(&amp;L, i, &amp;e)</code>：删除第 i 个位置的元素并用 e 表示（删）</li>
+<li><code>LocateElem(L, e)</code>：按给定关键字查找元素（查）</li>
+<li><code>GetElem(L, i)</code>：按为序 i 查找元素（查）</li>
+</ul>
+</li>
+<li><p>常用函数</p>
+<ul>
+<li><code>Length(L)</code>：返回表长</li>
+<li><code>PrintList(L)</code>：输出 L 所有元素</li>
+<li><code>Empty(L)</code>：判断 L 是否为空表</li>
+</ul>
+</li>
+</ol>
+<h3 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h3><ul>
+<li><p>定义：广义表时 n(n≥0)个元素 a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,…,a<sub>n</sub>的有限序列</p>
+</li>
+<li><p>特点：<br>广义表中放松对表元素的源自限制，容许它们具有自身结构。<br>广义表的第一个元素为广义表的表头，出去第一个元素后的其余元素组成冠以表的表尾。<br><em>如 python 中：((1, 2, 3), [1, 2, 3], a, 1)，元组的各个元素可以有元组、序列、字符、数字</em></p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://irisislove.github.io/data-structure/linear-list/basic-concept/" data-id="clwx2q1s800008gwh7n2b71oo" class="article-share-link" data-share="baidu" data-title="2-线性表-基本概念">Share</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ds-preface" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/data-structure/preface/" class="article-date">
@@ -155,7 +229,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/preface/" data-id="clwvr1n5i0000powhc56md5qq" class="article-share-link" data-share="baidu" data-title="1-绪论">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/preface/" data-id="clwx2clwg00004wwh8moyfyhx" class="article-share-link" data-share="baidu" data-title="1-绪论">Share</a>
       
 
       
@@ -205,7 +279,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clwthaxq4000104wh5d7o56ho" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
+        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clwx2clwm00034wwhbn8t8s5e" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
       
 
       
@@ -251,7 +325,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/test/" data-id="clwthaxq1000004wh1pyw80a4" class="article-share-link" data-share="baidu" data-title="第一篇博客（测试）">Share</a>
+        <a data-url="https://irisislove.github.io/test/" data-id="clwx2q1sb00028gwh5n16f0gd" class="article-share-link" data-share="baidu" data-title="第一篇博客（测试）">Share</a>
       
 
       
@@ -275,7 +349,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -284,7 +358,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EasyX/" style="font-size: 10px;">EasyX</a> <a href="/tags/cpp/" style="font-size: 10px;">cpp</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 10px;">数据结构</a>
+      <a href="/tags/EasyX/" style="font-size: 10px;">EasyX</a> <a href="/tags/cpp/" style="font-size: 10px;">cpp</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a>
     </div>
   </div>
 
@@ -293,7 +367,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -303,6 +377,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/data-structure/linear-list/basic-concept/">2-线性表-基本概念</a>
+          </li>
         
           <li>
             <a href="/data-structure/preface/">1-绪论</a>
@@ -397,13 +475,6 @@
 <!-- 百度分享 end -->
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
 
