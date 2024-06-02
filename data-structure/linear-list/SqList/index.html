@@ -4,16 +4,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Iris&#39;s Blog</title>
+  <title>2-线性表-顺序表 | Iris&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="随便写写的个人博客~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Iris&#39;s Blog">
-<meta property="og:url" content="https://irisislove.github.io/index.html">
+  <meta name="description" content="定义用顺序存储的方式实现线性表 顺序存储把逻辑上相邻的元素存储在物理位置上也相邻的存储单元中，元素之间的关系有存储单元的邻接关系来体现 地址特点线性表 L 中的 an的地址是： $$LOC(C) + n \times sizeof(ElemType)$$ 式中：sizeof(ElemType) ——线性表中数据元素的大小 顺序表 随机访问(在O(1)找到任意元素 i) 存储密度高(如链式存储要存指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2-线性表-顺序表">
+<meta property="og:url" content="https://irisislove.github.io/data-structure/linear-list/SqList/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="随便写写的个人博客~">
+<meta property="og:description" content="定义用顺序存储的方式实现线性表 顺序存储把逻辑上相邻的元素存储在物理位置上也相邻的存储单元中，元素之间的关系有存储单元的邻接关系来体现 地址特点线性表 L 中的 an的地址是： $$LOC(C) + n \times sizeof(ElemType)$$ 式中：sizeof(ElemType) ——线性表中数据元素的大小 顺序表 随机访问(在O(1)找到任意元素 i) 存储密度高(如链式存储要存指">
 <meta property="og:locale" content="zh_CH">
+<meta property="article:published_time" content="2024-06-02T15:59:39.000Z">
+<meta property="article:modified_time" content="2024-06-02T16:18:32.625Z">
 <meta property="article:author" content="Iris">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
   
   
@@ -66,9 +69,7 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-    <article id="post-ds-linear-list-SqList" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-ds-linear-list-SqList" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/data-structure/linear-list/SqList/" class="article-date">
   <time datetime="2024-06-02T15:59:39.000Z" itemprop="datePublished">2024-06-02</time>
@@ -81,8 +82,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/data-structure/linear-list/SqList/">2-线性表-顺序表</a>
+    <h1 class="article-title" itemprop="name">
+      2-线性表-顺序表
     </h1>
   
 
@@ -190,280 +191,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-ds-linear-list-basic-concept" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/data-structure/linear-list/basic-concept/" class="article-date">
-  <time datetime="2024-06-02T04:57:38.000Z" itemprop="datePublished">2024-06-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/data-structure/linear-list/basic-concept/">2-线性表-基本概念</a>
-    </h1>
+    <a href="/data-structure/linear-list/basic-concept/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">2-线性表-基本概念</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>相同数据类型的 n 个数据元素的有限序列。n 为<strong>表长</strong>，n&#x3D;0 时为<strong>空表</strong><br>写作：</p>
-<p>$$<br>L &#x3D; (a_1, a_2,…,a_i, a_{i+1}…,a_n)<br>$$</p>
-<h3 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h3><p>序列，元素之间有先后关系</p>
-<h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><ol>
-<li><p>创销</p>
-<ul>
-<li><code>InitList(&amp;L)</code>：初始化表</li>
-<li><code>DestroyList(&amp;L)</code>：销毁表</li>
-</ul>
-</li>
-<li><p>增删查</p>
-<ul>
-<li><code>ListInsert(&amp;L, i, e)</code>：第 i 个位置插入元素 e（增）</li>
-<li><code>ListDelete(&amp;L, i, &amp;e)</code>：删除第 i 个位置的元素并用 e 表示（删）</li>
-<li><code>LocateElem(L, e)</code>：按给定关键字查找元素（查）</li>
-<li><code>GetElem(L, i)</code>：按为序 i 查找元素（查）</li>
-</ul>
-</li>
-<li><p>常用函数</p>
-<ul>
-<li><code>Length(L)</code>：返回表长</li>
-<li><code>PrintList(L)</code>：输出 L 所有元素</li>
-<li><code>Empty(L)</code>：判断 L 是否为空表</li>
-</ul>
-</li>
-</ol>
-<h3 id="广义表"><a href="#广义表" class="headerlink" title="广义表"></a>广义表</h3><ul>
-<li><p>定义：广义表时 n(n≥0)个元素 a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,…,a<sub>n</sub>的有限序列</p>
-</li>
-<li><p>特点：<br>广义表中放松对表元素的源自限制，容许它们具有自身结构。<br>广义表的第一个元素为广义表的表头，出去第一个元素后的其余元素组成冠以表的表尾。<br><em>如 python 中：((1, 2, 3), [1, 2, 3], a, 1)，元组的各个元素可以有元组、序列、字符、数字</em></p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/basic-concept/" data-id="clwx2q1s800008gwh7n2b71oo" class="article-share-link" data-share="baidu" data-title="2-线性表-基本概念">Share</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-ds-preface" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/data-structure/preface/" class="article-date">
-  <time datetime="2024-06-01T04:18:09.000Z" itemprop="datePublished">2024-06-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/data-structure/preface/">1-绪论</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数据结构的基本概念"><a href="#数据结构的基本概念" class="headerlink" title="数据结构的基本概念"></a>数据结构的基本概念</h2><ul>
-<li><p><strong>数据结构</strong><br>相互之间存在一种或多种特定关系的数据元素结合</p>
-</li>
-<li><p>*数据对象<br>拥有相同性质的数据元素的几何，是数据的一个子集</p>
-</li>
-<li><p>*数据元素<br>数据的基本单位，通常作为一个整体进行考虑和处理</p>
-</li>
-<li><p>*数据项<br>是构成数据元素的不可分割的最小单位，一个数据元素有多个数据项</p>
-</li>
-<li><p>*数据类型</p>
-<ul>
-<li>原子类型：其值不能再分的数据类型</li>
-<li>结构类型：其值可以再分解为若干成分的数据类型</li>
-<li>抽象数据类型 ADT(Abstract Data Type)<br>定义数据的逻辑结构、定义运算</li>
-</ul>
-</li>
-<li><p><strong>三要素</strong></p>
-<ul>
-<li>逻辑结构：数据元素之间的逻辑关系<br>线性、集合、树、图</li>
-<li>数据结构再计算机中的表示<br>顺序、链式、索引、散列&#x2F;Hash</li>
-<li>数据运算</li>
-<li>关系：逻辑结构独立于存储结构，存储结构是逻辑结构于 PC 的映射</li>
-</ul>
-</li>
-<li><p><strong>算法</strong></p>
-<ul>
-<li>定义：对特定问题求解步骤的一种描述</li>
-<li>5 个特性：有穷性、确定性、可行性、输入、输出</li>
-<li>特质&#x2F;正确性、可读性、健壮性、高效率和低存储量需求</li>
-</ul>
-</li>
-<li><p><strong>时间复杂度 O(n)</strong></p>
-<ul>
-<li><p>定义：算法中基本运算的执行次数量级（最坏情况）</p>
-</li>
-<li><p>规则：</p>
-<p>$$<br>T(n)&#x3D;O(f(n))+O(g(n))&#x3D;O(max(f(n),g(n)))<br>$$</p>
-<p>$$<br>T(n)&#x3D;O(f(n))O(g(n))&#x3D;O(f(n) \times g(n))<br>$$</p>
-</li>
-<li><p>排序：</p>
-<p>$$<br>O(1)&lt;(log_2n)&lt;O(n)&lt;O(nlog_2n)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)<br>$$</p>
-<p>只挑循环中的一个基本操作分析它的执行次数于 n 的关系即可<br>多层嵌套循环时，只考虑最深层的循环<br>计算时，一般找到循环头 i 与 n 的关系 –&gt; i ≤ f(n)</p>
-</li>
-<li><p>分类：最坏时间复杂度、最好时间复杂度、平均时间复杂度</p>
-</li>
-</ul>
-</li>
-<li><p><strong>空间复杂度 S(n)</strong></p>
-<ul>
-<li>定义：算法所消耗的存储空间</li>
-<li>规则：同 O(n)</li>
-<li>*术语：原地工作算法所需的辅助空间时常量</li>
-<li>原则：<ol>
-<li>出现存储空间大小和问题规模相关的变量</li>
-<li>递归函数，取决于递归调用深度</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://irisislove.github.io/data-structure/preface/" data-id="clwx2clwg00004wwh8moyfyhx" class="article-share-link" data-share="baidu" data-title="1-绪论">Share</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-xmake-easyx" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/xmake-easyx/" class="article-date">
-  <time datetime="2024-05-30T16:20:35.000Z" itemprop="datePublished">2024-05-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/xmake-easyx/">使用xmake来配置EasyX</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="下载-EasyX"><a href="#下载-EasyX" class="headerlink" title="下载 EasyX"></a>下载 EasyX</h2><p>进入官网链接后，直接下载安装即可。<br><a target="_blank" rel="noopener" href="https://easyx.cn/">EasyX 官网</a></p>
-<h2 id="配置-xmake-文件"><a href="#配置-xmake-文件" class="headerlink" title="配置 xmake 文件"></a>配置 xmake 文件</h2><p>使用 xmake 创建项目后，打开对应的 xmake.lua 文件</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">add_rules(<span class="string">&quot;mode.debug&quot;</span>, <span class="string">&quot;mode.release&quot;</span>)</span><br><span class="line">add_rules(<span class="string">&quot;win.sdk.application&quot;</span>) <span class="comment">-- 添加windows应用规则</span></span><br><span class="line"></span><br><span class="line">target(<span class="string">&quot;Demo&quot;</span>)</span><br><span class="line">    add_includedirs(<span class="string">&quot;D:/VS/IDE/VC/Auxiliary/VS/include&quot;</span>) <span class="comment">-- 添加对应头文件</span></span><br><span class="line">    add_linkdirs(<span class="string">&quot;D:/VS/IDE/VC/Auxiliary/VS/lib/x64&quot;</span>) <span class="comment">-- 链接对应的库</span></span><br><span class="line">    set_kind(<span class="string">&quot;binary&quot;</span>)</span><br><span class="line">    add_files(<span class="string">&quot;src/*.cpp&quot;</span>)</span><br><span class="line">    add_ldflags(<span class="string">&quot;-subsystem:console&quot;</span>) <span class="comment">-- subsystem一定要改成console</span></span><br><span class="line">    add_cxflags(<span class="string">&quot;/source-charset:utf-8&quot;</span>) <span class="comment">-- 字符集根据具体情况进行修改</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>Demo 代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;easyx.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> </span>&#123;</span><br><span class="line">  <span class="built_in">initgraph</span>(<span class="number">1280</span>, <span class="number">720</span>);</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> x = <span class="number">300</span>;</span><br><span class="line">  <span class="type">int</span> y = <span class="number">300</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">BeginBatchDraw</span>();</span><br><span class="line">  <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">    ExMessage msg;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">peekmessage</span>(&amp;msg)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (WM_MOUSEMOVE == msg.message) &#123;</span><br><span class="line">        x = msg.x;</span><br><span class="line">        y = msg.y;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cleardevice</span>();</span><br><span class="line">    <span class="built_in">solidcircle</span>(x, y, <span class="number">100</span>);</span><br><span class="line">    <span class="built_in">FlushBatchDraw</span>();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">EndBatchDraw</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行后图片<br><img src="/./xmake-easyx/image.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clwx2clwm00034wwhbn8t8s5e" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/" rel="tag">cpp</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/test/" class="article-date">
-  <time datetime="2024-05-30T15:06:23.000Z" itemprop="datePublished">2024-05-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/test/">第一篇博客（测试）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="这是我的第一篇博客"><a href="#这是我的第一篇博客" class="headerlink" title="这是我的第一篇博客"></a>这是我的第一篇博客</h2><p>测试一下是否可用</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 简单的测试案例</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Testing&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="图片引用教程"><a href="#图片引用教程" class="headerlink" title="图片引用教程"></a>图片引用教程</h3><p>将<code>_config.yml中</code>的<code>post_asset_folder</code>设置 true 即可，如下图所示，添加资源文件<br><img src="/./test/resource_setting.jpg"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://irisislove.github.io/test/" data-id="clwx2q1sb00028gwh5n16f0gd" class="article-share-link" data-share="baidu" data-title="第一篇博客（测试）">Share</a>
-      
-
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
       
