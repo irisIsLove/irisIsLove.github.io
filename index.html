@@ -90,55 +90,61 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <table>
+        <style>
+table {
+    width: 50%; /* 你可以将百分比设置为你想要的任何值 */
+}
+</style>
+
+<table>
 <thead>
 <tr>
 <th align="center"></th>
 <th align="center">逻辑结构</th>
-<th align="center">物理结构</th>
+<th align="right">物理结构</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="center"><strong>线性表</strong></td>
 <td align="center">线性表</td>
-<td align="center">顺序存储：随机存取、存储密度高；空间分配不方便，改变容量不方便</td>
+<td align="right">顺序存储：随机存取、存储密度高；空间分配不方便，改变容量不方便</td>
 </tr>
 <tr>
 <td align="center"><strong>链表</strong></td>
 <td align="center">线性表</td>
-<td align="center">链式存储：离散的小空间分配方便，改变容量方便；但是不可随机存取，存取密度低</td>
+<td align="right">链式存储：离散的小空间分配方便，改变容量方便；但是不可随机存取，存取密度低</td>
 </tr>
 </tbody></table>
 <table>
 <thead>
 <tr>
-<th><strong>基操</strong></th>
+<th align="center"><strong>基操</strong></th>
 <th>顺序表</th>
 <th>链表</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><strong>创</strong></td>
+<td align="center"><strong>创</strong></td>
 <td>需要分配大片连续空间，若分配空间过小，则之后不方便拓展容量；若分配空间过大，则浪费内存资源。</td>
 <td>只需分配一个头节点(甚至可以不要头节点只需要一个头指针)，扩展性更好</td>
 </tr>
 <tr>
-<td><strong>销</strong></td>
+<td align="center"><strong>销</strong></td>
 <td>修改 length&#x3D;0</td>
 <td>一次删除各个节点(free)</td>
 </tr>
 <tr>
-<td><strong>增</strong></td>
+<td align="center"><strong>增</strong></td>
 <td>插入元素后将后续元素移动，O(n)</td>
 <td>只需修改指针，O(n)</td>
 </tr>
 <tr>
-<td><strong>删</strong></td>
+<td align="center"><strong>删</strong></td>
 <td>删除元素要将后续元素移动，O(n)</td>
 <td>只需子 u 该指针，O(n)</td>
 </tr>
 <tr>
-<td><strong>查</strong></td>
+<td align="center"><strong>查</strong></td>
 <td>按位查：O(1)<br>按值查找：O(n)&#x2F;O(log<sub>2</sub>n)[有序时]</td>
 <td>按位查找：O(n)<br>按值查找：O(n)</td>
 </tr>
@@ -148,7 +154,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/compare_SqList_with_LinkList/" data-id="clwzzqajn000048wh2fb126ig" class="article-share-link" data-share="baidu" data-title="2-线性表-链表和顺序表的对比">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/linear-list/compare_SqList_with_LinkList/" data-id="clx03y7u90000pwwhh6t9e8ye" class="article-share-link" data-share="baidu" data-title="2-线性表-链表和顺序表的对比">Share</a>
       
 
       
@@ -333,7 +339,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/LinkList/" data-id="clwzzaz2q0000sgwhebe7cl56" class="article-share-link" data-share="baidu" data-title="2-线性表-链表">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/linear-list/LinkList/" data-id="clx03y7uc0001pwwhcvdyfhnq" class="article-share-link" data-share="baidu" data-title="2-线性表-链表">Share</a>
       
 
       
@@ -459,7 +465,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/SqList/" data-id="clwxquk410000r8wh4lq8bp49" class="article-share-link" data-share="baidu" data-title="2-线性表-顺序表">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/linear-list/SqList/" data-id="clx03y7ui000apwwh25jb1k5z" class="article-share-link" data-share="baidu" data-title="2-线性表-顺序表">Share</a>
       
 
       
@@ -533,7 +539,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/basic-concept/" data-id="clwx2q1s800008gwh7n2b71oo" class="article-share-link" data-share="baidu" data-title="2-线性表-基本概念">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/linear-list/basic-concept/" data-id="clx03y7ug0005pwwhdzkq1vcf" class="article-share-link" data-share="baidu" data-title="2-线性表-基本概念">Share</a>
       
 
       
@@ -635,7 +641,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/data-structure/preface/" data-id="clwx2clwg00004wwh8moyfyhx" class="article-share-link" data-share="baidu" data-title="1-绪论">Share</a>
+        <a data-url="https://irisislove.github.io/data-structure/preface/" data-id="clx03y7uf0004pwwh5fls45l3" class="article-share-link" data-share="baidu" data-title="1-绪论">Share</a>
       
 
       
@@ -685,7 +691,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clwx2clwm00034wwhbn8t8s5e" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
+        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clx03y7ui0008pwwh3g72cvho" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
       
 
       
@@ -731,7 +737,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="https://irisislove.github.io/test/" data-id="clwx2q1sb00028gwh5n16f0gd" class="article-share-link" data-share="baidu" data-title="第一篇博客（测试）">Share</a>
+        <a data-url="https://irisislove.github.io/test/" data-id="clx03y7ue0003pwwhcx5ibqup" class="article-share-link" data-share="baidu" data-title="第一篇博客（测试）">Share</a>
       
 
       
