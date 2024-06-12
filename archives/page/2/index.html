@@ -4,20 +4,16 @@
 <head>
   <meta charset="utf-8">
   
-  <title>2-基本概念 | Iris&#39;s Blog</title>
+  <title>Archives | Iris&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="定义 相同数据类型的 n 个数据元素的有限序列。n 为表长，n&#x3D;0 时为空表 写作： $$ L &#x3D; (a_1, a_2,…,a_i, a_{i+1}…,a_n) $$ 逻辑结构 序列，元素之间有先后关系 基本操作   创销  InitList(&amp;L)：初始化表 DestroyList(&amp;L)：销毁表    增删查  ListInsert(&amp;L, i, e)：第 i 个位置插">
-<meta property="og:type" content="article">
-<meta property="og:title" content="2-基本概念">
-<meta property="og:url" content="https://irisislove.github.io/data-structure/linear-list/basic-concept/index.html">
+  <meta name="description" content="随便写写的个人博客~">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Iris&#39;s Blog">
+<meta property="og:url" content="https://irisislove.github.io/archives/page/2/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="定义 相同数据类型的 n 个数据元素的有限序列。n 为表长，n&#x3D;0 时为空表 写作： $$ L &#x3D; (a_1, a_2,…,a_i, a_{i+1}…,a_n) $$ 逻辑结构 序列，元素之间有先后关系 基本操作   创销  InitList(&amp;L)：初始化表 DestroyList(&amp;L)：销毁表    增删查  ListInsert(&amp;L, i, e)：第 i 个位置插">
+<meta property="og:description" content="随便写写的个人博客~">
 <meta property="og:locale" content="zh_CH">
-<meta property="article:published_time" content="2024-06-02T04:57:38.000Z">
-<meta property="article:modified_time" content="2024-06-06T10:22:03.500Z">
 <meta property="article:author" content="Iris">
-<meta property="article:tag" content="数据结构">
-<meta property="article:tag" content="线性表">
 <meta name="twitter:card" content="summary">
   
   
@@ -70,114 +66,44 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-ds-linear-list-basic-concept" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/data-structure/linear-list/basic-concept/" class="article-date">
-  <time datetime="2024-06-02T04:57:38.000Z" itemprop="datePublished">2024-06-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      2-基本概念
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2024" class="archive-year">2024</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/test/" class="archive-article-date">
+  <time datetime="2024-05-30T15:06:23.000Z" itemprop="datePublished">May 30</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/test/">第一篇博客（测试）</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="定义">定义</h3>
-<p>相同数据类型的 n 个数据元素的有限序列。n 为<strong>表长</strong>，n=0 时为<strong>空表</strong><br>
-写作：</p>
-<p>$$<br>
-L = (a_1, a_2,…,a_i, a_{i+1}…,a_n)<br>
-$$</p>
-<h3 id="逻辑结构">逻辑结构</h3>
-<p>序列，元素之间有先后关系</p>
-<h3 id="基本操作">基本操作</h3>
-<ol>
-<li>
-<p>创销</p>
-<ul>
-<li><code>InitList(&amp;L)</code>：初始化表</li>
-<li><code>DestroyList(&amp;L)</code>：销毁表</li>
-</ul>
-</li>
-<li>
-<p>增删查</p>
-<ul>
-<li><code>ListInsert(&amp;L, i, e)</code>：第 i 个位置插入元素 e（增）</li>
-<li><code>ListDelete(&amp;L, i, &amp;e)</code>：删除第 i 个位置的元素并用 e 表示（删）</li>
-<li><code>LocateElem(L, e)</code>：按给定关键字查找元素（查）</li>
-<li><code>GetElem(L, i)</code>：按为序 i 查找元素（查）</li>
-</ul>
-</li>
-<li>
-<p>常用函数</p>
-<ul>
-<li><code>Length(L)</code>：返回表长</li>
-<li><code>PrintList(L)</code>：输出 L 所有元素</li>
-<li><code>Empty(L)</code>：判断 L 是否为空表</li>
-</ul>
-</li>
-</ol>
-<h3 id="广义表">广义表</h3>
-<ul>
-<li>
-<p>定义：广义表时 n(n≥0)个元素 a<sub>1</sub>,a<sub>2</sub>,a<sub>3</sub>,…,a<sub>n</sub>的有限序列</p>
-</li>
-<li>
-<p>特点：<br>
-广义表中放松对表元素的源自限制，容许它们具有自身结构。<br>
-广义表的第一个元素为广义表的表头，出去第一个元素后的其余元素组成冠以表的表尾。<br>
-<em>如 python 中：((1, 2, 3), [1, 2, 3], a, 1)，元组的各个元素可以有元组、序列、字符、数字</em></p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="https://irisislove.github.io/data-structure/linear-list/basic-concept/" data-id="clxb2b3fw0008rowhbquafbe5" class="article-share-link" data-share="baidu" data-title="2-基本概念">Share</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" rel="tag">线性表</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/data-structure/linear-list/SqList/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2-顺序表
-        
-      </div>
-    </a>
-  
-  
-    <a href="/data-structure/preface/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">1-绪论</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
 
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
+  </nav>
 </section>
       
       <aside id="sidebar">
