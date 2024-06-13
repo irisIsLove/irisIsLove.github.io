@@ -180,6 +180,57 @@ mjx-container[display="true"] + br {
     <div class="outer">
       <section id="main">
   
+    <article id="post-xmake-easyx" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/xmake-easyx/" class="article-date">
+  <time datetime="2024-05-30T16:20:35.000Z" itemprop="datePublished">2024-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/xmake-easyx/">使用xmake来配置EasyX</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载-easyx">下载 EasyX</h2>
+<p>进入官网链接后，直接下载安装即可。 <a target="_blank" rel="noopener" href="https://easyx.cn/">EasyX
+官网</a></p>
+<h2 id="配置-xmake-文件">配置 xmake 文件</h2>
+<p>使用 xmake 创建项目后，打开对应的 xmake.lua 文件</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">add_rules(<span class="string">"mode.debug"</span>, <span class="string">"mode.release"</span>)</span><br><span class="line">add_rules(<span class="string">"win.sdk.application"</span>) <span class="comment">-- 添加windows应用规则</span></span><br><span class="line"></span><br><span class="line">target(<span class="string">"Demo"</span>)</span><br><span class="line">    add_includedirs(<span class="string">"D:/VS/IDE/VC/Auxiliary/VS/include"</span>) <span class="comment">-- 添加对应头文件</span></span><br><span class="line">    add_linkdirs(<span class="string">"D:/VS/IDE/VC/Auxiliary/VS/lib/x64"</span>) <span class="comment">-- 链接对应的库</span></span><br><span class="line">    set_kind(<span class="string">"binary"</span>)</span><br><span class="line">    add_files(<span class="string">"src/*.cpp"</span>)</span><br><span class="line">    add_ldflags(<span class="string">"-subsystem:console"</span>) <span class="comment">-- subsystem一定要改成console</span></span><br><span class="line">    add_cxflags(<span class="string">"/source-charset:utf-8"</span>) <span class="comment">-- 字符集根据具体情况进行修改</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Demo 代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">"easyx.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>** argv)</span> </span>{</span><br><span class="line">  <span class="built_in">initgraph</span>(<span class="number">1280</span>, <span class="number">720</span>);</span><br><span class="line"></span><br><span class="line">  <span class="type">int</span> x = <span class="number">300</span>;</span><br><span class="line">  <span class="type">int</span> y = <span class="number">300</span>;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">BeginBatchDraw</span>();</span><br><span class="line">  <span class="keyword">for</span> (;;) {</span><br><span class="line">    ExMessage msg;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">peekmessage</span>(&amp;msg)) {</span><br><span class="line">      <span class="keyword">if</span> (WM_MOUSEMOVE == msg.message) {</span><br><span class="line">        x = msg.x;</span><br><span class="line">        y = msg.y;</span><br><span class="line">      }</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">cleardevice</span>();</span><br><span class="line">    <span class="built_in">solidcircle</span>(x, y, <span class="number">100</span>);</span><br><span class="line">    <span class="built_in">FlushBatchDraw</span>();</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">EndBatchDraw</span>();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>运行后图片 <img src="./xmake-easyx/image.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="https://irisislove.github.io/xmake-easyx/" data-id="clxbx7w5u000fh0wh69qledio" class="article-share-link" data-share="baidu" data-title="使用xmake来配置EasyX">Share</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cpp/" rel="tag">cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/test/" class="article-date">
@@ -241,7 +292,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" rel="tag">栈和队列</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" rel="tag">线性表</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/EasyX/" rel="tag">EasyX</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cpp/" rel="tag">cpp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" rel="tag">栈和队列</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%91%E4%B8%8E%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">树与二叉树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" rel="tag">线性表</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -250,7 +301,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/EasyX/" style="font-size: 10px;">EasyX</a> <a href="/tags/cpp/" style="font-size: 10px;">cpp</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a> <a href="/tags/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" style="font-size: 13.33px;">栈和队列</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" style="font-size: 16.67px;">线性表</a>
+      <a href="/tags/EasyX/" style="font-size: 10px;">EasyX</a> <a href="/tags/cpp/" style="font-size: 10px;">cpp</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" style="font-size: 20px;">数据结构</a> <a href="/tags/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/" style="font-size: 13.33px;">栈和队列</a> <a href="/tags/%E6%A0%91%E4%B8%8E%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 10px;">树与二叉树</a> <a href="/tags/%E7%BA%BF%E6%80%A7%E8%A1%A8/" style="font-size: 16.67px;">线性表</a>
     </div>
   </div>
 
@@ -259,7 +310,7 @@ mjx-container[display="true"] + br {
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">June 2024</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a><span class="archive-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -269,6 +320,10 @@ mjx-container[display="true"] + br {
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/data-structure/tree_and_binary_tree/tree_concept/">4-树的基本概念</a>
+          </li>
         
           <li>
             <a href="/data-structure/ds_compression_matrix/">3-特殊矩阵的压缩存储</a>
@@ -284,10 +339,6 @@ mjx-container[display="true"] + br {
         
           <li>
             <a href="/data-structure/stack_and_queue/stack/">3-栈</a>
-          </li>
-        
-          <li>
-            <a href="/data-structure/linear-list/compare_SqList_with_LinkList/">2-链表和顺序表的对比</a>
           </li>
         
       </ul>
