@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>Linux基础命令</title>
+    <link href="/2025/03/03/linux_base/"/>
+    <url>/2025/03/03/linux_base/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Linux基础命令"><a href="#Linux基础命令" class="headerlink" title="Linux基础命令"></a>Linux基础命令</h1><h2 id="Shell-相关"><a href="#Shell-相关" class="headerlink" title="Shell 相关"></a>Shell 相关</h2><pre><code class="hljs">概念： Shell就是命令解析器，Shell将用户输入的命令解释成内核能够识别的指令，Shell就相当于翻译。查看当前系统使用的shell:    echo $SHELL查看当前系统支持的shell:    cat /etc/shells</code></pre><h2 id="Linux目录结构"><a href="#Linux目录结构" class="headerlink" title="Linux目录结构"></a>Linux目录结构</h2><pre><code class="hljs">是一个倒立的树状结构。</code></pre><ul><li>&#x2F;bin: binary，二进制文件，可执行程序，shell命令<ul><li>如：ls, rm, mv, cp等常用命令</li></ul></li><li>&#x2F;sbin: s是Super User的意思，这里存放的是系统管理员使用的系统管理程序。<ul><li>如ifconfig, halt, shutdown, reboot等系统命令</li></ul></li><li>&#x2F;dev: device，在linux下一切皆文件<ul><li>硬盘, 显卡, 显示器</li><li>字符设备文件、块设备文件<ul><li>如: 在input目录下执行: sudo cat mouse0, 移动鼠标会显示有输入.</li></ul></li></ul></li><li>&#x2F;lib: linux运行的时候需要加载的一些动态库<ul><li>如: libc.so、libpthread.so等</li></ul></li><li>&#x2F;mnt: 手动的挂载目录, 如U盘等</li><li>&#x2F;media: 外设的自动挂载目录, 如光驱等</li><li>&#x2F;root: linux的超级用户root的家目录</li><li>&#x2F;usr: unix system resource–类似于WINDOWS的programe files目录<ul><li>include目录里存放头文件, 如: stdio.h、stdlib.h、string.h、pthread.h</li><li>games目录下的小游戏-如: sl小火车游戏</li></ul></li><li>&#x2F;etc: 存放配置文件<ul><li>&#x2F;etc&#x2F;passwd<ul><li>man 5 passwd可以查看passwd文件的格式信息</li></ul></li><li>&#x2F;etc&#x2F;group<ul><li>man 5 group可以查看group文件的格式信息</li></ul></li><li>&#x2F;etc&#x2F;profile<ul><li>系统的配置文件, 修改该文件会影响这个系统下面的所有的用户</li></ul></li></ul></li><li>&#x2F;opt: 安装第三方应用程序<ul><li>比如安装oracle数据库可以在这个目录下</li></ul></li><li>&#x2F;home: linux操作系统所有用户的家目录<ul><li>用户家目录：(宿主目录或者主目录)<ul><li>&#x2F;home&#x2F;itcast</li></ul></li></ul></li><li>&#x2F;tmp: 存放临时文件<ul><li>新建在这个目录下的文件会在系统重启后自动清除</li></ul></li></ul><h2 id="相对路径和绝对路径"><a href="#相对路径和绝对路径" class="headerlink" title="相对路径和绝对路径"></a>相对路径和绝对路径</h2><ul><li>绝对路径: 从&#x2F;目录开始表示的目录.</li><li>相对路径: 从当前目录开始表示的目录.<ul><li>从当前所处的目录开始表示的路径。</li><li>. 表示当前目录</li><li>.. 表示当前目录的上一级目录</li></ul></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>
