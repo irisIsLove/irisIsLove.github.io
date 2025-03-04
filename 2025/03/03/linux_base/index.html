@@ -23,13 +23,13 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux基础命令">
 <meta property="og:url" content="https://irisislove.github.io/2025/03/03/linux_base/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Iris&#39;s Blog">
 <meta property="og:description" content="Linux基础命令Shell 相关概念： Shell就是命令解析器，Shell将用户输入的命令解释成内核能够识别的指令，Shell就相当于翻译。 查看当前系统使用的shell:     echo $SHELL 查看当前系统支持的shell:     cat &#x2F;etc&#x2F;shells  Linux目录结构是一个倒立的树状结构。   &#x2F;bin: binary，二进制文件，可执行程序，shell">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/03/linux_base/ls-l.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/03/linux_base/hardlink.png">
 <meta property="article:published_time" content="2025-03-03T02:01:02.000Z">
-<meta property="article:modified_time" content="2025-03-04T04:43:31.203Z">
+<meta property="article:modified_time" content="2025-03-04T07:02:07.657Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,7 +37,7 @@
   
   
   
-  <title>Linux基础命令 - Hexo</title>
+  <title>Linux基础命令 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -214,7 +214,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.8k 字
         
       </span>
     
@@ -225,7 +225,7 @@
         
         
         
-          23 分钟
+          32 分钟
         
       </span>
     
@@ -673,7 +673,187 @@
 </ul>
 </li>
 </ul>
-<h2 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a>find 命令</h2>
+<h2 id="find-命令"><a href="#find-命令" class="headerlink" title="find 命令"></a>find 命令</h2><h3 id="按文件名查询：使用参数-name"><a href="#按文件名查询：使用参数-name" class="headerlink" title="按文件名查询：使用参数 -name"></a>按文件名查询：使用参数 -name</h3><ul>
+<li>命令：find 路径 -name “文件名”</li>
+<li>示例：find &#x2F;home -name “*.c”</li>
+</ul>
+<h3 id="按文件类型查询：使用参数-type"><a href="#按文件类型查询：使用参数-type" class="headerlink" title="按文件类型查询：使用参数 -type"></a>按文件类型查询：使用参数 -type</h3><ul>
+<li>命令：find 路径 -type 类型<ul>
+<li>普通文件类型用 f 表示而不是 -</li>
+<li>d -&gt; 目录</li>
+<li>l -&gt; 符号链接</li>
+<li>b -&gt; 块设备</li>
+<li>c -&gt; 字符设备</li>
+<li>s -&gt; socket 文件</li>
+<li>p -&gt; 管道文件</li>
+</ul>
+</li>
+<li>查找指定目录下的普通文件： find 路径 -type f</li>
+</ul>
+<h3 id="按文件大小查询：使用参数-size"><a href="#按文件大小查询：使用参数-size" class="headerlink" title="按文件大小查询：使用参数 -size"></a>按文件大小查询：使用参数 -size</h3><ul>
+<li>命令：find 路径 -size 范围<ul>
+<li>范围：<ul>
+<li>大于：+ 表示 – +100k</li>
+<li>小于：- 表示 – -100k</li>
+<li>等于：无符号表示 – 100k</li>
+</ul>
+</li>
+<li>大小：<ul>
+<li>M 必须大写(10M)</li>
+<li>k 必须小写(10k)</li>
+<li>c 表示字节数</li>
+</ul>
+</li>
+<li>例子：查询目录为家目录<ul>
+<li>等于 100k 的文件：find ~&#x2F; -size 100k</li>
+<li>大于 100k 的文件：find ~&#x2F; -size +100k</li>
+<li>大于 50k，小于 100k 的文件：find ~&#x2F; -size +50k -size -100k</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="按文件日期"><a href="#按文件日期" class="headerlink" title="按文件日期"></a>按文件日期</h3><ul>
+<li>创建日期：-ctime -n&#x2F;+n</li>
+<li>修改日期：-mtime -n&#x2F;+n</li>
+<li>访问日期：-atime -n&#x2F;+n</li>
+</ul>
+<h3 id="按深度"><a href="#按深度" class="headerlink" title="按深度"></a>按深度</h3><ul>
+<li>maxdepth n(层数)<ul>
+<li>搜索 n 层以下的目录，搜索的层数不超过 n 层</li>
+</ul>
+</li>
+<li>mindepth n(层数)<ul>
+<li>搜索 n 层以上的目录，搜索的层数不能小于 n 层</li>
+</ul>
+</li>
+</ul>
+<h3 id="高级查找"><a href="#高级查找" class="headerlink" title="高级查找"></a>高级查找</h3><ul>
+<li>例：查找指定目录下所有目录，并列出目录中文件详细信息<ul>
+<li>find .&#x2F; -type d -exec shell 命令 {} ;<ul>
+<li>find .&#x2F; -type d -exec ls -l {} ;</li>
+</ul>
+</li>
+<li>find .&#x2F; -type d -ok shell 命令 {} ;<ul>
+<li>find .&#x2F; -type d -ok ls -l {} ;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>注意：{}中间不能又空格</li>
+<li>ok 比较安全，特别是在执行 rm 删除文件的时候<ul>
+<li>find .&#x2F; -type d | xargs shell 命令<ul>
+<li>find .&#x2F; -type d | xargs ls -l</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="grep-命令"><a href="#grep-命令" class="headerlink" title="grep 命令"></a>grep 命令</h2><h3 id="grep-r-有目录-“查找的内容”-搜索路径"><a href="#grep-r-有目录-“查找的内容”-搜索路径" class="headerlink" title="grep -r(有目录) “查找的内容” 搜索路径"></a>grep -r(有目录) “查找的内容” 搜索路径</h3><ul>
+<li>-r 参数，若是目录，则可以递归搜索</li>
+<li>-n 参数可以显示该查找内容所在的行号</li>
+<li>-i 参数可以忽略大小写进行查找</li>
+<li>-v 参数不显示含有某字符串</li>
+</ul>
+<h3 id="搜索当前目录下包含-hello-world-字符串的文件"><a href="#搜索当前目录下包含-hello-world-字符串的文件" class="headerlink" title="搜索当前目录下包含 hello world 字符串的文件"></a>搜索当前目录下包含 hello world 字符串的文件</h3><ul>
+<li><code>grep -r -n &quot;hello world&quot; ./</code>    —-显示行号</li>
+<li><code>grep -r -n -i &quot;HELLO world&quot; ./</code>    —-忽略大小写查找</li>
+</ul>
+<h2 id="find-和-grep-命令结合使用"><a href="#find-和-grep-命令结合使用" class="headerlink" title="find 和 grep 命令结合使用"></a>find 和 grep 命令结合使用</h2><h3 id="先使用-find-命令查找文件，然后使用-grep-命令查找那些文件包含某个字符串"><a href="#先使用-find-命令查找文件，然后使用-grep-命令查找那些文件包含某个字符串" class="headerlink" title="先使用 find 命令查找文件，然后使用 grep 命令查找那些文件包含某个字符串"></a>先使用 find 命令查找文件，然后使用 grep 命令查找那些文件包含某个字符串</h3><ul>
+<li>find . -name “*.c” | xargs grep -n “main”</li>
+</ul>
+<h2 id="Linux-中常用的压缩工具"><a href="#Linux-中常用的压缩工具" class="headerlink" title="Linux 中常用的压缩工具"></a>Linux 中常用的压缩工具</h2><h3 id="gzip-和-bzip2"><a href="#gzip-和-bzip2" class="headerlink" title="gzip 和 bzip2"></a>gzip 和 bzip2</h3><ul>
+<li>不能压缩目录，只能一个一个文件进行压缩，压缩之后会使源文件消失</li>
+<li>gzip * 压缩当前目录下所有的文件，但是目录不能压缩</li>
+<li>gunzip * 解压当前目录下所有的 .gz 文件</li>
+<li>bzip2 * 压缩当前目录下所有的文件，但是目录不能压缩</li>
+<li>bunzip2 * 解压当前目录下所有的 .bz2 文件</li>
+</ul>
+<h3 id="tar-工具"><a href="#tar-工具" class="headerlink" title="tar 工具"></a>tar 工具</h3><ul>
+<li>相关参数说明<ul>
+<li>z：用 gzip 来压缩&#x2F;解压文件</li>
+<li>j：用 bzip2 来压缩&#x2F;解压文件</li>
+<li>c：create，创建新的压缩文件，与 x 互斥使用</li>
+<li>x：从压缩文件中释放文件，与 c 互斥使用</li>
+<li>f：指定压缩文件的名字</li>
+<li>t：查看压缩包中有哪些文件</li>
+</ul>
+</li>
+<li>压缩：<ul>
+<li>tar cvf 压缩包名.tar 要压缩的文件或目录</li>
+<li>tar cvzf 压缩包名.tar.gz 要压缩的文件或目录</li>
+<li>tar cvjf 压缩包名.tar.bz2 要压缩的文件或目录</li>
+</ul>
+</li>
+<li>解压缩<ul>
+<li>tar xvf 压缩包名.tar</li>
+<li>tar xzvf 压缩包名.tar.gz</li>
+<li>tar xjvf 压缩包名.tar.bz2</li>
+<li>解压到指定目录：添加参数 -C(大写)<ul>
+<li>tar xzvf 压缩包名.tar.gz -C 指定目录</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>查看压缩包中有哪些文件<ul>
+<li>tar -tvf 压缩包名.tar</li>
+</ul>
+</li>
+</ul>
+<h3 id="rar-工具"><a href="#rar-工具" class="headerlink" title="rar 工具"></a>rar 工具</h3><ul>
+<li>使用前需要安装 rar 工具<ul>
+<li>安装命令：sudo apt-get install rar</li>
+</ul>
+</li>
+<li>压缩：<ul>
+<li>命令： rar a -r 压缩包名 要压缩的文件<ul>
+<li>压缩目录需要使用参数： -R</li>
+<li>rar a -r my aa bb dir —-将 aa bb dir 三个文件压缩到 my.rar 中</li>
+</ul>
+</li>
+<li>打包的生成的新文件不需要指定后缀</li>
+</ul>
+</li>
+<li>解压缩：<ul>
+<li>命令：rar x xxx.rar 压缩目录<ul>
+<li>rar x my.rar —-将 my.rar 中的文件解压到当前目录</li>
+</ul>
+</li>
+<li>解压到指定目录，直接指定解压目录即可<ul>
+<li>rar x xxx.rar 目录</li>
+<li>rar x my.rar TAR —-将 my.rar 中的文件解压到 TAR 目录</li>
+<li>注意：若解压目录不存在则会报错</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="zip-工具"><a href="#zip-工具" class="headerlink" title="zip 工具"></a>zip 工具</h3><ul>
+<li>压缩：zip -r 压缩包名 要压缩的文件或目录<ul>
+<li>压缩目录需要使用参数 -R</li>
+<li>使用该命令不需要指定压缩包后缀</li>
+<li>zip -r xxx file dir —-将 file dir 两个文件压缩到 xxx.zip 中</li>
+</ul>
+</li>
+<li>解压缩：unzip 压缩包名<ul>
+<li>解压缩到指定目录：添加参数 -d 解压目录</li>
+<li>unzip xxx.zip -d &#x2F;home</li>
+<li>注意：若解压目录不存在则会创建</li>
+</ul>
+</li>
+</ul>
+<h2 id="软件的安装和卸载"><a href="#软件的安装和卸载" class="headerlink" title="软件的安装和卸载"></a>软件的安装和卸载</h2><h3 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a>在线安装</h3><ul>
+<li>软件安装：sudo apt-get install 软件名</li>
+<li>软件卸载：sudo apt-get remove 软件名</li>
+<li>更新软件列表：sudo apt-get update</li>
+<li>清理安装包：sudo apt-get clean</li>
+</ul>
+<h3 id="安装包安装"><a href="#安装包安装" class="headerlink" title="安装包安装"></a>安装包安装</h3><ul>
+<li>在 Ubuntu 系统下必须有 deb 格式的安装包</li>
+<li>软件安装：sudo dpkg -i xxx.deb</li>
+<li>软件卸载：sudo dpkg -r xxx.deb</li>
+</ul>
+
                 
               </div>
             
