@@ -297,4 +297,155 @@ tags:
   - 普通用户需要使用管理员用户权限执行该命令
 
 ## find 命令
-sdasda
+
+### 按文件名查询：使用参数 -name
+
+- 命令：find 路径 -name "文件名"
+- 示例：find /home -name "*.c"
+
+### 按文件类型查询：使用参数 -type
+
+- 命令：find 路径 -type 类型
+  - 普通文件类型用 f 表示而不是 -
+  - d -> 目录
+  - l -> 符号链接
+  - b -> 块设备
+  - c -> 字符设备
+  - s -> socket 文件
+  - p -> 管道文件
+- 查找指定目录下的普通文件： find 路径 -type f
+
+### 按文件大小查询：使用参数 -size
+
+- 命令：find 路径 -size 范围
+  - 范围：
+    - 大于：+ 表示 -- +100k
+    - 小于：- 表示 -- -100k
+    - 等于：无符号表示 -- 100k
+  - 大小：
+    - M 必须大写(10M)
+    - k 必须小写(10k)
+    - c 表示字节数
+  - 例子：查询目录为家目录
+    - 等于 100k 的文件：find ~/ -size 100k
+    - 大于 100k 的文件：find ~/ -size +100k
+    - 大于 50k，小于 100k 的文件：find ~/ -size +50k -size -100k
+
+### 按文件日期
+
+- 创建日期：-ctime -n/+n
+- 修改日期：-mtime -n/+n
+- 访问日期：-atime -n/+n
+
+### 按深度
+
+- maxdepth n(层数)
+  - 搜索 n 层以下的目录，搜索的层数不超过 n 层
+- mindepth n(层数)
+  - 搜索 n 层以上的目录，搜索的层数不能小于 n 层
+
+### 高级查找
+
+- 例：查找指定目录下所有目录，并列出目录中文件详细信息
+  - find ./ -type d -exec shell 命令 {} \;
+    - find ./ -type d -exec ls -l {} \;
+  - find ./ -type d -ok shell 命令 {} \;
+    - find ./ -type d -ok ls -l {} \;
+- 注意：{}中间不能又空格
+- ok 比较安全，特别是在执行 rm 删除文件的时候
+  - find ./ -type d | xargs shell 命令
+    - find ./ -type d | xargs ls -l
+
+## grep 命令
+
+### grep -r(有目录) "查找的内容" 搜索路径
+
+- -r 参数，若是目录，则可以递归搜索
+- -n 参数可以显示该查找内容所在的行号
+- -i 参数可以忽略大小写进行查找
+- -v 参数不显示含有某字符串
+
+### 搜索当前目录下包含 hello world 字符串的文件
+
+- `grep -r -n "hello world" ./`    ----显示行号
+- `grep -r -n -i "HELLO world" ./`    ----忽略大小写查找
+
+## find 和 grep 命令结合使用
+
+### 先使用 find 命令查找文件，然后使用 grep 命令查找那些文件包含某个字符串
+- find . -name "*.c" | xargs grep -n "main"
+
+## Linux 中常用的压缩工具
+
+### gzip 和 bzip2
+
+- 不能压缩目录，只能一个一个文件进行压缩，压缩之后会使源文件消失
+- gzip * 压缩当前目录下所有的文件，但是目录不能压缩
+- gunzip * 解压当前目录下所有的 .gz 文件
+- bzip2 * 压缩当前目录下所有的文件，但是目录不能压缩
+- bunzip2 * 解压当前目录下所有的 .bz2 文件
+
+### tar 工具
+
+- 相关参数说明
+  - z：用 gzip 来压缩/解压文件
+  - j：用 bzip2 来压缩/解压文件
+  - c：create，创建新的压缩文件，与 x 互斥使用
+  - x：从压缩文件中释放文件，与 c 互斥使用
+  - f：指定压缩文件的名字
+  - t：查看压缩包中有哪些文件
+- 压缩：
+  - tar cvf 压缩包名.tar 要压缩的文件或目录
+  - tar cvzf 压缩包名.tar.gz 要压缩的文件或目录
+  - tar cvjf 压缩包名.tar.bz2 要压缩的文件或目录
+- 解压缩
+  - tar xvf 压缩包名.tar
+  - tar xzvf 压缩包名.tar.gz
+  - tar xjvf 压缩包名.tar.bz2
+  - 解压到指定目录：添加参数 -C(大写)
+    - tar xzvf 压缩包名.tar.gz -C 指定目录
+- 查看压缩包中有哪些文件
+  - tar -tvf 压缩包名.tar
+
+### rar 工具
+
+- 使用前需要安装 rar 工具
+  - 安装命令：sudo apt-get install rar
+- 压缩：
+  - 命令： rar a -r 压缩包名 要压缩的文件
+    - 压缩目录需要使用参数： -R
+    - rar a -r my aa bb dir ----将 aa bb dir 三个文件压缩到 my.rar 中
+  - 打包的生成的新文件不需要指定后缀
+- 解压缩：
+  - 命令：rar x xxx.rar 压缩目录
+    - rar x my.rar ----将 my.rar 中的文件解压到当前目录
+  - 解压到指定目录，直接指定解压目录即可
+    - rar x xxx.rar 目录
+    - rar x my.rar TAR ----将 my.rar 中的文件解压到 TAR 目录
+    - 注意：若解压目录不存在则会报错
+
+### zip 工具
+
+- 压缩：zip -r 压缩包名 要压缩的文件或目录
+  - 压缩目录需要使用参数 -R
+  - 使用该命令不需要指定压缩包后缀
+  - zip -r xxx file dir ----将 file dir 两个文件压缩到 xxx.zip 中
+- 解压缩：unzip 压缩包名
+  - 解压缩到指定目录：添加参数 -d 解压目录
+  - unzip xxx.zip -d /home
+  - 注意：若解压目录不存在则会创建
+
+## 软件的安装和卸载
+
+### 在线安装
+
+- 软件安装：sudo apt-get install 软件名
+- 软件卸载：sudo apt-get remove 软件名
+- 更新软件列表：sudo apt-get update
+- 清理安装包：sudo apt-get clean
+
+### 安装包安装
+
+- 在 Ubuntu 系统下必须有 deb 格式的安装包
+- 软件安装：sudo dpkg -i xxx.deb
+- 软件卸载：sudo dpkg -r xxx.deb
