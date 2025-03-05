@@ -395,15 +395,15 @@ tags:
   - f：指定压缩文件的名字
   - t：查看压缩包中有哪些文件
 - 压缩：
-  - tar cvf 压缩包名.tar 要压缩的文件或目录
-  - tar cvzf 压缩包名.tar.gz 要压缩的文件或目录
-  - tar cvjf 压缩包名.tar.bz2 要压缩的文件或目录
+  - tar -cvf 压缩包名.tar 要压缩的文件或目录
+  - tar -cvzf 压缩包名.tar.gz 要压缩的文件或目录
+  - tar -cvjf 压缩包名.tar.bz2 要压缩的文件或目录
 - 解压缩
-  - tar xvf 压缩包名.tar
-  - tar xzvf 压缩包名.tar.gz
-  - tar xjvf 压缩包名.tar.bz2
+  - tar -xvf 压缩包名.tar
+  - tar -xzvf 压缩包名.tar.gz
+  - tar -xjvf 压缩包名.tar.bz2
   - 解压到指定目录：添加参数 -C(大写)
-    - tar xzvf 压缩包名.tar.gz -C 指定目录
+    - tar -xzvf 压缩包名.tar.gz -C 指定目录
 - 查看压缩包中有哪些文件
   - tar -tvf 压缩包名.tar
 
