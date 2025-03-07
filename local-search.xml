@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>gdb调试</title>
+    <link href="/2025/03/07/gdb-debug/"/>
+    <url>/2025/03/07/gdb-debug/</url>
+    
+    <content type="html"><![CDATA[<h1 id="gdb-调试"><a href="#gdb-调试" class="headerlink" title="gdb 调试"></a>gdb 调试</h1><h2 id="gdb-介绍"><a href="#gdb-介绍" class="headerlink" title="gdb 介绍"></a>gdb 介绍</h2><p>GBD (DBU Debugger) 是 GCC 的调试工具。其功能强大，现描述如下：</p><p>GDB 主要帮忙你完成下面四个方面的功能：</p><ul><li>启动程序，可以按照你的自定义的要求随心所欲的运行程序。</li><li>可让被调试的程序在你所指的断点处听出。(断点可以是条件表达式)</li><li>当程序被停住时，可以检查此时你的程序中所发生的事。</li><li>动态的改变你程序的执行环境。</li></ul><h2 id="生成调试信息"><a href="#生成调试信息" class="headerlink" title="生成调试信息"></a>生成调试信息</h2><p>一般来说 GDB 主要调试的是 C&#x2F;C++ 的程序。要调试 C&#x2F;C++ 的程序，首先在编译时，我们必须要把调试信息加到可执行文件中。使用编译器 (cc&#x2F;gcc&#x2F;g++) 的 -g 参数可以做到这一点。如：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">gcc -<span class="hljs-selector-tag">g</span> hello<span class="hljs-selector-class">.c</span> -o hello<br></code></pre></td></tr></table></figure><p>如果没有 -g，你将看不到程序的函数名、变量名，所代替的全是运行时的内存地址。当你用 -g 把调试信息加入之后，并成功编译目标代码以后，让我们来看看如何用 gbd 调试它。</p><h2 id="启动-gdb"><a href="#启动-gdb" class="headerlink" title="启动 gdb"></a>启动 gdb</h2><ul><li><p>启动 gdb：<code>gdb program</code></p><ul><li>program 也就是你的大执行文件，一般在当前目录下。</li></ul></li><li><p>设置运行参数</p><ul><li><code>set args</code> 可以指定运行时参数。(如：set args 10 20 30 40 50)</li><li><code>show args</code> 命令可以查看设置好的运行参数</li></ul></li><li><p>启动程序</p><ul><li><code>run</code>：程序开始执行，如果有断电，停在第一个断点处</li><li><code>start</code>：程序向下执行一行。(在第一条语句处停止)</li></ul></li></ul><h2 id="显示源代码"><a href="#显示源代码" class="headerlink" title="显示源代码"></a>显示源代码</h2><p>GBD 可以打印出所调试程序的源代码，当然，在程序编译时一定要加上 -g 参数，把源程序信息编译到执行文件中华。不然就看不到源程序了。当程序停下来后，GDB 会报告程序停在了哪个文件的第几行上。你可以用 list 命令来打印程序的源代码，默认打印 10 行，list命令的用法如下所示：</p><ul><li><code>list linenum</code>：打印第 linenum 行的上下文内容</li><li><code>list function</code>：显示函数名为 function 的函数的源程序</li><li><code>list</code>：显示当前行后面的源程序</li><li><code>list -</code>：显示当前文件开始处的源程序</li><li><code>list file:linenum</code>：显示 file 文件下第 linenum 行</li><li><code>list file:function</code>：显示 file 文件的函数名为 function 的函数的源程序</li></ul><p>一般时打印当前行上 5 行和下 5 行，如果显示函数时上 2 行下 8 行，默认是 10 行，当然，你也可以定制显示范围，使用下面命令可以设置一次显示源程序的行数。</p><ul><li><code>set listsize count</code>：设置一次显示源代码的行数</li><li><code>show listsize</code>：查看当前 listsize 的设置</li></ul><h2 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h2><h3 id="简单断点-–-当前文件"><a href="#简单断点-–-当前文件" class="headerlink" title="简单断点 – 当前文件"></a>简单断点 – 当前文件</h3><ul><li>break 设置断点，可以简写为 b<ul><li><code>b 10</code>设置断点，在源程序第 10 行</li><li><code>b func</code>设置断点，在 func 函数入口处</li></ul></li></ul><h3 id="多文件设置断点-–-其他文件"><a href="#多文件设置断点-–-其他文件" class="headerlink" title="多文件设置断点 – 其他文件"></a>多文件设置断点 – 其他文件</h3><ul><li><p>在进入指定函数时停住：</p><ul><li><code>b filename:linenum</code> – 在源文件 filename 的 linenum 行处停住</li><li><code>b filename:function</code> – 在源文件 filename 的 function 函数的入口处停住</li></ul></li><li><p>查询所有断点</p><ul><li><code>info b == info break == i break == i b</code></li></ul></li><li><p>条件断点</p><p>  一般来说，为断点设置一个条件，我们使用 if 关键字，后面跟其断点条件。设置一个条件断点：</p><ul><li><code>b test.c:8 if intValue == 5</code></li></ul></li><li><p>维护断点</p><ul><li><p><code>delete [range...]</code>删除指定的断点，其简写命令为 d。</p><ul><li>如果不指定断点号，则表示删除所有的断点。range 表示断点号的范围<ul><li>删除某个断点：<code>delete num</code></li><li>删除多个断点：<code>delete num1 num2</code></li><li>删除连续多个断点：<code>delete m-n</code></li><li>删除所有断点：<code>delete</code></li></ul></li><li>比删除更高的一种方法是 disable 停止点，disable 了的停止点，GDB 不会删除，当你还需要时，enable 即可，就好像回收站一样。</li></ul></li><li><p><code>disable/enable [range...]</code> 使指定断点无效，简写命令使 dis&#x2F;ena。</p><p>如果什么都不指定，表示 diable 所有的停止点。</p><ul><li>使一个断点无效&#x2F;有效：<code>disable/enable num</code></li><li>使多个断点无效&#x2F;有效：<code>disable/enable num1 num2</code></li><li>使多个连续的断点无效&#x2F;有效：<code>disbale/enable m-n</code></li><li>使所有断点无效&#x2F;有效:<code>disable/enable</code></li></ul></li></ul></li></ul><h2 id="调试代码"><a href="#调试代码" class="headerlink" title="调试代码"></a>调试代码</h2><ul><li><code>run</code> 运行程序，可简写为 r</li><li><code>next</code> 单步跟踪，函数调用当作一条简单执行语句执行，可简写为 n</li><li><code>step</code> 单步跟踪，函数调用会进入被调用函数体内，可简写为 s</li><li><code>finish</code> 退出进入的函数，如果出不去，看一下函数体中的循环中是否由断点，如果有删掉，或者设置无效。</li><li><code>until</code> 在一个循环体内单步跟踪时，这个命令可以运行程序直到退出循环体，可简写为 u，如果出不去，看一下函数体中的循环中是否由断点，如果有删掉，或者设置无效。</li><li><code>continue</code> 继续运行程序，可简写为 c (若有断点，则跳到下一个断点处)</li></ul><h2 id="查看变量的值"><a href="#查看变量的值" class="headerlink" title="查看变量的值"></a>查看变量的值</h2><h3 id="查看运行时变量的值"><a href="#查看运行时变量的值" class="headerlink" title="查看运行时变量的值"></a>查看运行时变量的值</h3><p>print 打印变量、字符串、表达式等的值，可简写为 p</p><ul><li><code>p count</code> —- 打印 count 的值</li></ul><h3 id="自动显示变量的值"><a href="#自动显示变量的值" class="headerlink" title="自动显示变量的值"></a>自动显示变量的值</h3><p>你可以设置一些自动显示的变量，当程序停住时，或是在你单步跟踪时，这些变量会自动显示。相关的 GDB 命令时 display。</p><ul><li><code>display 变量名</code></li><li><code>info display</code> – 查看 display 设置的自动显示的信息。</li><li><code>undisplay num</code> (info display 时显示的编号)</li><li><code>delete display dnums...</code> – 删除自动显示，dnums 意为所设置好了的自动显示的编号。如果要同时删除几个，编号可以用空格分隔，如果要删除一个范围内的编号，可以用减号表示<ul><li>删除某个自动显示：<code>undisplay num</code> 或者 &#96;&#96;delete display num&#96;</li><li>删除多个: <code>delete display num1 num2</code></li><li>删除一个范围：<code>delete display m-n</code></li></ul></li><li><code>disable/enable display dnums</code><ul><li>使一个自动显示无效&#x2F;有效：<code>disable/enable display num</code></li><li>使多个自动显示无效&#x2F;有效: <code>disable/enable display num1 num2</code></li><li>使一个范围的自动显示无效&#x2F;有效：<code>disable/enable display m-n</code></li></ul></li></ul><h3 id="查看修改变量的值"><a href="#查看修改变量的值" class="headerlink" title="查看修改变量的值"></a>查看修改变量的值</h3><ul><li><code>ptype width</code> – 查看变量 width 的类型<ul><li><code>type == double</code></li></ul></li><li><code>p width</code> – 打印变量 width 的值<ul><li><code>$4 = 13</code></li></ul></li><li>你可以使用 <code>set var</code> 命令来告诉 GDB，width 不是你 GDB 的参数，而是程序的变量名，如：<ul><li><code>set var width = 47</code> – 将变量 var 的值设置为 47</li></ul></li><li>在你改变程序变量取值时，最好都是用 set var 格式的 GDB 命令</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+      <tag>gcc</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>makefile</title>
     <link href="/2025/03/06/makefile/"/>
     <url>/2025/03/06/makefile/</url>
