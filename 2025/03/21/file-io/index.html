@@ -19,29 +19,29 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="文件 IO (原理)C 库 IO 函数的工作流程  c 语言操作文件相关问题： 使用 fopen 函数打开一个文件，返回一个 FILE* fp，这个指针指向的结构体有三个重要的成员。  文件描述符：通过文件描述符可以找到文件的 inode，通过 inode 可以找到对应的数据块 文件指针：读和写共享一个文件指针，读或者写都会引起文件指针的变化。 文件缓冲区：读或者写会先通过文件缓冲区，主要目的是为">
+    <meta name="description" content="文件 IOC 库 IO 函数的工作流程  c 语言操作文件相关问题： 使用 fopen 函数打开一个文件，返回一个 FILE* fp，这个指针指向的结构体有三个重要的成员。  文件描述符：通过文件描述符可以找到文件的 inode，通过 inode 可以找到对应的数据块 文件指针：读和写共享一个文件指针，读或者写都会引起文件指针的变化。 文件缓冲区：读或者写会先通过文件缓冲区，主要目的是为了减少对磁">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件IO(原理)">
-<meta property="og:url" content="https://irisislove.github.io/2025/03/21/file-io-principal/index.html">
+<meta property="og:title" content="文件IO">
+<meta property="og:url" content="https://irisislove.github.io/2025/03/21/file-io/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="文件 IO (原理)C 库 IO 函数的工作流程  c 语言操作文件相关问题： 使用 fopen 函数打开一个文件，返回一个 FILE* fp，这个指针指向的结构体有三个重要的成员。  文件描述符：通过文件描述符可以找到文件的 inode，通过 inode 可以找到对应的数据块 文件指针：读和写共享一个文件指针，读或者写都会引起文件指针的变化。 文件缓冲区：读或者写会先通过文件缓冲区，主要目的是为">
+<meta property="og:description" content="文件 IOC 库 IO 函数的工作流程  c 语言操作文件相关问题： 使用 fopen 函数打开一个文件，返回一个 FILE* fp，这个指针指向的结构体有三个重要的成员。  文件描述符：通过文件描述符可以找到文件的 inode，通过 inode 可以找到对应的数据块 文件指针：读和写共享一个文件指针，读或者写都会引起文件指针的变化。 文件缓冲区：读或者写会先通过文件缓冲区，主要目的是为了减少对磁">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/c_library_io_function_workflow1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/c_library_io_function_workflow2.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/c_function_with_system_function.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/virtual_address.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/pdb_and_file_descriptor_table.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/c_library_io_function_workflow1.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/c_library_io_function_workflow2.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/c_function_with_system_function.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/virtual_address.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/pdb_and_file_descriptor_table.png">
 <meta property="article:published_time" content="2025-03-21T07:49:41.000Z">
-<meta property="article:modified_time" content="2025-03-21T08:32:07.188Z">
+<meta property="article:modified_time" content="2025-03-21T09:45:47.097Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io-principal/c_library_io_function_workflow1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/c_library_io_function_workflow1.png">
   
   
   
-  <title>文件IO(原理) - Iris&#39;s Blog</title>
+  <title>文件IO - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -195,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="文件IO(原理)"></span>
+            <span id="subtitle" data-typed-text="文件IO"></span>
           
         </div>
 
@@ -218,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          526 字
+          1.7k 字
         
       </span>
     
@@ -229,7 +229,7 @@
         
         
         
-          5 分钟
+          15 分钟
         
       </span>
     
@@ -266,13 +266,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">文件IO(原理)</h1>
+            <h1 id="seo-header">文件IO</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="文件-IO-原理"><a href="#文件-IO-原理" class="headerlink" title="文件 IO (原理)"></a>文件 IO (原理)</h1><h2 id="C-库-IO-函数的工作流程"><a href="#C-库-IO-函数的工作流程" class="headerlink" title="C 库 IO 函数的工作流程"></a>C 库 IO 函数的工作流程</h2><p><img src="/2025/03/21/file-io-principal/c_library_io_function_workflow1.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2025/03/21/file-io-principal/c_library_io_function_workflow2.png" srcset="/img/loading.gif" lazyload></p>
+                <h1 id="文件-IO"><a href="#文件-IO" class="headerlink" title="文件 IO"></a>文件 IO</h1><h2 id="C-库-IO-函数的工作流程"><a href="#C-库-IO-函数的工作流程" class="headerlink" title="C 库 IO 函数的工作流程"></a>C 库 IO 函数的工作流程</h2><p><img src="/2025/03/21/file-io/c_library_io_function_workflow1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/03/21/file-io/c_library_io_function_workflow2.png" srcset="/img/loading.gif" lazyload></p>
 <p>c 语言操作文件相关问题：</p>
 <p>使用 fopen 函数打开一个文件，返回一个 FILE* fp，这个指针指向的结构体有三个重要的成员。</p>
 <ul>
@@ -285,13 +285,13 @@
 <li>头文件 stdio.h 的第 48 行处：<code>typedef struct_IO_FILE FILE</code>;</li>
 <li>头文件 libio.h 的第 241 行处：<code>struct_IO_FILE</code>，这个接头文件定义中有一个 <code>_fileno_</code>成员，这个就是文件描述符。</li>
 </ul>
-<h2 id="C-库函数与系统函数的关系"><a href="#C-库函数与系统函数的关系" class="headerlink" title="C 库函数与系统函数的关系"></a>C 库函数与系统函数的关系</h2><p><img src="/2025/03/21/file-io-principal/c_function_with_system_function.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="C-库函数与系统函数的关系"><a href="#C-库函数与系统函数的关系" class="headerlink" title="C 库函数与系统函数的关系"></a>C 库函数与系统函数的关系</h2><p><img src="/2025/03/21/file-io/c_function_with_system_function.png" srcset="/img/loading.gif" lazyload></p>
 <p>系统调用：由操作系统实现并提供给外部应用程序的编程接口，(Application Programming Interfact, API)，是应用程序与系统之间数据交互的桥梁。</p>
-<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p><img src="/2025/03/21/file-io-principal/virtual_address.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="虚拟地址空间"><a href="#虚拟地址空间" class="headerlink" title="虚拟地址空间"></a>虚拟地址空间</h2><p><img src="/2025/03/21/file-io/virtual_address.png" srcset="/img/loading.gif" lazyload></p>
 <p>进程的虚拟地址空间分为用户区和内核区，其中内核区是受保护的，用户是不能够对其进行读写操作的。</p>
 <p>内核区中很重要的一个就是进程管理，进程管理中有一个区域就是 PCB(本质是一个结构体)。</p>
 <p>PCB 中有文件描述符表，文件描述符表中存放着打开的文件描述符，涉及到文件的 IO 操作都会用到这个文件描述符。</p>
-<h2 id="PCB-和文件描述符表"><a href="#PCB-和文件描述符表" class="headerlink" title="PCB 和文件描述符表"></a>PCB 和文件描述符表</h2><p><img src="/2025/03/21/file-io-principal/pdb_and_file_descriptor_table.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="PCB-和文件描述符表"><a href="#PCB-和文件描述符表" class="headerlink" title="PCB 和文件描述符表"></a>PCB 和文件描述符表</h2><p><img src="/2025/03/21/file-io/pdb_and_file_descriptor_table.png" srcset="/img/loading.gif" lazyload></p>
 <p>备注：</p>
 <p>pcb：结构体：<code>task_struct</code>，该结构体在：<code>/usr/src/linux-headers-4.4.0-97/include/linux/sched.h:1390</code></p>
 <p>一个进程有一个文件描述符表：1024</p>
@@ -300,6 +300,115 @@
 <li>文件描述符作用：通过文件描述符找到 inode，通过 inode 找到磁盘数据块</li>
 </ul>
 <p>虚拟地址空间 -&gt; 内核区 -&gt; PCB -&gt; 文件描述符表 -&gt; 文件描述符 -&gt; 文件 IO 操作使用文件描述符</p>
+<h2 id="open-close"><a href="#open-close" class="headerlink" title="open&#x2F;close"></a>open&#x2F;close</h2><h3 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h3><p>一个进程启动之后，默认打开三个文件描述符：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> STDIO_FILENO    0</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> STDOUT_FILENO   1</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> STDERR_FILENO   2</span><br></code></pre></td></tr></table></figure>
+
+<p>新打开文件返回文件描述符中未使用的最小文件描述符，调用 open 函数可以打开或创建一个问及那，得到一个文件描述符。</p>
+<h3 id="open-函数"><a href="#open-函数" class="headerlink" title="open 函数"></a>open 函数</h3><ul>
+<li>函数描述：打开或者新建一个文件</li>
+<li>函数原型：<ul>
+<li><code>int open(const char* pathname, int flags);</code></li>
+<li><code>int open(const char* pathname, int flags, mode_t mode);</code></li>
+</ul>
+</li>
+<li>函数参数：<ul>
+<li>pathname 参数是要开打或创建的文件名，和 fopen 一样，pathname 既可以是相对路劲也可以是绝对路径</li>
+<li>flags 参数有一系列常数值可供选择，可以同时选择多个常熟用按位或运算连接起来，所以这些常熟的共定义都已 O_ 开头，表示 or。<ul>
+<li>必选项：以下三个常数中必须指定一个，且仅允许指定一个。<ul>
+<li><code>O_RDONLY</code> 只读打开</li>
+<li><code>O_WROBLY</code> 只写打开</li>
+<li><code>O_RDWR</code> 可读可写打开</li>
+</ul>
+</li>
+<li>以下可选项可以同时指定 0 个或多个，和必选项按位或起来作为 flags 参数。以下为常用项：<ul>
+<li><code>O_APPEND</code> 表示追加。如果文件已有内容，这次打开文件所写的数据附加到文件的末尾而不是覆盖原来的内容。</li>
+<li><code>O_CERAT</code> 若此文件不存在则创建它。使用此选项时需要提供第三个参数 mode，表示该文件的访问权限。<ul>
+<li>文件最终权限：<code>mode&amp;~umask</code></li>
+</ul>
+</li>
+<li><code>O_EXCL</code> 如果同时指定了 O_CREAT，并且文件已存在，则出错返回</li>
+<li><code>O_TRUNC</code> 如果文件已存在，将其长度截断为 0 字节</li>
+<li><code>O_NONBLOCK</code> 对于设备文件，以 O_NONBLOCK 方式打开可以做非阻塞 I&#x2F;O(Nonblock I&#x2F;O)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数返回值：<ul>
+<li>成功：返回一个最小且未被占用的文件描述符</li>
+<li>失败：返回 -1，并设置 errno 值</li>
+</ul>
+</li>
+</ul>
+<h3 id="close-函数"><a href="#close-函数" class="headerlink" title="close 函数"></a>close 函数</h3><ul>
+<li>函数描述：关闭文件</li>
+<li>函数原型：<code>int close(int fd);</code></li>
+<li>函数参数：fd 文件描述符</li>
+<li>函数返回值：<ul>
+<li>成功返回 0</li>
+<li>失败返回 -1，并设置 errno 值</li>
+</ul>
+</li>
+</ul>
+<p>需要说明的是，当一个进程终止时，内核对该进程所有尚未关闭的文件描述符调用 close 关闭，所以即使用户程序不调用 close，在终止时也会自动关闭它打开的所有文件。但是对于一个长年累月云心过的程序（比如网络服务器），打开的文件描述符一定要记得关闭，否则随着打开的文件越来越多，会占用大量文件描述符和系统资源。</p>
+<h2 id="read-write"><a href="#read-write" class="headerlink" title="read&#x2F;write"></a>read&#x2F;write</h2><h3 id="read-函数"><a href="#read-函数" class="headerlink" title="read 函数"></a>read 函数</h3><ul>
+<li>函数描述：从打开的设备或文件中读取数据</li>
+<li>函数原型：<code>ssize_t read(int fd, void *buf, size_t count);</code></li>
+<li>函数参数：<ul>
+<li>fd：文件描述符</li>
+<li>buf：读上来的数据保存在缓冲区 buf 中</li>
+<li>count：buf 缓冲区存放的最大字节数</li>
+</ul>
+</li>
+<li>函数返回值<ul>
+<li>&gt;0：读取到的字节数</li>
+<li>&#x3D;0：文件读取完毕</li>
+<li>-1：出错，并设置 errno</li>
+</ul>
+</li>
+</ul>
+<h3 id="write-函数"><a href="#write-函数" class="headerlink" title="write 函数"></a>write 函数</h3><ul>
+<li>函数描述：向打开的设备或文件中写数据</li>
+<li>函数原型：<code> ssize_t write(int fd, const void *buf, size_t count);</code></li>
+<li>函数参数：<ul>
+<li>fd：文件描述符</li>
+<li>buf：缓冲区，要写入文件或设备的数据</li>
+<li>count：buf 中数据的长度</li>
+</ul>
+</li>
+<li>函数返回值：<ul>
+<li>成功：返回写入的字节数</li>
+<li>错误：返回 -1 并设置 errno</li>
+</ul>
+</li>
+</ul>
+<h2 id="lseek"><a href="#lseek" class="headerlink" title="lseek"></a>lseek</h2><p>所有打开的文件都有一个当前文件偏移量(current file offset)，一下简称为 cfo。cfo通常是一个非负整数，用于表明文件开始处到文件当前位置的字节数。读写操作通常开始于 cfo，并且使 cfo 增大，增量为读写的字节数，文件被打开时，cfo 会被初始化为 0，除非使用了 O_APPEND。</p>
+<p>使用 lseek 函数可以改变文件的 cfo。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;sys/types.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;unistd.h&gt;</span></span><br><br><span class="hljs-type">off_t</span> <span class="hljs-title function_">lseek</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">off_t</span> offset, <span class="hljs-type">int</span> whence)</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>函数描述：移动文件指针</li>
+<li>函数原型：<code>off_t lseek(int fd, off_t offset, int whence);</code></li>
+<li>函数参数：<ul>
+<li>fd：文件描述符</li>
+<li>参数 offset的含义取决于参数 whence<ul>
+<li>如果 whence 是 SEEK_SET，文件偏移量将设置为 offset</li>
+<li>如果 whence 是 SEEK_CUR，文件偏移量将被设置为 cfo 加上 offset，offset 可以为正也可以为负</li>
+<li>如果 whence 是 SEEK_END，文件偏移量将被设置为文件长度加上 offset，offset 可以为正也可以为负</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>函数返回值：若 lseek 成功执行，则返回新的偏移量</li>
+<li>lseek 函数常用操作：<ul>
+<li>文件指针移动到头部：<code>lseek(fd, 0, SEEK_SET)</code></li>
+<li>获取文件指针当前位置：<code>int len = lseek(fd, 0, SEEK_CUR)</code></li>
+<li>获取文件长度：<code>int len = lseek(fd, 0, SEEK_END)</code></li>
+<li>lseek 实现文件拓展：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 从文件尾部开始向后拓展 1000 个字节</span><br><span class="hljs-type">off_t</span> curpos = lseek(fd, <span class="hljs-number">1000</span>, SEEK_END);<br><span class="hljs-comment">// 额外执行一次写操作，否则文件无法完成拓展</span><br>write(fd, <span class="hljs-string">&quot;a&quot;</span>, <span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
 
                 
               </div>
@@ -347,8 +456,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>文件IO(原理)</div>
-      <div>https://irisislove.github.io/2025/03/21/file-io-principal/</div>
+      <div>文件IO</div>
+      <div>https://irisislove.github.io/2025/03/21/file-io/</div>
     </div>
     <div class="license-meta">
       
