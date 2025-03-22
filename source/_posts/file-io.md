@@ -226,11 +226,13 @@ struct stat {
     - `S_IWUSR` 00002 写权限
     - `S_IXUSR` 00001 执行权限
     - `S_IRWXU` 00007 掩码，过滤 st_mode 中除其他人权限以外的信息
-    - ```c
+    - 
+      ```c
         if (st_mode & S_IRUSR) ---- 为真表明可读
         if (st_mode & S_IWUSR) ---- 为真表明可写
         if (st_mode & S_IXUSR) ---- 为真表明可执行
       ```
+
   - 12 - 15 bit -- 文件类型
     - S_IFSOCK    0140000 套接字
     - S_IFLNK     0120000 符号链接(软链接)
@@ -240,7 +242,8 @@ struct stat {
     - S_IFCHR     0020000 字符设备
     - S_IFIFO     0010000 管道
     - S_IFMT      0170000 掩码，过滤 st_mode 中除文件类以外的信息
-    - ```c
+    - 
+      ```c
         if ((st_mode & S_IFMT) == S_IFREG) -- 为真普通文件
         if (S_ISREG(st_mode)) ---- 为真表示普通文件
         if (S_ISDIR(st_mode)) ---- 为真表示目录文件
