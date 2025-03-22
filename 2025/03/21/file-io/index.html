@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/directory.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/dup_dup2.png">
 <meta property="article:published_time" content="2025-03-21T07:49:41.000Z">
-<meta property="article:modified_time" content="2025-03-22T09:26:19.614Z">
+<meta property="article:modified_time" content="2025-03-22T09:31:45.693Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -440,31 +440,42 @@
 
 <ul>
 <li><code>st_mode</code> – 16 位整数<ul>
-<li>0 - 2 bit – 其他人权限<ul>
+<li><p>0 - 2 bit – 其他人权限</p>
+<ul>
 <li><code>S_IROTH</code> 00004 读权限</li>
 <li><code>S_IWOTH</code> 00002 写权限</li>
 <li><code>S_IXOTH</code> 00001 执行权限</li>
 <li><code>S_IRWXO</code> 00007 掩码，过滤 st_mode 中除其他人权限以外的信息</li>
 </ul>
 </li>
-<li>3 - 5 bit – 所属组权限<ul>
+<li><p>3 - 5 bit – 所属组权限</p>
+<ul>
 <li><code>S_IRGRP</code> 00004 读权限</li>
 <li><code>S_IWGRP</code> 00002 写权限</li>
 <li><code>S_IXGRP</code> 00001 执行权限</li>
 <li><code>S_IRWXG</code> 00007 掩码，过滤 st_mode 中除其他人权限以外的信息</li>
 </ul>
 </li>
-<li>6 - 8 bit – 文件所有者权限<ul>
+<li><p>6 - 8 bit – 文件所有者权限</p>
+<ul>
 <li><code>S_IRUSR</code> 00004 读权限</li>
 <li><code>S_IWUSR</code> 00002 写权限</li>
 <li><code>S_IXUSR</code> 00001 执行权限</li>
 <li><code>S_IRWXU</code> 00007 掩码，过滤 st_mode 中除其他人权限以外的信息</li>
-<li><pre><code class="language-c">  if (st_mode &amp; S_IRUSR) ---- 为真表明可读
-  if (st_mode &amp; S_IWUSR) ---- 为真表明可写
-  if (st_mode &amp; S_IXUSR) ---- 为真表明可执行
-<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-bullet">-</span> <span class="hljs-string">12 - 15 bit -- 文件类型</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFSOCK    0140000 套接字</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFLNK     0120000 符号链接(软链接)</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFREG     0100000 普通文件</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFBLK     0060000 块设备</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFDIR     0040000 目录</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFCHR     0020000 字符设备</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFIFO     0010000 管道</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">S_IFMT      0170000 掩码，过滤 st_mode 中除文件类以外的信息</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">```c</span><br>      if ((st_mode &amp; S_IFMT) == S_IFREG) -- 为真普通文件<br>      if (S_ISREG(st_mode)) ---- 为真表示普通文件<br>      if (S_ISDIR(st_mode)) ---- 为真表示目录文件<br></code></pre></td></tr></table></figure>
-</code></pre>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (st_mode &amp; S_IRUSR) ---- 为真表明可读<br><span class="hljs-keyword">if</span> (st_mode &amp; S_IWUSR) ---- 为真表明可写<br><span class="hljs-keyword">if</span> (st_mode &amp; S_IXUSR) ---- 为真表明可执行<br></code></pre></td></tr></table></figure></li>
+</ul>
 </li>
+<li><p>12 - 15 bit – 文件类型</p>
+<ul>
+<li>S_IFSOCK    0140000 套接字</li>
+<li>S_IFLNK     0120000 符号链接(软链接)</li>
+<li>S_IFREG     0100000 普通文件</li>
+<li>S_IFBLK     0060000 块设备</li>
+<li>S_IFDIR     0040000 目录</li>
+<li>S_IFCHR     0020000 字符设备</li>
+<li>S_IFIFO     0010000 管道</li>
+<li>S_IFMT      0170000 掩码，过滤 st_mode 中除文件类以外的信息</li>
+<li><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> ((st_mode &amp; S_IFMT) == S_IFREG) -- 为真普通文件<br><span class="hljs-keyword">if</span> (S_ISREG(st_mode)) ---- 为真表示普通文件<br><span class="hljs-keyword">if</span> (S_ISDIR(st_mode)) ---- 为真表示目录文件<br></code></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ul>
