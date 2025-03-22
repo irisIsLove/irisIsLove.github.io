@@ -331,6 +331,8 @@ closedir(pDir) // 3. 关闭目录
   - 失败：返回 -1，设置 errno 值
 - 假设 newfd 已经指向了一个文件，首先 close 原来打开的文件，然后 newfd 指向 oldfd 指向的文件。<br>若 newfd 没有被占用，newfd 指向 oldfd 指向的文件
 
+![](dup_dup2_function_principal.png)
+
 ### fcntl 函数
 
 - 函数描述：改变已经打开的文件的属性
