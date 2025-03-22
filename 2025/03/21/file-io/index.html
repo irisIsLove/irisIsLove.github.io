@@ -33,8 +33,9 @@
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/pdb_and_file_descriptor_table.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/directory.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/dup_dup2.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/dup_dup2_function_principal.png">
 <meta property="article:published_time" content="2025-03-21T07:49:41.000Z">
-<meta property="article:modified_time" content="2025-03-22T09:31:45.693Z">
+<meta property="article:modified_time" content="2025-03-22T11:11:13.308Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="C&#x2F;C++">
@@ -546,6 +547,7 @@
 </li>
 <li>假设 newfd 已经指向了一个文件，首先 close 原来打开的文件，然后 newfd 指向 oldfd 指向的文件。<br>若 newfd 没有被占用，newfd 指向 oldfd 指向的文件</li>
 </ul>
+<p><img src="/2025/03/21/file-io/dup_dup2_function_principal.png" srcset="/img/loading.gif" lazyload></p>
 <h3 id="fcntl-函数"><a href="#fcntl-函数" class="headerlink" title="fcntl 函数"></a>fcntl 函数</h3><ul>
 <li>函数描述：改变已经打开的文件的属性</li>
 <li>函数原型：<code>int fcntl(int fd, int cmd, ... /* arg */ );</code><ul>
