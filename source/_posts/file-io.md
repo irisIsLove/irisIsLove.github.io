@@ -166,3 +166,185 @@ off_t lseek(int fd, off_t offset, int whence);
     // 额外执行一次写操作，否则文件无法完成拓展
     write(fd, "a", 1);
     ```
+
+## perror 和 errno
+
+errno 是一个全局变量，当系统调用后出错将会将 errno 进行设置，perror 可以将 errno 对应的描述信息打印出来。
+
+如：`perror("open")`；如果报错的话打印：open：错误信息
+
+## 阻塞和非阻塞
+
+- 普通文件：hello.c
+  - 默认是非阻塞的
+- 终端设备：如 /dev/tty
+  - 默认阻塞
+- 管道和套接字
+  - 默认阻塞
+
+## 文件操作相关函数
+
+### stat/lstate 函数
+
+- 函数描述：获取文件属性
+- 函数原型：`int stat(const char* pathname, struct stat* buf);`<br>`int lstat(const char* pathname, struct stat* buf);`
+- 函数返回值：
+  - 成功返回 0
+  - 失败返回 -1
+
+```c
+struct stat {
+  dev_t     st_dev;       // 文件的谁被编号
+  ino_t     st_ino;       // 节点
+  mode_t    st_mode;      // 文件的类型和存取权限
+  nlink_t   st_nlink;     // 连到该文件的硬链接数目，刚建立的文件值为 1
+  uid_t     st_uid;       // 用户 ID
+  gid_t     st_gid;       // 组 ID
+  dev_t     st_rdev       // (设备类型)若此文件为设备文件，则为设备编号
+  off_t     st_size       // 文件字节数(文件大小)
+  blksize_t st_blksize;   // 块大小(文件系统的 I/O 缓冲区大小)
+  blkcnt_t  st_blocks;    // 块数
+  time_t    st_atime;     // 最后一次访问时间
+  time_t    st_mtine;     // 最后一次修改时间
+  time_t    st_ctime;     // 最后一次改变时间(指属性)
+};
+```
+
+- `st_mode` -- 16 位整数
+  - 0 - 2 bit -- 其他人权限
+    - `S_IROTH` 00004 读权限
+    - `S_IWOTH` 00002 写权限
+    - `S_IXOTH` 00001 执行权限
+    - `S_IRWXO` 00007 掩码，过滤 st_mode 中除其他人权限以外的信息
+  - 3 - 5 bit -- 所属组权限
+    - `S_IRGRP` 00004 读权限
+    - `S_IWGRP` 00002 写权限
+    - `S_IXGRP` 00001 执行权限
+    - `S_IRWXG` 00007 掩码，过滤 st_mode 中除其他人权限以外的信息
+  - 6 - 8 bit -- 文件所有者权限
+    - `S_IRUSR` 00004 读权限
+    - `S_IWUSR` 00002 写权限
+    - `S_IXUSR` 00001 执行权限
+    - `S_IRWXU` 00007 掩码，过滤 st_mode 中除其他人权限以外的信息
+    - ```c
+        if (st_mode & S_IRUSR) ---- 为真表明可读
+        if (st_mode & S_IWUSR) ---- 为真表明可写
+        if (st_mode & S_IXUSR) ---- 为真表明可执行
+      ```
+  - 12 - 15 bit -- 文件类型
+    - S_IFSOCK    0140000 套接字
+    - S_IFLNK     0120000 符号链接(软链接)
+    - S_IFREG     0100000 普通文件
+    - S_IFBLK     0060000 块设备
+    - S_IFDIR     0040000 目录
+    - S_IFCHR     0020000 字符设备
+    - S_IFIFO     0010000 管道
+    - S_IFMT      0170000 掩码，过滤 st_mode 中除文件类以外的信息
+    - ```c
+        if ((st_mode & S_IFMT) == S_IFREG) -- 为真普通文件
+        if (S_ISREG(st_mode)) ---- 为真表示普通文件
+        if (S_ISDIR(st_mode)) ---- 为真表示目录文件
+      ```
+
+stat 函数 和 lstat 函数的区别：
+- 对于普通文件，这两个函数没有区别，是一样的。
+- 而对于链接文件，调用 lstat 函数获取的是链接文本本身的属性信息；而 stat 函数获取的是链接文件指向的文件的属性信息。
+
+## 目录操作相关函数
+
+### opendir 函数
+
+- 函数描述：打开一个目录
+- 函数原型：`DIR* opendir(const char* name);`
+- 函数返回值：指向目录的指针
+- 函数参数：要便利的目录(相对路径或者绝对路径)
+
+### readdir 函数
+
+- 函数描述：读取目录内容 -- 目录项
+- 函数原型：`struct dirent* readdir(DIR* dirp);`
+- 函数返回值：读取的目录项指针
+- 函数参数：opendir 函数的返回值
+
+```c
+struct dirent {
+  ino_t             d_ino;        // 此目录进入点的 inode
+  off_t             d_off;        // 目录文件开头至此目录进入点的位移
+  signed short int  d_reclen;     // d_name 的长度，不包含 NULL 字符
+  unsigned char     d_type;       // d_name 所指的文件类型
+  char              d_name[256];  // 文件名
+};
+```
+
+d_type 的取值：
+- DT_BLK - 块设备
+- DT_CHR - 字符设备
+- DT_DIR - 目录
+- DT_LNK - 软链接
+- DT_FIFO - 管道
+- DT_REG - 普通文件
+- DT_SOCK - 套接字
+- DT_UNKNOWN - 未知
+
+![](directory.png)
+
+### closedir 函数
+
+- 函数描述：关闭目录
+- 函数原型：`int closedir(DIR* dirp);`
+- 函数返回值：成功返回 0，失败返回 -1
+- 函数参数：opendir 函数的返回值
+
+### 读取目录内容过的一般步骤
+
+```c
+DIR* pDir = opendir("dir") // 1. 打开目录
+while ((p == readdir(pDir)) != NULL) {} // 2. 循环读取文件
+closedir(pDir) // 3. 关闭目录
+```
+
+## dup / dup2 / fcntl
+
+![](dup_dup2.png)
+
+### dup 函数
+
+- 函数描述：复制文件描述符
+- 函数原型：`int dup(int oldfd);`
+- 函数参数：oldfd - 要复制的文件描述符
+- 函数返回值
+  - 成功：返回最小且没被占用的文件描述符
+  - 失败：返回 -1，设置 errno 值
+
+### dup2 函数
+
+- 函数描述：复制文件描述符
+- 函数原型：`int dup2(int oldfd, int newfd);`
+- 函数参数：
+  - oldfd - 原来的文件描述符
+  - newfd - 复制成功的新的文件描述符
+- 函数返回值：
+  - 成功：将 oldfd 复制给 newfd，两个文件描述符指向同一个文件
+  - 失败：返回 -1，设置 errno 值
+- 假设 newfd 已经指向了一个文件，首先 close 原来打开的文件，然后 newfd 指向 oldfd 指向的文件。<br>若 newfd 没有被占用，newfd 指向 oldfd 指向的文件
+
+### fcntl 函数
+
+- 函数描述：改变已经打开的文件的属性
+- 函数原型：`int fcntl(int fd, int cmd, ... /* arg */ );`
+  - 若 cmd 为 F_DUPFD，复制文件描述符，与 dup 相同
+  - 若 cmd 为 F_GETFL，获取文件描述符的 flag 属性值
+  - 若 cmd 为 F_SETFL，设置文件描述符的 flag 属性
+- 函数返回值：返回值取决于 cmd
+  - 成功：
+    - 若 cmd 为 F_DUPFD，返回一个新的文件描述符
+    - 若 cmd 为 F_GETFL，返回文件描述的 flags 值
+    - 若 cmd 为 F_SETFL，返回 0
+  - 失败返回 -1，并设置 errno 值
+- fcntl 函数常用的操作：
+  1. 复制一个新的文件描述符 <br> `int newfd = fcntl(fd, F_DUPFD, 0);` 
+  2. 获取文件的属性标志 <br> `int flag = fcntl(fd, F_GETFL, 0);`
+  3. 设置文件状态标志 <br> `flag = flag | O_APPEND;` <br> `fcntl(fd, F_SETFL, flag);`
+  4. 常用的属性标志：
+     - O_APPEND ---- 设置文件打开为末尾添加
+     - O_NONBLOCK ---- 设置打开的文件描述符为非阻塞
