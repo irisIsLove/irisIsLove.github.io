@@ -209,5 +209,4 @@ FIFO 严格遵循先进先出 (first in first out)，对 FIFO 的读总是从开
 - 第五个参数：打开的文件对应的文件描述符
 - 第六个参数：4k 的正数倍
 
-使用 mmap 函数建立匿名映射：<br>
-`mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);`
+使用 mmap 函数建立匿名映射：<br>`mmap(NULL, 4096, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);`
