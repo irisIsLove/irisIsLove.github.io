@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>跟随鼠标移动的小球</title>
+    <link href="/2025/04/06/easyx-demo/"/>
+    <url>/2025/04/06/easyx-demo/</url>
+    
+    <content type="html"><![CDATA[<h1 id="跟随鼠标移动的小球"><a href="#跟随鼠标移动的小球" class="headerlink" title="跟随鼠标移动的小球"></a>跟随鼠标移动的小球</h1><h2 id="绘制边框"><a href="#绘制边框" class="headerlink" title="绘制边框"></a>绘制边框</h2><p>EasyX 绘图函数：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">HWND <span class="hljs-title">initgraph</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> width,          <span class="hljs-comment">// 窗口宽度</span></span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> height,         <span class="hljs-comment">// 窗口高度</span></span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> flag = <span class="hljs-literal">NULL</span>     <span class="hljs-comment">// 窗口样式</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure><p>使用该函数创建窗口后，屏幕会闪过一个窗口后，程序就结束运行了。<br> 通用的方法就是使用一个死循环来卡住程序。</p><p><img src="/2025/03/21/file-io/mo/image1.png" alt="通用游戏框架"></p><p>所有的游戏都依赖一个循环来不断更新画面、读入玩家操作事件，而这个循环就叫做游戏的“主循环”</p><h2 id="绘制小球"><a href="#绘制小球" class="headerlink" title="绘制小球"></a>绘制小球</h2><p><code>solidcircle</code> 函数用于画无边框的填充圆</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">solidcircle</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> x,          <span class="hljs-comment">// 圆心 x 坐标</span></span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> y,          <span class="hljs-comment">// 圆心 y 坐标</span></span></span><br><span class="hljs-params"><span class="hljs-function"><span class="hljs-type">int</span> radius      <span class="hljs-comment">// 圆的半径</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure><p>在窗口的 (300, 300) 位置绘制一个半径为 100 的圆：<code>solidcircle(300, 300, 100);</code></p><h2 id="处理鼠标移动事件"><a href="#处理鼠标移动事件" class="headerlink" title="处理鼠标移动事件"></a>处理鼠标移动事件</h2><p><code>peekmessage</code> 函数用于获取一个消息，并立即返回</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">peekmessage</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">    ExMessage *msg,         <span class="hljs-comment">// 指向消息结构体 ExMessage 的指针，用来保存获取到的消息</span></span></span><br><span class="hljs-params"><span class="hljs-function">    BYTE filter = <span class="hljs-number">-1</span>,       <span class="hljs-comment">// 指定要获取的消息范围，默认 -1 获取所有类别的消息</span></span></span><br><span class="hljs-params"><span class="hljs-function">    <span class="hljs-type">bool</span> removemsg = <span class="hljs-literal">true</span>   <span class="hljs-comment">// 在 peekmessage 处理完消息后，是否将其从消息队列中移除</span></span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br><br><br></code></pre></td></tr></table></figure><p>在 EasyX 中鼠标的移动、点击或者是键盘的按键操作都称作为“消息”。</p><p><img src="/2025/03/21/file-io/mo/image2.png"></p><p>当我们触发这些消息的时候，EasyX 会将其放置到自己的消息队列中</p><p><img src="/2025/03/21/file-io/mo/image3.png"></p><p>当我们每次调用 peekmessage 函数便尝试从消息队列中拉去一个消息，如果成功拉去到了消息，那么函数则会返回 true，反之则返回 false</p><p><img src="/2025/03/21/file-io/mo/image4.png"></p><p>这样，我们不断地从队列中拉去已有的消息进行处理</p><p><img src="/2025/03/21/file-io/mo/image5.png"></p><p>现在开始就需要对存储消息的结构体进行分析 &lt;<a href="https://docs.easyx.cn/zh-cn/exmessage">ExMessage 结构体</a>&gt; <br> 查看文档可知，结构体中的 <code>message</code> 成员对应的 <code>WM_MOUSEMOVE</code> 就是鼠标移动对应的消息。</p><p>我们定义两个变量 x 和 y，用来保存圆心位置，当鼠标移动的时候将当前鼠标坐标赋值给它们。这样写好后，就会导致窗口中的圆越来越多。这是因为在绘制新圆的时候，没有将旧的圆擦除。解决的方法很简单，在每次循环绘制圆的之前，将整个窗口清空一次就可以了。</p><p>画出圆后屏幕上的圆会不断闪烁，这是因为没有使用双缓冲绘图导致的。在代码中添加三行代码就可以解决：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">BeginBatchDraw</span>();<br><br><span class="hljs-keyword">while</span> (<span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-comment">// 游戏主循环</span><br>    <span class="hljs-built_in">FlushBatchDraw</span>();<br>&#125;<br><span class="hljs-built_in">EndBatchDraw</span>();<br></code></pre></td></tr></table></figure><p><a href="https://www.bilibili.com/video/BV1iQ4y1s7Qj?vd_source=d3a8a2f439156e68b612ac4b2fcf649a">视频教程</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C/C++</tag>
+      
+      <tag>游戏开发</tag>
+      
+      <tag>EasyX</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>信号</title>
     <link href="/2025/03/27/signals/"/>
     <url>/2025/03/27/signals/</url>
