@@ -1,0 +1,778 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Iris">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="线程同步互斥锁互斥锁使用步骤 创建一把互斥锁  pthread_mutex_t mutex; 初始化互斥锁  	pthread_mutex_init(&amp;mutex); — 相当于mutex&#x3D;1 在代码中寻找共享资源 (也称为临界区)   123pthread_mutex_lock(&amp;mutex);  &#x2F;&#x2F; mutex &#x3D; 0[临界区代码]pthread_mutex_un">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程同步">
+<meta property="og:url" content="https://irisislove.github.io/2025/04/07/thread-sync/index.html">
+<meta property="og:site_name" content="Iris&#39;s Blog">
+<meta property="og:description" content="线程同步互斥锁互斥锁使用步骤 创建一把互斥锁  pthread_mutex_t mutex; 初始化互斥锁  	pthread_mutex_init(&amp;mutex); — 相当于mutex&#x3D;1 在代码中寻找共享资源 (也称为临界区)   123pthread_mutex_lock(&amp;mutex);  &#x2F;&#x2F; mutex &#x3D; 0[临界区代码]pthread_mutex_un">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ync/image3.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ync/image4.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ync/image5.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ync/image6.png">
+<meta property="article:published_time" content="2025-04-07T07:55:15.000Z">
+<meta property="article:modified_time" content="2025-04-07T08:59:02.190Z">
+<meta property="article:author" content="Iris">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/ync/image3.png">
+  
+  
+  
+  <title>线程同步 - Iris&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"irisislove.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Iris&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="线程同步"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-07 15:55" pubdate>
+          2025年4月7日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          12 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">线程同步</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h1><h2 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h2><h3 id="互斥锁使用步骤"><a href="#互斥锁使用步骤" class="headerlink" title="互斥锁使用步骤"></a>互斥锁使用步骤</h3><ol>
+<li>创建一把互斥锁 <br> <code>pthread_mutex_t mutex;</code></li>
+<li>初始化互斥锁 <br> <code>	pthread_mutex_init(&amp;mutex);</code> — 相当于mutex&#x3D;1</li>
+<li>在代码中寻找共享资源 (也称为临界区) <br></li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c">pthread_mutex_lock(&amp;mutex);  <span class="hljs-comment">// mutex = 0</span><br>[临界区代码]<br>pthread_mutex_unlock(&amp;mutex); <span class="hljs-comment">// mutex = 1</span><br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li>释放互斥锁资源 <br> <code>pthread_mutex_destroy(&amp;mutex);</code></li>
+</ol>
+<p>注意：必须在所有操作共享资源的线程上都加上锁斗则不能起到同步的效果</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>死锁并不是 Linux 提供给用户的一种使用方法，而是由于用户是用互斥锁不当引起的一种现象。</p>
+<h4 id="常见死锁种类"><a href="#常见死锁种类" class="headerlink" title="常见死锁种类"></a>常见死锁种类</h4><ol>
+<li>自己锁自己，如下图代码片段：</li>
+</ol>
+<p><img src="/2025/03/21/file-io/ync/image3.png" srcset="/img/loading.gif" lazyload></p>
+<ol start="2">
+<li>线程 A 拥有 A 锁，请求获得 B 锁；线程 B 拥有 B 锁，请求获得 A 锁，这样造成线程 A 和线程 B 都不释放自己的锁，而且还想得到对方的锁，从而产生死锁，如下图所示：</li>
+</ol>
+<p><img src="/2025/03/21/file-io/ync/image4.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="如何解决死锁"><a href="#如何解决死锁" class="headerlink" title="如何解决死锁"></a>如何解决死锁</h4><ul>
+<li>让线程按照一定的顺序去访问共享资源</li>
+<li>在访问其他锁的时候，需要先将自己的锁解开</li>
+<li>调用 pthread_mutex_trylock，如果加锁不成功会立刻返回</li>
+</ul>
+<h2 id="读写锁"><a href="#读写锁" class="headerlink" title="读写锁"></a>读写锁</h2><h3 id="什么是读写锁"><a href="#什么是读写锁" class="headerlink" title="什么是读写锁"></a>什么是读写锁</h3><p>读写锁也叫共享 - 独占锁。当读写锁以读模式锁住时，它是以共享模式锁住得到；当它以写模式锁住时，它是以独占模式锁住的。<strong>写独占、读共享。</strong></p>
+<h3 id="读写锁使用场合"><a href="#读写锁使用场合" class="headerlink" title="读写锁使用场合"></a>读写锁使用场合</h3><p>读写锁非常适合于对数据结构读的次数远大于写的情况。</p>
+<h3 id="读写锁特性"><a href="#读写锁特性" class="headerlink" title="读写锁特性"></a>读写锁特性</h3><ul>
+<li>读写锁是 “写模式加锁” 时，解锁前，所有对该锁加锁的线程都会被阻塞。</li>
+<li>读写锁是 “读模式加锁” 时，如果线程以读模式对其加锁会成功；如果以写模式加锁会阻塞。</li>
+<li>读写锁时 “读模式加锁” 时，既有试图以写模式加锁的线程，也有试图以读模式加锁的线程。那么读写锁会阻塞随后的读模式请求。优先满足写模式。<strong>读锁、写锁并行阻塞，写锁优先级高。</strong></li>
+</ul>
+<p>总结：读并行，写独占，当读写同时等待锁的时候写的优先级高。</p>
+<h3 id="读写锁主要操作函数"><a href="#读写锁主要操作函数" class="headerlink" title="读写锁主要操作函数"></a>读写锁主要操作函数</h3><ul>
+<li>定义一把读写锁：<br> <code>pthread_rwlock_t rwlock;</code></li>
+<li>初始化读写锁：<ul>
+<li><code>int pthread_wrlock_init(pthread_rwlock_t *restrict rwlock, const pthread_rwlockattr_t *restrict attr);</code></li>
+<li>函数参数：<ul>
+<li>rwlock - 读写锁</li>
+<li>attr - 读写锁属性，传 NULL 为默认属性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>销毁读写锁：<br> <code>int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</code></li>
+<li>加读锁：<br> <code>int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);</code></li>
+<li>尝试加读锁：<br> <code>int pthread_rwlock_tryrdlock(pthread_rwlock_t *rwlock);</code></li>
+<li>加写锁：<br> <code>int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);</code></li>
+<li>尝试加写锁：<br> <code>int pthread_rwlock_trywrlock(pthread_rwlock_t *rwlock);</code></li>
+<li>解锁：<br> <code>int pthread_rwlock_unlock(&amp;pthread_rwlock_t *rwlock);</code></li>
+</ul>
+<h2 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h2><p>条件变量本身不是锁！但它可以造成线程阻塞。通常与互斥锁配合使用。给多线程提供一个会和的场所。</p>
+<ul>
+<li>使用互斥量保护共享资源</li>
+<li>使用条件变量可以使线程阻塞，等待某个条件的发生，当条件满足的时候解除阻塞。</li>
+</ul>
+<h3 id="条件变量的两个动作"><a href="#条件变量的两个动作" class="headerlink" title="条件变量的两个动作"></a>条件变量的两个动作</h3><ul>
+<li>条件不满足，阻塞线程</li>
+<li>条件满足，通知阻塞的线程解除阻塞，开始工作</li>
+</ul>
+<h3 id="条件变量相关函数"><a href="#条件变量相关函数" class="headerlink" title="条件变量相关函数"></a>条件变量相关函数</h3><ul>
+<li>定义一个条件变量：<br> <code>pthread_cond_t  cond;</code></li>
+<li>条件变量初始化：<ul>
+<li>函数原型：<code>int pthread_cond_init(pthread_cond_t *restrict cond, const pthread_condattr_t *restrict attr);</code></li>
+<li>函数参数：<ul>
+<li>cond：条件变量</li>
+<li>attr：条件变量属性，通常传 NULL</li>
+</ul>
+</li>
+<li>函数返回值：成功返回 0，失败返回错误号</li>
+</ul>
+</li>
+<li>销毁条件变量：<ul>
+<li>函数原型：<code>int pthread_cond_destroy(pthread_cond_t *cond);</code></li>
+<li>函数参数：条件变量</li>
+<li>函数返回值：成功返回 0，失败返回错误号</li>
+</ul>
+</li>
+<li>条件变量等待函数：<ul>
+<li>函数描述：条件不满足，引起线程阻塞并解锁 <br> 条件满足，解除线程阻塞，并加锁</li>
+<li>函数原型：<code>int pthread_cond_wait(pthread_cond_t *restrict cond, pthread_mutex_t *restrict mutex);</code></li>
+<li>函数参数：<ul>
+<li>cond：条件变量</li>
+<li>mutex：互斥锁变量</li>
+</ul>
+</li>
+<li>函数返回值：成功返回 0，失败返回错误号</li>
+</ul>
+</li>
+<li>条件变量唤醒函数：<ul>
+<li>函数描述：唤醒至少一个阻塞再该条件变量上的线程</li>
+<li>函数原型：<code>int pthread_cond_signal(pthread_cond_t *cond);</code></li>
+<li>函数参数：条件变量</li>
+<li>函数返回值：成功返回 0，失败返回错误号</li>
+</ul>
+</li>
+</ul>
+<h3 id="代码片段"><a href="#代码片段" class="headerlink" title="代码片段"></a>代码片段</h3><p><img src="/2025/03/21/file-io/ync/image5.png" srcset="/img/loading.gif" lazyload></p>
+<p>上述代码中，生产者线程调用 pthread_cond_signal 函数会使消费者线程在 pthread_cond_wait 处解除阻塞。</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h3 id="信号量介绍"><a href="#信号量介绍" class="headerlink" title="信号量介绍"></a>信号量介绍</h3><p>信号量相当于多把锁，可以理解为是加强版的互斥锁。</p>
+<h3 id="相关函数"><a href="#相关函数" class="headerlink" title="相关函数"></a>相关函数</h3><ul>
+<li>定义信号量：<code>sem_t sem;</code></li>
+<li>初始化信号量：<ul>
+<li>函数原型：<code>int sem_init(sem_t *sem, int pshared, unsigned int value);</code></li>
+<li>函数参数：<ul>
+<li>sem：信号量变量</li>
+<li>pshared：0 表示线程同步，1 表示进程同步</li>
+<li>value：最多几个线程操作共享数据</li>
+</ul>
+</li>
+<li>函数返回值：成功返回 0，失败返回 -1，并设置 errno</li>
+</ul>
+</li>
+<li>信号量加锁：<ul>
+<li>函数原型：<code>int sem_wait(sem_t *sem);</code></li>
+<li>函数描述：调用该函数一次，相当于 sem–，当 sem 为 0 的时候，引起阻塞</li>
+<li>函数参数：信号量变量</li>
+<li>函数返回值：成功返回 0，失败返回 -1，并设置 errno</li>
+</ul>
+</li>
+<li>信号量解锁：<ul>
+<li>函数原型：<code>int sem_post(sem_t *sem);</code></li>
+<li>函数描述：调用一次，相当于 sem++</li>
+<li>函数参数：信号量变量</li>
+<li>函数返回值：成功返回 0，失败返回 -1，并设置 errno</li>
+</ul>
+</li>
+<li>信号量尝试加锁：<ul>
+<li>函数原型：<code>int sem_trywait(sem_t *sem);</code></li>
+<li>函数描述：尝试加锁, 若失败直接返回, 不阻塞</li>
+<li>函数参数：信号量变量</li>
+<li>函数返回值：成功返回 0，失败返回 -1，并设置 errno</li>
+</ul>
+</li>
+<li>销毁信号量：<ul>
+<li>函数原型：<code>int sem_destroy(sem_t *sem);</code></li>
+<li>函数参数：信号量变量</li>
+<li>函数返回值：成功返回 0，失败返回 -1，并设置 errno</li>
+</ul>
+</li>
+</ul>
+<h3 id="代码片段-1"><a href="#代码片段-1" class="headerlink" title="代码片段"></a>代码片段</h3><p><img src="/2025/03/21/file-io/ync/image6.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/" class="print-no-link">#Linux</a>
+      
+        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>线程同步</div>
+      <div>https://irisislove.github.io/2025/04/07/thread-sync/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Iris</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/06/daemons-threads/" title="守护进程和线程">
+                        <span class="hidden-mobile">守护进程和线程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
