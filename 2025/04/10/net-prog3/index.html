@@ -19,30 +19,27 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="网络编程 (二)三次握手和四次挥手TCP 是面向连接的安全的数据传输，在客户端与服务端建立连接的时候要经过三次握手的过程，在客户端与服务端断开连接的时候要经历四次挥手 的过程，下图是客户端与服务端的三次握手建立连接，数据传输和断开连接四次挥手 的全过程。  上图中 ACK 表示确认序号，确认序号的值是对方发送得到序号值 + 数据长度，特别注意的是 SYN 和 FIN 本身也会占用一位注：SYN —">
+    <meta name="description" content="网络编程 (三)TCP 状态转换 说明：上图中粗线表示主动方，虚线便是被动方，细线部分表示一些特殊情况，了解即可，不必深入研究对于建立连接的过程客户端属于主动方，服务端数据被动接收方 (图的上半部分)对于关闭 (图的下半部分)，客户端和服务端都可以先进行关闭处于 ESTABLISHED 状态的升级后就可以收发数据了，双方在通信过程中一直处于 ESTABLISHED 状态，数据传输期间没有状态变化。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络编程 (二)">
-<meta property="og:url" content="https://irisislove.github.io/2025/04/09/net-prog2/index.html">
+<meta property="og:title" content="网络编程 (三)">
+<meta property="og:url" content="https://irisislove.github.io/2025/04/10/net-prog3/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="网络编程 (二)三次握手和四次挥手TCP 是面向连接的安全的数据传输，在客户端与服务端建立连接的时候要经过三次握手的过程，在客户端与服务端断开连接的时候要经历四次挥手 的过程，下图是客户端与服务端的三次握手建立连接，数据传输和断开连接四次挥手 的全过程。  上图中 ACK 表示确认序号，确认序号的值是对方发送得到序号值 + 数据长度，特别注意的是 SYN 和 FIN 本身也会占用一位注：SYN —">
+<meta property="og:description" content="网络编程 (三)TCP 状态转换 说明：上图中粗线表示主动方，虚线便是被动方，细线部分表示一些特殊情况，了解即可，不必深入研究对于建立连接的过程客户端属于主动方，服务端数据被动接收方 (图的上半部分)对于关闭 (图的下半部分)，客户端和服务端都可以先进行关闭处于 ESTABLISHED 状态的升级后就可以收发数据了，双方在通信过程中一直处于 ESTABLISHED 状态，数据传输期间没有状态变化。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image3.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image4.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image5.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image6.png">
-<meta property="article:published_time" content="2025-04-09T04:54:17.000Z">
-<meta property="article:modified_time" content="2025-04-09T06:16:32.329Z">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/3/image1.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/3/image2.png">
+<meta property="article:published_time" content="2025-04-10T02:55:07.000Z">
+<meta property="article:modified_time" content="2025-04-10T04:06:10.909Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="网络编程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/2/image1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/3/image1.png">
   
   
   
-  <title>网络编程 (二) - Iris&#39;s Blog</title>
+  <title>网络编程 (三) - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="网络编程 (二)"></span>
+            <span id="subtitle" data-typed-text="网络编程 (三)"></span>
           
         </div>
 
@@ -207,8 +204,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-09 12:54" pubdate>
-          2025年4月9日 下午
+        <time datetime="2025-04-10 10:55" pubdate>
+          2025年4月10日 上午
         </time>
       </span>
     
@@ -219,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.5k 字
         
       </span>
     
@@ -230,7 +227,7 @@
         
         
         
-          10 分钟
+          13 分钟
         
       </span>
     
@@ -267,39 +264,76 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">网络编程 (二)</h1>
+            <h1 id="seo-header">网络编程 (三)</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="网络编程-二"><a href="#网络编程-二" class="headerlink" title="网络编程 (二)"></a>网络编程 (二)</h1><h2 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h2><p>TCP 是面向连接的安全的数据传输，在客户端与服务端建立连接的时候要经过三次握手的过程，在客户端与服务端断开连接的时候要经历四次挥手 的过程，下图是客户端与服务端的三次握手建立连接，数据传输和断开连接四次挥手 的全过程。</p>
-<p><img src="/2025/03/21/file-io/2/image1.png" srcset="/img/loading.gif" lazyload alt="TCP 时序"></p>
-<p>上图中 ACK 表示确认序号，确认序号的值是对方发送得到序号值 + 数据长度，特别注意的是 SYN 和 FIN 本身也会占用一位<br>注：<br>SYN —&gt; synchronous<br>ACK —&gt; acknowledgement<br>FIN —&gt; finish</p>
-<p>三次挥手和四次握手的过程都是在内核实现的。</p>
-<p><img src="/2025/03/21/file-io/2/image3.png" srcset="/img/loading.gif" lazyload></p>
-<p>通信的时候不再需要 SYN 标识位了，只有在请求连接的时候需要 SYN 标识位</p>
-<p>传输数据的时候随即序号 seq 就是最近一次对方发送给自己的 ACK 的随即序号值，而发给对方的 ACK 就是上次刚刚发给对方的 ACK 值<br><img src="/2025/03/21/file-io/2/image4.png" srcset="/img/loading.gif" lazyload></p>
-<p>图中发送的 ACK 确认包表示给对方发送数据的一个确认，表示你发送的数据我都收到了，同时告诉对方下次发送该序号开始的数据<br>由于每次发送数据都会受到对方发来的确认包，所以可以确认对方是否收到了，如果没有收到对方发来的确认包，则会进行重发。</p>
-<p>mss：最大报文长度, 只是在建立连接的时候, 告诉对方我最大能够接收多少数据, 在数据通信的过程中就没有mss了<br>win：表示告诉对方我这边缓存大小最大是多少</p>
-<h2 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h2><p>主要作用：段东窗口主要是进行流量控制的<br>见下图：如果发送端发送的速度较快，接收端接收到数据后处理的速度较慢，而接收缓冲区的大小是固定的，就会导致接受缓冲区满而丢失数据。TCP 协议通过 “滑动窗口 (Sliding Window)” 机制解决这一问题<br><img src="/2025/03/21/file-io/2/image5.png" srcset="/img/loading.gif" lazyload></p>
-<p>在客户端给服务端发包的时候，不一定是非要等到服务端发送响应包，由于客户端知道服务端的窗口大小，所以可以持续多次发送，当发送数据达到对方窗口大小了就不再发送，需要等到对方进行处理，对方处理之后可继续发送。</p>
-<p>MTU：最大传输单元 (Maximum Transmission Unit)<br>是指一种通信协议的某一层上面所能通过的最大数据包大小 (以字节为单位)。最大传输单元这个参数通常与通信接口有关 (网络接口卡、串口等)，这个值如果设置为太大会导致丢包重传的数据较大，图中的最大值是 1500，其实是一个经验值。<br><img src="/2025/03/21/file-io/2/image6.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="粘包的概念"><a href="#粘包的概念" class="headerlink" title="粘包的概念"></a>粘包的概念</h3><p>粘包：多次数据发送，首尾相连，接收端接受的时候不能正确区分第一次发送多少，第二次发送多少。</p>
-<p>解决方案：</p>
+                <h1 id="网络编程-三"><a href="#网络编程-三" class="headerlink" title="网络编程 (三)"></a>网络编程 (三)</h1><h2 id="TCP-状态转换"><a href="#TCP-状态转换" class="headerlink" title="TCP 状态转换"></a>TCP 状态转换</h2><p><img src="/2025/03/21/file-io/3/image1.png" srcset="/img/loading.gif" lazyload alt="TCP 状态转换图"></p>
+<p>说明：上图中粗线表示主动方，虚线便是被动方，细线部分表示一些特殊情况，了解即可，不必深入研究<br>对于建立连接的过程客户端属于主动方，服务端数据被动接收方 (图的上半部分)<br>对于关闭 (图的下半部分)，客户端和服务端都可以先进行关闭<br>处于 ESTABLISHED 状态的升级后就可以收发数据了，双方在通信过程中一直处于 ESTABLISHED 状态，数据传输期间没有状态变化。</p>
+<p>TIME_WAIT 状态一定是出现在主动关闭的一方<br>主动关闭的 socket 端会进入 TIME_WAIT 状态，并且持续 2MSL 时间长度，MSL 就是 maximum segment lifetime (最大分节生命期)，这是一个 IP 数据包能在互联网上生存的最长时间，超过这个时间将在网络中消失。</p>
+<p>使用 <code>netstat -anp</code> 可以查看连接状态</p>
+<p><img src="/2025/03/21/file-io/3/image2.png" srcset="/img/loading.gif" lazyload><br>注：数据传输的时候带了一个字节的数据，所以 server 发送给client 的 ACK &#x3D; x + 2</p>
+<p>为什么需要 2MSL？</p>
+<ol>
+<li>让四次挥手的过程更可靠，确保最后一个发送给对方的 ACK 到达；若对方没有收到 ACK 应答，对方再次发送 FIN 请求关闭，此时在 2MSL 时间内被动关闭方仍然可以发送 ACK 给对方</li>
+<li>为了保证在 2MSL 时间内，不能启动相同的 socket-pair。TIME_WAIT 一定是出现在主动关闭的乙方，也就是说 2MSL 是针对主动关闭的一方来说的；由于 TCP 有可能存在丢包重传，丢包重传若发给了已经断开连接之后相同的 socket-pair (该连接是新建的，与原来的 socket-pair 完全相同，双方使用的是相同的 IP 和端口)，这样会对之后的连接造成困扰，严重可能引起程序异常。</li>
+</ol>
+<h2 id="端口复用"><a href="#端口复用" class="headerlink" title="端口复用"></a>端口复用</h2><p>当出现 <code>bind error: Address already in use</code> 这样的问题后，就可以使用端口复用来解决</p>
+<p>函数原型：<code>int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);</code><br>使用例子：<code>setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &amp;opt, sizeof(int));</code></p>
+<p>具体函数说明可以参考 《UNIX 环境高级编程》</p>
+<h2 id="半关闭状态"><a href="#半关闭状态" class="headerlink" title="半关闭状态"></a>半关闭状态</h2><h3 id="半关闭的概念"><a href="#半关闭的概念" class="headerlink" title="半关闭的概念"></a>半关闭的概念</h3><p>如果一方 close，另一方没有 close，则认为是半关闭状态，处于半关闭状态的时候，可以接收数据，但是不能发送数据。相当于把文件描述符的写缓冲区操纵关闭了。<br>注意：半关闭一定是出现在主动关闭的一方</p>
+<h3 id="shutdown-函数"><a href="#shutdown-函数" class="headerlink" title="shutdown 函数"></a>shutdown 函数</h3><p>长连接和短链接的概念：<br> 连接建立后一直不关闭为长连接 <br> 连接收发数据完毕之后就关闭为短链接</p>
+<h3 id="shutdown-和-close-的区别"><a href="#shutdown-和-close-的区别" class="headerlink" title="shutdown 和 close 的区别"></a>shutdown 和 close 的区别</h3><p>shutdown 能够把文件描述符上的读或者写操作关闭，而 close 关闭文件描述符只是将连接的引用计数的值减一，当减到零就真正关闭文件描述符了。</p>
+<p>如：调用 dup 函数或者 dup2 函数可以复制一个文件描述符，close 其中一个并不影响另一个文件描述符，而 shutdown 就不同了，一旦 shutdown 了其中一个文件描述符，对所有的文件描述符都有影响。</p>
+<h2 id="心跳包"><a href="#心跳包" class="headerlink" title="心跳包"></a>心跳包</h2><p>一般心跳包用于长连接，用于检查与对方网络连接是否正常</p>
 <ul>
-<li>方案1：包头 + 数据 <br> 如 4 位的数据长度 + 数据 —-&gt; 00101234567890 <br> 其中 0010 表示长度，1234567890 表示 10 个字节长度的数据。 <br> 另外，发送端和接收端可以协商更为复杂的报文机构，这个报文结构就相当于双方约定的一个协议。</li>
-<li>方案2：添加结尾标记 <br> 如结尾最后一个字符为 \n $ 等</li>
-<li>方案3：数据包定长 <br> 如发送方和接收方约定，每次只发送 128 个字节的内容，接收方接受定长 128 个字节就可以了。</li>
+<li>方法一：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> keepAlive = <span class="hljs-number">1</span>;<br>setsockopt(listenfd, SOL_SOCKET, SO_KEEPALIVE, (<span class="hljs-type">void</span>*)&amp;keepAlive, <span class="hljs-keyword">sizeof</span>(keepAlive));<br></code></pre></td></tr></table></figure>
+由于不能实时的检查网络情况，一般不用这种方法</li>
+<li>方法二： <br> 在应用程序中自己定义心跳包，使用灵活，能够实时把控。</li>
 </ul>
-<h2 id="高并发服务"><a href="#高并发服务" class="headerlink" title="高并发服务"></a>高并发服务</h2><p>由于 accept 和 read 函数都会阻塞，如当 read 的时候，不能调用 accept 接受新的连接，当 accept 阻塞等待的时候不能 read 读数据</p>
-<p>如何支持多并发的服务：</p>
+<h2 id="高并发服务器模型-–-select"><a href="#高并发服务器模型-–-select" class="headerlink" title="高并发服务器模型 – select"></a>高并发服务器模型 – select</h2><p>多路 IO 技术：select，同时监听多个文件描述符，将监控的操作交给内核去处理。</p>
+<p>数据类型：<br>fd_set：文件描述符集合 – 本质是位图</p>
+<p>位图操作函数：</p>
 <ul>
-<li>第一种方案：使用多进程，可以让父进程接受新连接，让子进程处理与客户端通信<ul>
-<li>思路：让父进程 accpet 接收新连接，然后 fork 子进程，让子进程处理通信，子进程处理完成后退出，父进程使用 SIGCHLD 信号回收子进程。</li>
+<li><code>void FD_CLR(int fd, fd_set *set);</code> <br> 将 fd 从  set 集合钟清楚</li>
+<li><code>int FD_ISSET(int fd, fd_set *set);</code> <br> 判断 fd 是否在集合中 <br> 如果 fd 在 set 集合中，返回 1，否则返回 0.</li>
+<li><code>void FD_SET(int fd, fd_set* set);</code> <br> 将 fd 设置到 set 集合中</li>
+<li><code>void FD_ZERO(fd_set *set);</code> <br> 初始化set集合</li>
+</ul>
+<p><code>int select(int nfds, fd_set * readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);</code></p>
+<ul>
+<li>函数介绍：委托内核监听该文件描述符对应的读、写或者错误事件的发生</li>
+<li>参数说明：<ul>
+<li>nfds：最大的文件描述符 + 1</li>
+<li>readfds：读集合，是一个传入传出参数 <br> 传入：指的是告诉内核哪些文件描述符需要监控 <br> 传出：指的是内核告诉应用程序哪些文件描述符发生了变化。</li>
+<li>writefds：写入文件描述符集合 (传入传出参数)</li>
+<li>exceptfds：异常文件描述符集合 (传入传出参数)</li>
+<li>timeout：<ul>
+<li>NULL – 表示永久阻塞，直到有事件发生</li>
+<li>0 – 表示不阻塞，立刻返回，不管是否有监听的事件发生</li>
+<li>&gt;0 – 到指定事件或者有事件发生了就返回</li>
 </ul>
 </li>
-<li>第二种方案：使用多线程，让主线程接收新连接，让子线程处理与客户端通信；使用多线程要将线程设置为分离属性，让子线程在退出之后自己回收资源。</li>
-<li>第三种方案：可以将 accept 和 read 函数设置为非阻塞，调用 fcntl 函数可以将文件描述符设置为非阻塞，然后再 while 循环中忙轮询。</li>
+</ul>
+</li>
+<li>返回值：<br> 成功返回发生变化的文件描述符的个数 <br> 失败返回 -1，并设置 errno</li>
+</ul>
+<p>调用 select 函数其实就是委托内核帮我们去检测哪些文件描述符有可读数据，可写，错误发生。</p>
+<p>代码思路：<br>可以使用发生事件的总数进行控制，减少循环次数<br>调用 select 涉及到了用户空间和内核空间数值交互过程<br>事件一共包括两个部分，一类是新连接事件，一类是有数据可读事件</p>
+<ul>
+<li>select 优点：<ul>
+<li>一个进程可以支持多个客户端</li>
+<li>select 支持跨平台</li>
+</ul>
+</li>
+<li>select 缺点：<ul>
+<li>代码编写困难</li>
+<li>会涉及到用户区和内核区的来回拷贝</li>
+<li>当客户端多个连接，但少数活跃的情况，select 效率较低 <br> 利润也：作为极端的一种情况，3 - 1023 有发送数据，select 就显得效率低下</li>
+<li>最大支持 1024 个客户端连接 <br> select 最大支持 1024 个客户端连接不是有文件描述符最多可以支持 1024 个文件描述符限制的，而是 <code>FD_SETSIZE=1024</code> 限制的</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -350,8 +384,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>网络编程 (二)</div>
-      <div>https://irisislove.github.io/2025/04/09/net-prog2/</div>
+      <div>网络编程 (三)</div>
+      <div>https://irisislove.github.io/2025/04/10/net-prog3/</div>
     </div>
     <div class="license-meta">
       
@@ -363,7 +397,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月9日</div>
+          <div>2025年4月10日</div>
         </div>
       
       
@@ -395,18 +429,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/10/net-prog3/" title="网络编程 (三)">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">网络编程 (三)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/08/net-prog1/" title="网络编程 (一)">
-                        <span class="hidden-mobile">网络编程 (一)</span>
+                      <a href="/2025/04/09/net-prog2/" title="网络编程 (二)">
+                        <span class="hidden-mobile">网络编程 (二)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
