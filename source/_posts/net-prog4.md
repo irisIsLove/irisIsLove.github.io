@@ -116,5 +116,7 @@ read 函数在非阻塞模式下读的时候，若返回 -1，且 errno 为 EAGA
 epoll 反应堆的思想：
 - 将描述符，事件，对应的处理方法封装在一起
 - 当描述符对应的事件发生了，自动调用处理方法 (原理就是回调函数)
+![](image1.png)
 
 核心思想：在调用 epoll_ctl 函数的时候，将 events 上树的时候，利用 epoll_data_t 的 ptr 成员，将一个文件描述符，事件和回调函数封装成一个结构体，然后让 ptr 指向这个结构体，然后 调用 epoll_wait 函数返回的手，可以的到具体的 events，然后获得 events 结构体中的 events.data.ptr 指针，ptr 中有回调函数，最终可以调用这个回调函数
+![](image2.png)
