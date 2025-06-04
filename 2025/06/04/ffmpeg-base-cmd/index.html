@@ -19,25 +19,23 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在 vscode 中是用 CTest 进行单测调试问题如果没有进行特别的配置的话，在 vscode 中的 CTest 是无法进行单测调试的。  如上图所示，会显示 未找到启动配置。 解决方法在 .vscode 目录中添加一个 launch.json 文件来进行调试配置，文件内容如下 1234567891011121314151617181920&#123;    &#x2F;&#x2F; 使用 IntelliSens">
+    <meta name="description" content="FFmpeg 基础命令ffmpeg &#x2F; ffplay &#x2F; ffprobe 区别 ffmpeg Hyper fast Audio and Video encoder 超快音视频解码器 (类似爱剪辑)   ffplay Simple media player 简单媒体播放器   ffprobe Simple multimedia streams analyzer 简单多媒体流分析器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在 vscode 中是用 CTest 进行单测调试">
-<meta property="og:url" content="https://irisislove.github.io/2025/05/15/ctest-debug/index.html">
+<meta property="og:title" content="FFmpeg 基础命令">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/04/ffmpeg-base-cmd/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="在 vscode 中是用 CTest 进行单测调试问题如果没有进行特别的配置的话，在 vscode 中的 CTest 是无法进行单测调试的。  如上图所示，会显示 未找到启动配置。 解决方法在 .vscode 目录中添加一个 launch.json 文件来进行调试配置，文件内容如下 1234567891011121314151617181920&#123;    &#x2F;&#x2F; 使用 IntelliSens">
+<meta property="og:description" content="FFmpeg 基础命令ffmpeg &#x2F; ffplay &#x2F; ffprobe 区别 ffmpeg Hyper fast Audio and Video encoder 超快音视频解码器 (类似爱剪辑)   ffplay Simple media player 简单媒体播放器   ffprobe Simple multimedia streams analyzer 简单多媒体流分析器">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/bug/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/bug/image2.png">
-<meta property="article:published_time" content="2025-05-14T17:01:28.000Z">
-<meta property="article:modified_time" content="2025-05-14T17:06:24.641Z">
+<meta property="article:published_time" content="2025-06-04T05:50:35.000Z">
+<meta property="article:modified_time" content="2025-06-04T06:02:08.968Z">
 <meta property="article:author" content="Iris">
-<meta property="article:tag" content="CMake">
+<meta property="article:tag" content="音视频">
+<meta property="article:tag" content="ffmpeg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/bug/image1.png">
   
   
   
-  <title>在 vscode 中是用 CTest 进行单测调试 - Iris&#39;s Blog</title>
+  <title>FFmpeg 基础命令 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -191,7 +189,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="在 vscode 中是用 CTest 进行单测调试"></span>
+            <span id="subtitle" data-typed-text="FFmpeg 基础命令"></span>
           
         </div>
 
@@ -202,8 +200,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-15 01:01" pubdate>
-          2025年5月15日 凌晨
+        <time datetime="2025-06-04 13:50" pubdate>
+          2025年6月4日 下午
         </time>
       </span>
     
@@ -214,7 +212,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          208 字
+          90 字
         
       </span>
     
@@ -225,7 +223,7 @@
         
         
         
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -262,20 +260,31 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">在 vscode 中是用 CTest 进行单测调试</h1>
+            <h1 id="seo-header">FFmpeg 基础命令</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="在-vscode-中是用-CTest-进行单测调试"><a href="#在-vscode-中是用-CTest-进行单测调试" class="headerlink" title="在 vscode 中是用 CTest 进行单测调试"></a>在 vscode 中是用 CTest 进行单测调试</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>如果没有进行特别的配置的话，在 vscode 中的 CTest 是无法进行单测调试的。</p>
-<p><img src="/2025/03/21/file-io/bug/image1.png" srcset="/img/loading.gif" lazyload></p>
-<p>如上图所示，会显示 <code>未找到启动配置</code>。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>在 .vscode 目录中添加一个 launch.json 文件来进行调试配置，文件内容如下</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-comment">// 使用 IntelliSense 了解相关属性。 </span><br>    <span class="hljs-comment">// 悬停以查看现有属性的描述。</span><br>    <span class="hljs-comment">// 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387</span><br>    <span class="hljs-attr">&quot;version&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;0.2.0&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;configurations&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;(ctest) Launch&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cppvsdbg&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;program&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;cmake.testProgram&#125;&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;args&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>                <span class="hljs-string">&quot;$&#123;cmake.testArgs&#125;&quot;</span><br>            <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;stopAtEntry&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;cwd&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;cmake.testWorkingDirectory&#125;&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;console&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;integratedTerminal&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+                <h1 id="FFmpeg-基础命令"><a href="#FFmpeg-基础命令" class="headerlink" title="FFmpeg 基础命令"></a>FFmpeg 基础命令</h1><h2 id="ffmpeg-ffplay-ffprobe-区别"><a href="#ffmpeg-ffplay-ffprobe-区别" class="headerlink" title="ffmpeg &#x2F; ffplay &#x2F; ffprobe 区别"></a>ffmpeg &#x2F; ffplay &#x2F; ffprobe 区别</h2><ul>
+<li>ffmpeg<ul>
+<li>Hyper fast Audio and Video encoder</li>
+<li>超快音视频解码器 (类似爱剪辑)</li>
+</ul>
+</li>
+<li>ffplay<ul>
+<li>Simple media player</li>
+<li>简单媒体播放器</li>
+</ul>
+</li>
+<li>ffprobe<ul>
+<li>Simple multimedia streams analyzer</li>
+<li>简单多媒体流分析器</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础使用方法"><a href="#基础使用方法" class="headerlink" title="基础使用方法"></a>基础使用方法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">ffmpeg</span><br>ffmpeg [options] [[infile options] -i infile]... &#123;[outfile options] outfile&#125;...<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">ffplay</span><br>ffplay [options] input_file<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">ffprobe</span><br>ffprobe [OPTIONS] [INPUT_FILE]<br></code></pre></td></tr></table></figure>
 
-<p>配置成功后，再进行调试，就成功了。</p>
-<p><img src="/2025/03/21/file-io/bug/image2.png" srcset="/img/loading.gif" lazyload></p>
-
+<h2 id="文档查看命令"><a href="#文档查看命令" class="headerlink" title="文档查看命令"></a>文档查看命令</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">ffmpeg</span><br>ffmpeg -h # 基本信息<br>ffmpeg -h long # 高级信息<br>ffmpeg -h full # 所有信息<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">ffply</span><br>ffmpeg -h <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">ffprobe</span><br>ffprobe -h<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -308,7 +317,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CMake/" class="print-no-link">#CMake</a>
+        <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" class="print-no-link">#音视频</a>
+      
+        <a href="/tags/ffmpeg/" class="print-no-link">#ffmpeg</a>
       
     </div>
   
@@ -320,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>在 vscode 中是用 CTest 进行单测调试</div>
-      <div>https://irisislove.github.io/2025/05/15/ctest-debug/</div>
+      <div>FFmpeg 基础命令</div>
+      <div>https://irisislove.github.io/2025/06/04/ffmpeg-base-cmd/</div>
     </div>
     <div class="license-meta">
       
@@ -333,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月15日</div>
+          <div>2025年6月4日</div>
         </div>
       
       
@@ -365,18 +376,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/04/ffmpeg-base-cmd/" title="FFmpeg 基础命令">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">FFmpeg 基础命令</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/05/09/grpc-cmake/" title="CMake 中使用 grpc ( 使用 vcpkg 安装 grpc )">
-                        <span class="hidden-mobile">CMake 中使用 grpc ( 使用 vcpkg 安装 grpc )</span>
+                      <a href="/2025/05/15/ctest-debug/" title="在 vscode 中是用 CTest 进行单测调试">
+                        <span class="hidden-mobile">在 vscode 中是用 CTest 进行单测调试</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
