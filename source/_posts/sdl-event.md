@@ -1,7 +1,12 @@
 ---
 title: SDL 事件处理
 date: 2025-06-04 21:44:08
+categories:
+- 技术
 tags:
+- 音视频
+- SDL
+- C/C++
 ---
 
 # SDL 事件处理

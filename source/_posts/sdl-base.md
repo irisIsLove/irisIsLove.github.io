@@ -6,6 +6,7 @@ categories:
 tags:
 - 音视频
 - SDL
+- C/C++
 ---
 
 # SDL 基础
