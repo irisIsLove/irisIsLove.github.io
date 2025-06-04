@@ -13,6 +13,7 @@ tags:
 ## SDL 视频显示函数
 
 ![SDL 视频显示函数介绍](image1.png)
+![SDL 数据结构介绍](image2.png)
 
 ## 直接上代码
 
