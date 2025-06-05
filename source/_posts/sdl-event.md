@@ -11,7 +11,7 @@ tags:
 
 # SDL 事件处理
 
-## SDL 事件处理
+## SDL 事件处理接口
 
 ![](image1.png)
 
