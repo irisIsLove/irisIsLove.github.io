@@ -19,27 +19,26 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SDL 基础SDL 视频显示函数 直接上代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778#include &lt;SDL.h&gt;#include">
+    <meta name="description" content="SDL 多线程SDL 多线程接口 上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;SDL.h&gt;#include &lt;stdio.h&gt;SDL_mutex* gLock &#x3D; NULL;S">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SDL 基础">
-<meta property="og:url" content="https://irisislove.github.io/2025/06/04/sdl-base/index.html">
+<meta property="og:title" content="SDL 多线程">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/05/sdl-thread/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="SDL 基础SDL 视频显示函数 直接上代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778#include &lt;SDL.h&gt;#include">
+<meta property="og:description" content="SDL 多线程SDL 多线程接口 上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;SDL.h&gt;#include &lt;stdio.h&gt;SDL_mutex* gLock &#x3D; NULL;S">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/image2.png">
-<meta property="article:published_time" content="2025-06-04T13:13:46.000Z">
-<meta property="article:modified_time" content="2025-06-04T13:48:52.474Z">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ad/image1.png">
+<meta property="article:published_time" content="2025-06-05T05:02:14.000Z">
+<meta property="article:modified_time" content="2025-06-05T05:36:05.179Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="音视频">
 <meta property="article:tag" content="SDL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/image1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/ad/image1.png">
   
   
   
-  <title>SDL 基础 - Iris&#39;s Blog</title>
+  <title>SDL 多线程 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +192,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SDL 基础"></span>
+            <span id="subtitle" data-typed-text="SDL 多线程"></span>
           
         </div>
 
@@ -204,8 +203,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-04 21:13" pubdate>
-          2025年6月4日 晚上
+        <time datetime="2025-06-05 13:02" pubdate>
+          2025年6月5日 下午
         </time>
       </span>
     
@@ -216,7 +215,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          277 字
+          231 字
         
       </span>
     
@@ -227,7 +226,7 @@
         
         
         
-          3 分钟
+          2 分钟
         
       </span>
     
@@ -264,13 +263,13 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SDL 基础</h1>
+            <h1 id="seo-header">SDL 多线程</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="SDL-基础"><a href="#SDL-基础" class="headerlink" title="SDL 基础"></a>SDL 基础</h1><h2 id="SDL-视频显示函数"><a href="#SDL-视频显示函数" class="headerlink" title="SDL 视频显示函数"></a>SDL 视频显示函数</h2><p><img src="/2025/03/21/file-io/image1.png" srcset="/img/loading.gif" lazyload alt="SDL 视频显示函数介绍"><br><img src="/2025/03/21/file-io/image2.png" srcset="/img/loading.gif" lazyload alt="SDL 数据结构介绍"></p>
-<h2 id="直接上代码"><a href="#直接上代码" class="headerlink" title="直接上代码"></a>直接上代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;SDL.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span><br>&#123;<br>  <span class="hljs-type">int</span> run = <span class="hljs-number">1</span>;<br>  SDL_Window* window = <span class="hljs-literal">NULL</span>;<br>  SDL_Renderer* renderer = <span class="hljs-literal">NULL</span>;<br>  SDL_Texture* texture = <span class="hljs-literal">NULL</span>;<br><br>  <span class="hljs-comment">// 显示小方块的大小</span><br>  SDL_Rect rect;<br>  rect.w = <span class="hljs-number">50</span>;<br>  rect.h = <span class="hljs-number">50</span>;<br><br>  <span class="hljs-comment">// 初始化SDL</span><br>  SDL_Init(SDL_INIT_VIDEO);<br><br>  <span class="hljs-comment">// 创建窗口</span><br>  window = SDL_CreateWindow(<span class="hljs-string">&quot;SDL Window&quot;</span>,<br>                            SDL_WINDOWPOS_UNDEFINED,<br>                            SDL_WINDOWPOS_UNDEFINED,<br>                            <span class="hljs-number">640</span>,<br>                            <span class="hljs-number">480</span>,<br>                            SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);<br>  <span class="hljs-keyword">if</span> (!window) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Can&#x27;t create window, err: %s&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 创建渲染器</span><br>  renderer = SDL_CreateRenderer(window, <span class="hljs-number">-1</span>, <span class="hljs-number">0</span>);<br>  <span class="hljs-keyword">if</span> (!renderer) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Can&#x27;t create renderer, err: %s&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 创建纹理</span><br>  texture = SDL_CreateTexture(<br>    renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, <span class="hljs-number">640</span>, <span class="hljs-number">480</span>);<br>  <span class="hljs-keyword">if</span> (!texture) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Can&#x27;t create texture, err: %s&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-type">int</span> showCount = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">while</span> (run) &#123;<br>    rect.x = rand() % <span class="hljs-number">600</span>;<br>    rect.y = rand() % <span class="hljs-number">400</span>;<br><br>    SDL_SetRenderTarget(renderer, texture);         <span class="hljs-comment">// 设置渲染目标为纹理</span><br>    SDL_SetRenderDrawColor(renderer, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">255</span>); <span class="hljs-comment">// 纹理背景色为黑色</span><br>    SDL_RenderClear(renderer);                      <span class="hljs-comment">// 清空纹理</span><br><br>    SDL_RenderDrawRect(renderer, &amp;rect); <span class="hljs-comment">// 在纹理上绘制一个矩形</span><br>    SDL_SetRenderDrawColor(renderer, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>, <span class="hljs-number">255</span>); <span class="hljs-comment">// 设置颜色为白色</span><br>    SDL_RenderFillRect(renderer, &amp;rect);                  <span class="hljs-comment">// 在纹理上填充矩形</span><br><br>    SDL_SetRenderTarget(renderer, <span class="hljs-literal">NULL</span>);           <span class="hljs-comment">// 设置渲染目标为窗口</span><br>    SDL_RenderCopy(renderer, texture, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>); <span class="hljs-comment">// 拷贝纹理到 CPU</span><br><br>    SDL_RenderPresent(renderer); <span class="hljs-comment">// 输出到目标窗口上</span><br>    SDL_Delay(<span class="hljs-number">300</span>);<br>    <span class="hljs-keyword">if</span> (showCount++ &gt; <span class="hljs-number">30</span>) &#123;<br>      run = <span class="hljs-number">0</span>;<br>    &#125;<br>  &#125;<br><br>  SDL_DestroyTexture(texture);<br>  SDL_DestroyRenderer(renderer);<br>  SDL_DestroyWindow(window);<br>  SDL_Quit();<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+                <h1 id="SDL-多线程"><a href="#SDL-多线程" class="headerlink" title="SDL 多线程"></a>SDL 多线程</h1><h2 id="SDL-多线程接口"><a href="#SDL-多线程接口" class="headerlink" title="SDL 多线程接口"></a>SDL 多线程接口</h2><p><img src="/2025/03/21/file-io/ad/image1.png" srcset="/img/loading.gif" lazyload alt="SDL 多线程接口"></p>
+<h2 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;SDL.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br>SDL_mutex* gLock = <span class="hljs-literal">NULL</span>;<br>SDL_cond* gCond = <span class="hljs-literal">NULL</span>;<br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">threadWork</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg)</span><br>&#123;<br>  SDL_LockMutex(gLock);<br><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Sleep.\n&quot;</span>);<br>  SDL_Delay(<span class="hljs-number">10000</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Wait.\n&quot;</span>);<br><br>  SDL_CondWait(<br>    gCond, gLock); <span class="hljs-comment">// 进入等待状态，释放锁，等到被唤醒时且锁被释放才会继续进行</span><br>  <span class="hljs-built_in">printf</span>(<br>    <span class="hljs-string">&quot;                                 &lt;========== ThreadWork Receive Signal, &quot;</span><br>    <span class="hljs-string">&quot;Continue to do ~_~!!!.\n&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Done.\n&quot;</span>);<br><br>  SDL_UnlockMutex(gLock);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span><br>&#123;<br>  gLock = SDL_CreateMutex();<br>  gCond = SDL_CreateCond();<br><br>  SDL_Thread* t = SDL_CreateThread(threadWork, <span class="hljs-string">&quot;ThreadWork&quot;</span>, <span class="hljs-literal">NULL</span>);<br>  <span class="hljs-keyword">if</span> (!t) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  %s\n&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; ++i) &#123;<br>    SDL_Delay(<span class="hljs-number">2000</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread Execute. ==========&gt;\n&quot;</span>);<br>  &#125;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread LockMutex before. ==========&gt;\n&quot;</span>);<br>  SDL_LockMutex(gLock); <span class="hljs-comment">// 等待子线程进入 CondWait 状态才能拿到锁</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread ready send signal. ==========&gt;\n&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread CondSignal before. ==========&gt;\n&quot;</span>);<br>  SDL_CondSignal(gCond); <span class="hljs-comment">// 获取到锁，发送信号，唤醒等待线程</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread CondSignal after. =========&gt;\n&quot;</span>);<br>  SDL_UnlockMutex(gLock); <span class="hljs-comment">// 释放锁，子线程才能拿到锁</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread UnlockMutex after. =========&gt;\n&quot;</span>);<br><br>  <span class="hljs-comment">// 资源销毁</span><br>  SDL_WaitThread(t, <span class="hljs-literal">NULL</span>);<br>  SDL_DestroyCond(gCond);<br>  SDL_DestroyMutex(gLock);<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -319,8 +318,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SDL 基础</div>
-      <div>https://irisislove.github.io/2025/06/04/sdl-base/</div>
+      <div>SDL 多线程</div>
+      <div>https://irisislove.github.io/2025/06/05/sdl-thread/</div>
     </div>
     <div class="license-meta">
       
@@ -332,7 +331,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月4日</div>
+          <div>2025年6月5日</div>
         </div>
       
       
@@ -364,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/04/sdl-event/" title="SDL 事件处理">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SDL 事件处理</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/04/ffmpeg-base-cmd/" title="FFmpeg 基础命令">
-                        <span class="hidden-mobile">FFmpeg 基础命令</span>
+                      <a href="/2025/06/04/sdl-event/" title="SDL 事件处理">
+                        <span class="hidden-mobile">SDL 事件处理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
