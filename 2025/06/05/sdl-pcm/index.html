@@ -19,26 +19,27 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="SDL 多线程SDL 多线程接口 上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;SDL.h&gt;#include &lt;stdio.h&gt;SDL_mutex* gLock &#x3D; NULL;S">
+    <meta name="description" content="SDL 播放 PCM 音频打开音频设备 SDL_AudioCallback 上代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SDL 多线程">
-<meta property="og:url" content="https://irisislove.github.io/2025/06/05/sdl-thread/index.html">
+<meta property="og:title" content="SDL 播放 PCM 音频">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/05/sdl-pcm/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="SDL 多线程SDL 多线程接口 上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;SDL.h&gt;#include &lt;stdio.h&gt;SDL_mutex* gLock &#x3D; NULL;S">
+<meta property="og:description" content="SDL 播放 PCM 音频打开音频设备 SDL_AudioCallback 上代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ad/image1.png">
-<meta property="article:published_time" content="2025-06-05T05:02:14.000Z">
-<meta property="article:modified_time" content="2025-06-05T05:36:05.179Z">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/image1.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/image2.png">
+<meta property="article:published_time" content="2025-06-05T08:22:02.000Z">
+<meta property="article:modified_time" content="2025-06-05T10:04:21.703Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="音视频">
 <meta property="article:tag" content="SDL">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/ad/image1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/image1.png">
   
   
   
-  <title>SDL 多线程 - Iris&#39;s Blog</title>
+  <title>SDL 播放 PCM 音频 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -192,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="SDL 多线程"></span>
+            <span id="subtitle" data-typed-text="SDL 播放 PCM 音频"></span>
           
         </div>
 
@@ -203,7 +204,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-05 13:02" pubdate>
+        <time datetime="2025-06-05 16:22" pubdate>
           2025年6月5日 下午
         </time>
       </span>
@@ -215,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          231 字
+          396 字
         
       </span>
     
@@ -226,7 +227,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -263,13 +264,14 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">SDL 多线程</h1>
+            <h1 id="seo-header">SDL 播放 PCM 音频</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="SDL-多线程"><a href="#SDL-多线程" class="headerlink" title="SDL 多线程"></a>SDL 多线程</h1><h2 id="SDL-多线程接口"><a href="#SDL-多线程接口" class="headerlink" title="SDL 多线程接口"></a>SDL 多线程接口</h2><p><img src="/2025/03/21/file-io/ad/image1.png" srcset="/img/loading.gif" lazyload alt="SDL 多线程接口"></p>
-<h2 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;SDL.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br>SDL_mutex* gLock = <span class="hljs-literal">NULL</span>;<br>SDL_cond* gCond = <span class="hljs-literal">NULL</span>;<br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">threadWork</span><span class="hljs-params">(<span class="hljs-type">void</span>* arg)</span><br>&#123;<br>  SDL_LockMutex(gLock);<br><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Sleep.\n&quot;</span>);<br>  SDL_Delay(<span class="hljs-number">10000</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Wait.\n&quot;</span>);<br><br>  SDL_CondWait(<br>    gCond, gLock); <span class="hljs-comment">// 进入等待状态，释放锁，等到被唤醒时且锁被释放才会继续进行</span><br>  <span class="hljs-built_in">printf</span>(<br>    <span class="hljs-string">&quot;                                 &lt;========== ThreadWork Receive Signal, &quot;</span><br>    <span class="hljs-string">&quot;Continue to do ~_~!!!.\n&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;                                 &lt;========== ThreadWork Done.\n&quot;</span>);<br><br>  SDL_UnlockMutex(gLock);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span><br>&#123;<br>  gLock = SDL_CreateMutex();<br>  gCond = SDL_CreateCond();<br><br>  SDL_Thread* t = SDL_CreateThread(threadWork, <span class="hljs-string">&quot;ThreadWork&quot;</span>, <span class="hljs-literal">NULL</span>);<br>  <span class="hljs-keyword">if</span> (!t) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;  %s\n&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">2</span>; ++i) &#123;<br>    SDL_Delay(<span class="hljs-number">2000</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread Execute. ==========&gt;\n&quot;</span>);<br>  &#125;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread LockMutex before. ==========&gt;\n&quot;</span>);<br>  SDL_LockMutex(gLock); <span class="hljs-comment">// 等待子线程进入 CondWait 状态才能拿到锁</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread ready send signal. ==========&gt;\n&quot;</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread CondSignal before. ==========&gt;\n&quot;</span>);<br>  SDL_CondSignal(gCond); <span class="hljs-comment">// 获取到锁，发送信号，唤醒等待线程</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread CondSignal after. =========&gt;\n&quot;</span>);<br>  SDL_UnlockMutex(gLock); <span class="hljs-comment">// 释放锁，子线程才能拿到锁</span><br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;MainThread UnlockMutex after. =========&gt;\n&quot;</span>);<br><br>  <span class="hljs-comment">// 资源销毁</span><br>  SDL_WaitThread(t, <span class="hljs-literal">NULL</span>);<br>  SDL_DestroyCond(gCond);<br>  SDL_DestroyMutex(gLock);<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <h1 id="SDL-播放-PCM-音频"><a href="#SDL-播放-PCM-音频" class="headerlink" title="SDL 播放 PCM 音频"></a>SDL 播放 PCM 音频</h1><h2 id="打开音频设备"><a href="#打开音频设备" class="headerlink" title="打开音频设备"></a>打开音频设备</h2><p><img src="/2025/03/21/file-io/image1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="SDL-AudioCallback"><a href="#SDL-AudioCallback" class="headerlink" title="SDL_AudioCallback"></a>SDL_AudioCallback</h2><p><img src="/2025/03/21/file-io/image2.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;SDL.h&gt;</span></span><br><br><span class="hljs-comment">// 每次读取 2 帧数据，以 1024 个采样点为单位 2 通道 16bit 采样点</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> PCM_BUFFER_SIZE (1024 * 2 * 2 * 2)</span><br><br><span class="hljs-type">static</span> <span class="hljs-type">uint8_t</span>* sAudioBuf = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 音频 PCM 数据缓存</span><br><span class="hljs-type">static</span> <span class="hljs-type">uint8_t</span>* sAudioPos = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 目前读取的位置</span><br><span class="hljs-type">static</span> <span class="hljs-type">uint8_t</span>* sAudioEnd = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 缓存结束的位置</span><br><br><span class="hljs-type">void</span> <span class="hljs-comment">// 音频设备回调函数</span><br>onFillAudioPcm(<span class="hljs-type">void</span>* userdata, <span class="hljs-type">uint8_t</span>* stream, <span class="hljs-type">int</span> len)<br>&#123;<br>  SDL_memset(stream, <span class="hljs-number">0</span>, len);<br><br>  <span class="hljs-comment">// 数据读取完毕</span><br>  <span class="hljs-keyword">if</span> (sAudioPos &gt;= sAudioEnd) &#123;<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 数据够了就读预设长度，不够就只读部分</span><br>  <span class="hljs-type">int</span> remainBufLen = (<span class="hljs-type">int</span>)(sAudioEnd - sAudioPos);<br>  len = (len &lt; remainBufLen) ? len : remainBufLen;<br><br>  <span class="hljs-comment">// 拷贝数据到 stream 并调整音量</span><br>  SDL_MixAudio(stream, sAudioPos, len, SDL_MIX_MAXVOLUME / <span class="hljs-number">8</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;[onFillAudioPcm] len: %d\n&quot;</span>, len);<br>  sAudioPos += len;<br>&#125;<br><br><span class="hljs-type">int</span><br><span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span><br>&#123;<br>  FILE* audio = <span class="hljs-literal">NULL</span>;<br>  <span class="hljs-type">const</span> <span class="hljs-type">char</span>* audioPath = <span class="hljs-string">&quot;44100_16bit_2ch.pcm&quot;</span>;<br><br>  <span class="hljs-keyword">if</span> (SDL_Init(SDL_INIT_AUDIO)) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Could not initialize SDL - %s\n&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>  &#125;<br><br>  fopen_s(&amp;audio, audioPath, <span class="hljs-string">&quot;rb&quot;</span>);<br>  <span class="hljs-keyword">if</span> (!audio) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Failed to open pcm file.\n&quot;</span>);<br>    <span class="hljs-keyword">goto</span> END;<br>  &#125;<br><br>  sAudioBuf = (<span class="hljs-type">uint8_t</span>*)<span class="hljs-built_in">malloc</span>(PCM_BUFFER_SIZE);<br><br>  <span class="hljs-comment">// 打开音频设备</span><br>  SDL_AudioSpec audioSpec;<br>  audioSpec.freq = <span class="hljs-number">44100</span>;          <span class="hljs-comment">// 采样频率</span><br>  audioSpec.format = AUDIO_S16SYS; <span class="hljs-comment">// 采样点格式</span><br>  audioSpec.channels = <span class="hljs-number">2</span>;          <span class="hljs-comment">// 通道数</span><br>  audioSpec.samples = <span class="hljs-number">1024</span>; <span class="hljs-comment">// 每次读取的样本数，多久产生一次回调和 samples 有关</span><br>                            <span class="hljs-comment">// 用 freq / sample 算出最多延迟多少毫秒</span><br>  audioSpec.callback = onFillAudioPcm;<br>  audioSpec.userdata = <span class="hljs-literal">NULL</span>;<br>  <span class="hljs-keyword">if</span> (SDL_OpenAudio(&amp;audioSpec, <span class="hljs-literal">NULL</span>)) &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Failed to open audio device - %s\n&quot;</span>, SDL_GetError());<br>    <span class="hljs-keyword">goto</span> END;<br>  &#125;<br><br>  <span class="hljs-comment">// 播放音频</span><br>  SDL_PauseAudio(<span class="hljs-number">0</span>);<br><br>  <span class="hljs-type">size_t</span> dataCount = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-comment">// 从文件中读取数据</span><br>    <span class="hljs-type">size_t</span> readBufLen = fread(sAudioBuf, <span class="hljs-number">1</span>, PCM_BUFFER_SIZE, audio);<br>    <span class="hljs-keyword">if</span> (readBufLen &lt;= <span class="hljs-number">0</span>) &#123;<br>      <span class="hljs-keyword">break</span>;<br>    &#125;<br><br>    dataCount += readBufLen; <span class="hljs-comment">// 统计读取的数据总字节数</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Now palying %10zu bytes.\n&quot;</span>, dataCount);<br>    sAudioEnd = sAudioBuf + readBufLen; <span class="hljs-comment">// 更新 buffer 起始位置</span><br>    sAudioPos = sAudioBuf;<br><br>    <span class="hljs-keyword">while</span> (sAudioPos &lt; sAudioEnd) &#123;<br>      SDL_Delay(<span class="hljs-number">2</span>); <span class="hljs-comment">// 等待 PCM 数据消耗</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Play over.\n&quot;</span>);<br>  SDL_CloseAudio();<br><br>END:<br>  <span class="hljs-keyword">if</span> (audio) &#123;<br>    fclose(audio);<br>  &#125;<br>  <span class="hljs-keyword">if</span> (sAudioBuf) &#123;<br>    <span class="hljs-built_in">free</span>(sAudioBuf);<br>  &#125;<br>  SDL_Quit();<br><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -318,8 +320,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>SDL 多线程</div>
-      <div>https://irisislove.github.io/2025/06/05/sdl-thread/</div>
+      <div>SDL 播放 PCM 音频</div>
+      <div>https://irisislove.github.io/2025/06/05/sdl-pcm/</div>
     </div>
     <div class="license-meta">
       
@@ -363,9 +365,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/05/sdl-yuv/" title="SDL YUV 视频播放">
+                      <a href="/2025/06/09/ffmpeg-lib-base/" title="FFmpeg 库入门">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SDL YUV 视频播放</span>
+                        <span class="hidden-mobile">FFmpeg 库入门</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -373,8 +375,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/04/sdl-event/" title="SDL 事件处理">
-                        <span class="hidden-mobile">SDL 事件处理</span>
+                      <a href="/2025/06/05/sdl-yuv/" title="SDL YUV 视频播放">
+                        <span class="hidden-mobile">SDL YUV 视频播放</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
