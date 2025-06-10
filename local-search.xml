@@ -4,11 +4,69 @@
   
   
   <entry>
+    <title>FFmpeg 解封装解码</title>
+    <link href="/2025/06/10/ffmpeg-demux/"/>
+    <url>/2025/06/10/ffmpeg-demux/</url>
+    
+    <content type="html"><![CDATA[<h1 id="FFmpeg-解封装解码"><a href="#FFmpeg-解封装解码" class="headerlink" title="FFmpeg 解封装解码"></a>FFmpeg 解封装解码</h1><h2 id="解封装"><a href="#解封装" class="headerlink" title="解封装"></a>解封装</h2><p><img src="/2025/03/21/file-io/emux/image1.png"></p><h2 id="封装格式相关函数"><a href="#封装格式相关函数" class="headerlink" title="封装格式相关函数"></a>封装格式相关函数</h2><ul><li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li><li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li><li><code>avformat_close_input();</code> 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放</li><li><code>avformat_open_input();</code> 打开输入视频文件</li><li><code>avformat_find_stream_info();</code> 获取视频文件信息</li><li><code>av_read_frame();</code> 读取音视频包</li><li><code>avformat_seek_file();</code> 定位文件</li><li><code>av_seek_frame();</code> 定位文件</li></ul><p><img src="/2025/03/21/file-io/emux/image2.png" alt="解封装流程图"></p><h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><h3 id="区分不同的码流"><a href="#区分不同的码流" class="headerlink" title="区分不同的码流"></a>区分不同的码流</h3><ul><li>AVMEDIA_TYPE_VIDEO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);</code></li><li>AVMEDIA_TYPE_AUDIO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);</code></li></ul><p>AVPacket 里面也有一个 index 字段</p><h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>avformat_open_input 和 avformat_find_stream_info 分别用于打开一个流和分析流信息。<br>在初始信息不足的情况下（比如FLV和H264文件），avformat_find_stream_info 接口需要在内部调用 read_frame_internal 接口读取流数据（音视频帧），然后再分析，设置核心数据结构 AVFomatContext。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C/C++</tag>
+      
+      <tag>音视频</tag>
+      
+      <tag>ffmpeg</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>FFmpeg 内存模型</title>
+    <link href="/2025/06/09/ffmpeg-memory-model/"/>
+    <url>/2025/06/09/ffmpeg-memory-model/</url>
+    
+    <content type="html"><![CDATA[<h1 id="FFmpeg-内存模型"><a href="#FFmpeg-内存模型" class="headerlink" title="FFmpeg 内存模型"></a>FFmpeg 内存模型</h1><ul><li>从现有的Packet拷贝一个新Packet的时候，有两种情况：<ol><li>两个Packet的buf引用的是同一数据缓存空间，这时候要注意数据缓存空间的释放问题；</li><li>两个Packet的buf引用不同的数据缓存空间，每个Packet都有数据缓存空间的copy</li></ol></li></ul><p><img src="/2025/03/21/file-io/emory-model/image1.png" alt="数据共享"> <img src="/2025/03/21/file-io/emory-model/image2.png" alt="数据独立"></p><h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h2><ul><li>对于多个AVPacket共享同一个缓存空间，FFmpeg使用的引用计数的机制（reference-count）：<ul><li>初始化引用计数为0，只有真正分配AVBuffer的时候，引用计数初始化为1</li><li>当有新的Packet引用共享的缓存空间时，就将引用计数 +1</li><li>当释放了引用共享空间的Packet，就将引用计数-1；引用计数为0时，就释放掉引用的缓存空间AVBuffer</li></ul></li><li>AVFrame也是采用同样的机制</li></ul><h2 id="常用-API"><a href="#常用-API" class="headerlink" title="常用 API"></a>常用 API</h2><p><img src="/2025/03/21/file-io/emory-model/image3.png" alt="AVPacket 常用 API"> <img src="/2025/03/21/file-io/emory-model/image4.png" alt="AVFrame 常用 API"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C/C++</tag>
+      
+      <tag>音视频</tag>
+      
+      <tag>ffmpeg</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>FFmpeg 库入门</title>
     <link href="/2025/06/09/ffmpeg-lib-base/"/>
     <url>/2025/06/09/ffmpeg-lib-base/</url>
     
-    <content type="html"><![CDATA[<h1 id="FFmpeg-库入门"><a href="#FFmpeg-库入门" class="headerlink" title="FFmpeg 库入门"></a>FFmpeg 库入门</h1><h2 id="封装格式相关"><a href="#封装格式相关" class="headerlink" title="封装格式相关"></a>封装格式相关</h2><ul><li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li><li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li><li><code>avformat_close_input();</code> 关闭解复用器,关闭后就不再需要使用 avformat_free_context 进行释放</li><li><code>avformat_open_input();</code> 打开输入视频文件</li><li><code>avformat_find_stream_info();</code> 获取音视频文件信息</li><li><code>av_read_frame();</code> 读取音视频包</li><li><code>avformat_seek_file();</code> 定位文件</li><li><code>av_seek_frame();</code> 定位文</li></ul><p><img src="/2025/03/21/file-io/ib-base/image1.png" alt="解封装流程图"></p><h2 id="解码器相关"><a href="#解码器相关" class="headerlink" title="解码器相关"></a>解码器相关</h2><ul><li><code>avcodec_alloc_context3();</code> 分配解码器上下文</li><li><code>avcodec_find_decoder();</code> 根据ID查找解码器</li><li><code>avcodec_find_decoder_by_name();</code> 根据解码器名字</li><li><code>avcodec_open2();</code> 打开编解码器</li><li><code>avcodec_send_packet();</code> 发送编码数据包</li><li><code>avcodec_receive_frame();</code> 接收解码后数据</li><li><code>avcodec_free_context();</code> 释放解码器上下文，包含了 avcodec_close()</li><li><code>avcodec_close();</code> 关闭解码器</li></ul><p><img src="/2025/03/21/file-io/ib-base/image2.png" alt="解码器流程图"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="FFmpeg-库入门"><a href="#FFmpeg-库入门" class="headerlink" title="FFmpeg 库入门"></a>FFmpeg 库入门</h1><h2 id="封装格式相关"><a href="#封装格式相关" class="headerlink" title="封装格式相关"></a>封装格式相关</h2><ul><li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li><li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li><li><code>avformat_close_input();</code> 关闭解复用器,关闭后就不再需要使用 avformat_free_context 进行释放</li><li><code>avformat_open_input();</code> 打开输入视频文件</li><li><code>avformat_find_stream_info();</code> 获取音视频文件信息</li><li><code>av_read_frame();</code> 读取音视频包</li><li><code>avformat_seek_file();</code> 定位文件</li><li><code>av_seek_frame();</code> 定位文</li></ul><p><img src="/2025/03/21/file-io/ib-base/image1.png" alt="解封装流程图"></p><h2 id="解码器相关"><a href="#解码器相关" class="headerlink" title="解码器相关"></a>解码器相关</h2><ul><li><code>avcodec_alloc_context3();</code> 分配解码器上下文</li><li><code>avcodec_find_decoder();</code> 根据ID查找解码器</li><li><code>avcodec_find_decoder_by_name();</code> 根据解码器名字</li><li><code>avcodec_open2();</code> 打开编解码器</li><li><code>avcodec_send_packet();</code> 发送编码数据包</li><li><code>avcodec_receive_frame();</code> 接收解码后数据</li><li><code>avcodec_free_context();</code> 释放解码器上下文，包含了 avcodec_close()</li><li><code>avcodec_close();</code> 关闭解码器</li></ul><p><img src="/2025/03/21/file-io/ib-base/image2.png" alt="解码器流程图"></p><h2 id="FFmpeg-数据结构简介"><a href="#FFmpeg-数据结构简介" class="headerlink" title="FFmpeg 数据结构简介"></a>FFmpeg 数据结构简介</h2><ul><li>AVFormatContext<ul><li>封装格式上下文结构体，也是统领全局的结构体，保存了视频文件封装格式相关信息。</li></ul></li><li>AVInputFormat、AVOutputFormat<ul><li>每种封装格式（例如FLV, MKV, MP4, AVI）对应一个该结构体。</li></ul></li><li>AVStream<ul><li>视频文件中每个视频（音频）流对应一个该结构体。</li></ul></li><li>AVCodecContext<ul><li>编解码器上下文结构体，保存了视频（音频）编解码相关信息。</li></ul></li><li>AVCodec<ul><li>每种视频（音频）编解码器(例如H.264解码器)对应一个该结构体。</li></ul></li><li>AVPacket<ul><li>存储一帧压缩编码数据。</li></ul></li><li>AVFrame<ul><li>存储一帧解码后像素（采样）数据。</li></ul></li></ul><h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><p><img src="/2025/03/21/file-io/ib-base/image3.png"><br><img src="/2025/03/21/file-io/ib-base/image4.png"><br><img src="/2025/03/21/file-io/ib-base/image5.png"><br><img src="/2025/03/21/file-io/ib-base/image6.png"><br><img src="/2025/03/21/file-io/ib-base/image7.png"></p><h2 id="FFmpeg-数据结构分析"><a href="#FFmpeg-数据结构分析" class="headerlink" title="FFmpeg 数据结构分析"></a>FFmpeg 数据结构分析</h2><ul><li>AVFormatContext<ul><li>iformat：输入媒体的AVInputFormat，比如指向AVInputFormatff_flv_demuxer</li><li>nb_streams：输入媒体的AVStream 个数</li><li>streams：输入媒体的AVStream []数组</li><li>duration：输入媒体的时长（以微秒为单位），计算方式可以参考av_dump_format()函数。</li><li>bit_rate：输入媒体的码率</li></ul></li><li>AVInputFormat<ul><li>name：封装格式名称</li><li>extensions：封装格式的扩展名</li><li>id：封装格式ID</li><li>一些封装格式处理的接口函数,比如read_packet()</li></ul></li><li>AVStream<ul><li>index：标识该视频&#x2F;音频流</li><li>time_base：该流的时基，PTS*time_base&#x3D;真正的时间（秒）</li><li>avg_frame_rate：该流的帧率</li><li>duration：该视频&#x2F;音频流长度</li><li>codecpar：编解码器参数属性</li></ul></li><li>AVCodecParameters<ul><li>codec_type：媒体类型，比如AVMEDIA_TYPE_VIDEO、AVMEDIA_TYPE_AUDIO等</li><li>codec_id：编解码器类型， 比如AV_CODEC_ID_H264、AV_CODEC_ID_AAC等。</li></ul></li><li>AVCodecContext<ul><li>codec：编解码器的AVCodec，比如指向AVCodec ff_aac_latm_decoder</li><li>width, height：图像的宽高（只针对视频）</li><li>pix_fmt：像素格式（只针对视频）</li><li>sample_rate：采样率（只针对音频）</li><li>channels：声道数（只针对音频）</li><li>sample_fmt：采样格式（只针对音频）</li></ul></li><li>AVCodec<ul><li>name：编解码器名称</li><li>type：编解码器类型</li><li>id：编解码器ID</li><li>一些编解码的接口函数，比如int (*decode)()</li></ul></li><li>AVPacket<ul><li>pts：显示时间戳</li><li>dts：解码时间戳</li><li>data：压缩编码数据</li><li>size：压缩编码数据大小</li><li>pos:数据的偏移地址</li><li>stream_index：所属的AVStream</li></ul></li><li>AVFrame<ul><li>data：解码后的图像像素数据（音频采样数据）</li><li>linesize：对视频来说是图像中一行像素的大小；对音频来说是整个音频帧的大小</li><li>width, height：图像的宽高（只针对视频）</li><li>key_frame：是否为关键帧（只针对视频）</li><li>pict_type：帧类型（只针对视频） 。例如I， P， B</li><li>sample_rate：音频采样率（只针对音频）</li><li>nb_samples：音频每通道采样数（只针对音频）</li><li>pts：显示时间戳</li></ul></li></ul>]]></content>
     
     
     <categories>

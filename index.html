@@ -215,6 +215,136 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/06/10/ffmpeg-demux/" target="_self">
+          FFmpeg 解封装解码
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/10/ffmpeg-demux/" target="_self">
+        <div>
+          FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-10 17:20" pubdate>
+              2025-06-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C-C/">#C/C++</a>
+            
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/">#音视频</a>
+            
+              <a href="/tags/ffmpeg/">#ffmpeg</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2025/06/09/ffmpeg-memory-model/" target="_self">
+          FFmpeg 内存模型
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/06/09/ffmpeg-memory-model/" target="_self">
+        <div>
+          FFmpeg 内存模型 从现有的Packet拷贝一个新Packet的时候，有两种情况： 两个Packet的buf引用的是同一数据缓存空间，这时候要注意数据缓存空间的释放问题； 两个Packet的buf引用不同的数据缓存空间，每个Packet都有数据缓存空间的copy      引用计数 对于多个AVPacket共享同一个缓存空间，FFmpeg使用的引用计数的机制（reference-count）：
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-06-09 14:43" pubdate>
+              2025-06-09
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/C-C/">#C/C++</a>
+            
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/">#音视频</a>
+            
+              <a href="/tags/ffmpeg/">#ffmpeg</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/06/09/ffmpeg-lib-base/" target="_self">
           FFmpeg 库入门
         </a>
@@ -716,132 +846,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/CMake/">#CMake</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/05/09/grpc-cmake/" target="_self">
-          CMake 中使用 grpc ( 使用 vcpkg 安装 grpc )
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/05/09/grpc-cmake/" target="_self">
-        <div>
-          CMake 中使用 grpc ( 使用 vcpkg 安装 grpc )用 vcpkg 安装 grpc 1vcpkg install grpc  cmake 文件中源码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354find_package(gRPC
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-05-09 16:38" pubdate>
-              2025-05-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/grpc/">#grpc</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/10/net-prog4/" target="_self">
-          网络编程 (四)
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/10/net-prog4/" target="_self">
-        <div>
-          网络编程 (四)多路 IO - poll 函数原型：int poll(struct pollfd *fds, nfds_t nfds, int timeout); 函数说明：跟 select 相似，监控多路 IO，但 poll 不能跨平台 参数说明： fds：传入传出参数，实际上是一个结构体数组 fds.events： POLLIN —&gt; 读事件 POLLOUT —&gt; 写事件   nf
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-10 18:19" pubdate>
-              2025-04-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%8A%80%E6%9C%AF/" class="category-chain-item">技术</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Linux/">#Linux</a>
-            
-              <a href="/tags/C-C/">#C/C++</a>
-            
-              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
             
           </div>
         

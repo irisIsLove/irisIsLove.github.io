@@ -19,32 +19,27 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FFmpeg 库入门封装格式相关 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器,关闭后就不再需要使用 avformat_free_context 进行释放 avformat">
+    <meta name="description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg 库入门">
-<meta property="og:url" content="https://irisislove.github.io/2025/06/09/ffmpeg-lib-base/index.html">
+<meta property="og:title" content="FFmpeg 解封装解码">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/10/ffmpeg-demux/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="FFmpeg 库入门封装格式相关 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器,关闭后就不再需要使用 avformat_free_context 进行释放 avformat">
+<meta property="og:description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image2.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image3.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image4.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image5.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image6.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image7.png">
-<meta property="article:published_time" content="2025-06-09T04:49:31.000Z">
-<meta property="article:modified_time" content="2025-06-09T06:40:42.872Z">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image2.png">
+<meta property="article:published_time" content="2025-06-10T09:20:15.000Z">
+<meta property="article:modified_time" content="2025-06-10T09:43:07.425Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="音视频">
 <meta property="article:tag" content="ffmpeg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/ib-base/image1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
   
   
   
-  <title>FFmpeg 库入门 - Iris&#39;s Blog</title>
+  <title>FFmpeg 解封装解码 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +193,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="FFmpeg 库入门"></span>
+            <span id="subtitle" data-typed-text="FFmpeg 解封装解码"></span>
           
         </div>
 
@@ -209,8 +204,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-09 12:49" pubdate>
-          2025年6月9日 下午
+        <time datetime="2025-06-10 17:20" pubdate>
+          2025年6月10日 下午
         </time>
       </span>
     
@@ -221,7 +216,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          774 字
+          231 字
         
       </span>
     
@@ -232,7 +227,7 @@
         
         
         
-          7 分钟
+          2 分钟
         
       </span>
     
@@ -269,130 +264,29 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">FFmpeg 库入门</h1>
+            <h1 id="seo-header">FFmpeg 解封装解码</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="FFmpeg-库入门"><a href="#FFmpeg-库入门" class="headerlink" title="FFmpeg 库入门"></a>FFmpeg 库入门</h1><h2 id="封装格式相关"><a href="#封装格式相关" class="headerlink" title="封装格式相关"></a>封装格式相关</h2><ul>
+                <h1 id="FFmpeg-解封装解码"><a href="#FFmpeg-解封装解码" class="headerlink" title="FFmpeg 解封装解码"></a>FFmpeg 解封装解码</h1><h2 id="解封装"><a href="#解封装" class="headerlink" title="解封装"></a>解封装</h2><p><img src="/2025/03/21/file-io/emux/image1.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="封装格式相关函数"><a href="#封装格式相关函数" class="headerlink" title="封装格式相关函数"></a>封装格式相关函数</h2><ul>
 <li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li>
 <li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li>
-<li><code>avformat_close_input();</code> 关闭解复用器,关闭后就不再需要使用 avformat_free_context 进行释放</li>
+<li><code>avformat_close_input();</code> 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放</li>
 <li><code>avformat_open_input();</code> 打开输入视频文件</li>
-<li><code>avformat_find_stream_info();</code> 获取音视频文件信息</li>
+<li><code>avformat_find_stream_info();</code> 获取视频文件信息</li>
 <li><code>av_read_frame();</code> 读取音视频包</li>
 <li><code>avformat_seek_file();</code> 定位文件</li>
-<li><code>av_seek_frame();</code> 定位文</li>
+<li><code>av_seek_frame();</code> 定位文件</li>
 </ul>
-<p><img src="/2025/03/21/file-io/ib-base/image1.png" srcset="/img/loading.gif" lazyload alt="解封装流程图"></p>
-<h2 id="解码器相关"><a href="#解码器相关" class="headerlink" title="解码器相关"></a>解码器相关</h2><ul>
-<li><code>avcodec_alloc_context3();</code> 分配解码器上下文</li>
-<li><code>avcodec_find_decoder();</code> 根据ID查找解码器</li>
-<li><code>avcodec_find_decoder_by_name();</code> 根据解码器名字</li>
-<li><code>avcodec_open2();</code> 打开编解码器</li>
-<li><code>avcodec_send_packet();</code> 发送编码数据包</li>
-<li><code>avcodec_receive_frame();</code> 接收解码后数据</li>
-<li><code>avcodec_free_context();</code> 释放解码器上下文，包含了 avcodec_close()</li>
-<li><code>avcodec_close();</code> 关闭解码器</li>
+<p><img src="/2025/03/21/file-io/emux/image2.png" srcset="/img/loading.gif" lazyload alt="解封装流程图"></p>
+<h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><h3 id="区分不同的码流"><a href="#区分不同的码流" class="headerlink" title="区分不同的码流"></a>区分不同的码流</h3><ul>
+<li>AVMEDIA_TYPE_VIDEO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);</code></li>
+<li>AVMEDIA_TYPE_AUDIO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);</code></li>
 </ul>
-<p><img src="/2025/03/21/file-io/ib-base/image2.png" srcset="/img/loading.gif" lazyload alt="解码器流程图"></p>
-<h2 id="FFmpeg-数据结构简介"><a href="#FFmpeg-数据结构简介" class="headerlink" title="FFmpeg 数据结构简介"></a>FFmpeg 数据结构简介</h2><ul>
-<li>AVFormatContext<ul>
-<li>封装格式上下文结构体，也是统领全局的结构体，保存了视频文件封装格式相关信息。</li>
-</ul>
-</li>
-<li>AVInputFormat、AVOutputFormat<ul>
-<li>每种封装格式（例如FLV, MKV, MP4, AVI）对应一个该结构体。</li>
-</ul>
-</li>
-<li>AVStream<ul>
-<li>视频文件中每个视频（音频）流对应一个该结构体。</li>
-</ul>
-</li>
-<li>AVCodecContext<ul>
-<li>编解码器上下文结构体，保存了视频（音频）编解码相关信息。</li>
-</ul>
-</li>
-<li>AVCodec<ul>
-<li>每种视频（音频）编解码器(例如H.264解码器)对应一个该结构体。</li>
-</ul>
-</li>
-<li>AVPacket<ul>
-<li>存储一帧压缩编码数据。</li>
-</ul>
-</li>
-<li>AVFrame<ul>
-<li>存储一帧解码后像素（采样）数据。</li>
-</ul>
-</li>
-</ul>
-<h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><p><img src="/2025/03/21/file-io/ib-base/image3.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/03/21/file-io/ib-base/image4.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/03/21/file-io/ib-base/image5.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/03/21/file-io/ib-base/image6.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/03/21/file-io/ib-base/image7.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="FFmpeg-数据结构分析"><a href="#FFmpeg-数据结构分析" class="headerlink" title="FFmpeg 数据结构分析"></a>FFmpeg 数据结构分析</h2><ul>
-<li>AVFormatContext<ul>
-<li>iformat：输入媒体的AVInputFormat，比如指向AVInputFormatff_flv_demuxer</li>
-<li>nb_streams：输入媒体的AVStream 个数</li>
-<li>streams：输入媒体的AVStream []数组</li>
-<li>duration：输入媒体的时长（以微秒为单位），计算方式可以参考av_dump_format()函数。</li>
-<li>bit_rate：输入媒体的码率</li>
-</ul>
-</li>
-<li>AVInputFormat<ul>
-<li>name：封装格式名称</li>
-<li>extensions：封装格式的扩展名</li>
-<li>id：封装格式ID</li>
-<li>一些封装格式处理的接口函数,比如read_packet()</li>
-</ul>
-</li>
-<li>AVStream<ul>
-<li>index：标识该视频&#x2F;音频流</li>
-<li>time_base：该流的时基，PTS*time_base&#x3D;真正的时间（秒）</li>
-<li>avg_frame_rate：该流的帧率</li>
-<li>duration：该视频&#x2F;音频流长度</li>
-<li>codecpar：编解码器参数属性</li>
-</ul>
-</li>
-<li>AVCodecParameters<ul>
-<li>codec_type：媒体类型，比如AVMEDIA_TYPE_VIDEO、AVMEDIA_TYPE_AUDIO等</li>
-<li>codec_id：编解码器类型， 比如AV_CODEC_ID_H264、AV_CODEC_ID_AAC等。</li>
-</ul>
-</li>
-<li>AVCodecContext<ul>
-<li>codec：编解码器的AVCodec，比如指向AVCodec ff_aac_latm_decoder</li>
-<li>width, height：图像的宽高（只针对视频）</li>
-<li>pix_fmt：像素格式（只针对视频）</li>
-<li>sample_rate：采样率（只针对音频）</li>
-<li>channels：声道数（只针对音频）</li>
-<li>sample_fmt：采样格式（只针对音频）</li>
-</ul>
-</li>
-<li>AVCodec<ul>
-<li>name：编解码器名称</li>
-<li>type：编解码器类型</li>
-<li>id：编解码器ID</li>
-<li>一些编解码的接口函数，比如int (*decode)()</li>
-</ul>
-</li>
-<li>AVPacket<ul>
-<li>pts：显示时间戳</li>
-<li>dts：解码时间戳</li>
-<li>data：压缩编码数据</li>
-<li>size：压缩编码数据大小</li>
-<li>pos:数据的偏移地址</li>
-<li>stream_index：所属的AVStream</li>
-</ul>
-</li>
-<li>AVFrame<ul>
-<li>data：解码后的图像像素数据（音频采样数据）</li>
-<li>linesize：对视频来说是图像中一行像素的大小；对音频来说是整个音频帧的大小</li>
-<li>width, height：图像的宽高（只针对视频）</li>
-<li>key_frame：是否为关键帧（只针对视频）</li>
-<li>pict_type：帧类型（只针对视频） 。例如I， P， B</li>
-<li>sample_rate：音频采样率（只针对音频）</li>
-<li>nb_samples：音频每通道采样数（只针对音频）</li>
-<li>pts：显示时间戳</li>
-</ul>
-</li>
-</ul>
+<p>AVPacket 里面也有一个 index 字段</p>
+<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>avformat_open_input 和 avformat_find_stream_info 分别用于打开一个流和分析流信息。<br>在初始信息不足的情况下（比如FLV和H264文件），avformat_find_stream_info 接口需要在内部调用 read_frame_internal 接口读取流数据（音视频帧），然后再分析，设置核心数据结构 AVFomatContext。</p>
 
                 
               </div>
@@ -442,8 +336,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>FFmpeg 库入门</div>
-      <div>https://irisislove.github.io/2025/06/09/ffmpeg-lib-base/</div>
+      <div>FFmpeg 解封装解码</div>
+      <div>https://irisislove.github.io/2025/06/10/ffmpeg-demux/</div>
     </div>
     <div class="license-meta">
       
@@ -455,7 +349,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月9日</div>
+          <div>2025年6月10日</div>
         </div>
       
       
@@ -487,18 +381,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/09/ffmpeg-memory-model/" title="FFmpeg 内存模型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">FFmpeg 内存模型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/05/sdl-pcm/" title="SDL 播放 PCM 音频">
-                        <span class="hidden-mobile">SDL 播放 PCM 音频</span>
+                      <a href="/2025/06/09/ffmpeg-memory-model/" title="FFmpeg 内存模型">
+                        <span class="hidden-mobile">FFmpeg 内存模型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
