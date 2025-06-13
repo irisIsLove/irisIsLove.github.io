@@ -19,27 +19,24 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
+    <meta name="description" content="在 vcpkg 下如何使用 pkg-config笔主本人在用 vcpkg 安装 FFmpeg 的时候发现，安装完成的输出里面有对应库在cmake中的使用方法 123456789101112131415161718192021222324252627282930313233The following packages are already installed:    ffmpeg[core,x26">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg 解封装解码">
-<meta property="og:url" content="https://irisislove.github.io/2025/06/10/ffmpeg-demux/index.html">
+<meta property="og:title" content="在 vcpkg 下如何使用 pkg-config">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/10/how-use-pkgconfig/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
+<meta property="og:description" content="在 vcpkg 下如何使用 pkg-config笔主本人在用 vcpkg 安装 FFmpeg 的时候发现，安装完成的输出里面有对应库在cmake中的使用方法 123456789101112131415161718192021222324252627282930313233The following packages are already installed:    ffmpeg[core,x26">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image2.png">
-<meta property="article:published_time" content="2025-06-10T09:20:15.000Z">
-<meta property="article:modified_time" content="2025-06-10T09:46:33.342Z">
+<meta property="article:published_time" content="2025-06-10T10:03:54.000Z">
+<meta property="article:modified_time" content="2025-06-13T02:55:34.134Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="C&#x2F;C++">
-<meta property="article:tag" content="音视频">
-<meta property="article:tag" content="ffmpeg">
+<meta property="article:tag" content="CMake">
+<meta property="article:tag" content="vcpkg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
   
   
   
-  <title>FFmpeg 解封装解码 - Iris&#39;s Blog</title>
+  <title>在 vcpkg 下如何使用 pkg-config - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +190,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="FFmpeg 解封装解码"></span>
+            <span id="subtitle" data-typed-text="在 vcpkg 下如何使用 pkg-config"></span>
           
         </div>
 
@@ -204,8 +201,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-10 17:20" pubdate>
-          2025年6月10日 下午
+        <time datetime="2025-06-10 18:03" pubdate>
+          2025年6月10日 晚上
         </time>
       </span>
     
@@ -216,7 +213,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          258 字
+          260 字
         
       </span>
     
@@ -264,30 +261,19 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">FFmpeg 解封装解码</h1>
+            <h1 id="seo-header">在 vcpkg 下如何使用 pkg-config</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="FFmpeg-解封装解码"><a href="#FFmpeg-解封装解码" class="headerlink" title="FFmpeg 解封装解码"></a>FFmpeg 解封装解码</h1><h2 id="解封装"><a href="#解封装" class="headerlink" title="解封装"></a>解封装</h2><p><img src="/2025/03/21/file-io/emux/image1.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="封装格式相关函数"><a href="#封装格式相关函数" class="headerlink" title="封装格式相关函数"></a>封装格式相关函数</h2><ul>
-<li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li>
-<li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li>
-<li><code>avformat_close_input();</code> 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放</li>
-<li><code>avformat_open_input();</code> 打开输入视频文件</li>
-<li><code>avformat_find_stream_info();</code> 获取视频文件信息</li>
-<li><code>av_read_frame();</code> 读取音视频包</li>
-<li><code>avformat_seek_file();</code> 定位文件</li>
-<li><code>av_seek_frame();</code> 定位文件</li>
-</ul>
-<p><img src="/2025/03/21/file-io/emux/image2.png" srcset="/img/loading.gif" lazyload alt="解封装流程图"></p>
-<h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><h3 id="区分不同的码流"><a href="#区分不同的码流" class="headerlink" title="区分不同的码流"></a>区分不同的码流</h3><ul>
-<li>AVMEDIA_TYPE_VIDEO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);</code></li>
-<li>AVMEDIA_TYPE_AUDIO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);</code></li>
-</ul>
-<p>AVPacket 里面也有一个 index 字段</p>
-<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>avformat_open_input 和 avformat_find_stream_info 分别用于打开一个流和分析流信息。<br>在初始信息不足的情况下（比如FLV和H264文件），avformat_find_stream_info 接口需要在内部调用 read_frame_internal 接口读取流数据（音视频帧），然后再分析，设置核心数据结构 AVFomatContext。<br>由于需要读取数据包，avformat_find_stream_info 接口会带来很大的延迟。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/irisIsLove/LearnFFmpeg/tree/main/FFmpegDemux">解封装流程代码</a></p>
+                <h1 id="在-vcpkg-下如何使用-pkg-config"><a href="#在-vcpkg-下如何使用-pkg-config" class="headerlink" title="在 vcpkg 下如何使用 pkg-config"></a>在 vcpkg 下如何使用 pkg-config</h1><p>笔主本人在用 vcpkg 安装 FFmpeg 的时候发现，安装完成的输出里面有对应库在cmake中的使用方法</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs shell">The following packages are already installed:<br>    ffmpeg[core,x265,x264,gpl,ffprobe,ffplay,ffmpeg,zlib,xml2,webp,vpx,vorbis,theora,tesseract,ssh,srt,speex,soxr,snappy,sdl2,qsv,opus,openmpt,openjpeg,openh264,opengl,opencl,nvcodec,mp3lame,modplug,lzma,ilbc,iconv,fribidi,freetype,fontconfig,dav1d,bzip2,ass,aom,amf,all,swscale,swresample,avformat,avfilter,avdevice,avcodec]:x64-windows@7.1.1#2<br>Total install time: 4.28 ms<br>ffmpeg provides CMake integration:<br><br>  find_package(FFMPEG REQUIRED)<br>  target_include_directories(main PRIVATE $&#123;FFMPEG_INCLUDE_DIRS&#125;)<br>  target_link_directories(main PRIVATE $&#123;FFMPEG_LIBRARY_DIRS&#125;)<br>  target_link_libraries(main PRIVATE $&#123;FFMPEG_LIBRARIES&#125;)<br><br>ffmpeg provides pkg-config modules:<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg codec library</span><br>  libavcodec<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg device handling library</span><br>  libavdevice<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg audio/video filtering library</span><br>  libavfilter<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg container format library</span><br>  libavformat<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg utility library</span><br>  libavutil<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg audio resampling library</span><br>  libswresample<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">FFmpeg image rescaling library</span><br>  libswscale<br><br></code></pre></td></tr></table></figure>
+
+<p>使用第一种方法的时候，cmake会检索出所有的 ffmpeg 库，作为强迫症的我不太喜欢这种方式，感觉不优雅，于是发现第二种方法，通过 DeepSeek 的解释大致了解了用法</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">find_package</span>(PkgConfig REQUIRED)<br>pkg_check_modules(AVCODEC REQUIRED libavcodec)<br>pkg_check_modules(AVFORMAT REQUIRED libavformat)<br><br><span class="hljs-keyword">target_link_libraries</span>(my_app PRIVATE<br>    <span class="hljs-variable">$&#123;AVCODEC_LIBRARIES&#125;</span><br>    <span class="hljs-variable">$&#123;AVFORMAT_LIBRARIES&#125;</span><br>)<br><span class="hljs-keyword">target_include_directories</span>(my_app PRIVATE <br>    <span class="hljs-variable">$&#123;AVCODEC_INCLUDE_DIRS&#125;</span><br>    <span class="hljs-variable">$&#123;AVFORMAT_INCLUDE_DIRS&#125;</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>这样就可以精确控制 FFmpeg 的依赖项，而不会引入不必要的库</p>
+<p><code>ls &lt;vcpkg-root&gt;/installed/&lt;triplet&gt;/lib/pkgconfig/</code><br>使用上述命令，就可以直接查看 pkgconfig&#x2F; 目录</p>
 
                 
               </div>
@@ -323,9 +309,9 @@
       
         <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
       
-        <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" class="print-no-link">#音视频</a>
+        <a href="/tags/CMake/" class="print-no-link">#CMake</a>
       
-        <a href="/tags/ffmpeg/" class="print-no-link">#ffmpeg</a>
+        <a href="/tags/vcpkg/" class="print-no-link">#vcpkg</a>
       
     </div>
   
@@ -337,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>FFmpeg 解封装解码</div>
-      <div>https://irisislove.github.io/2025/06/10/ffmpeg-demux/</div>
+      <div>在 vcpkg 下如何使用 pkg-config</div>
+      <div>https://irisislove.github.io/2025/06/10/how-use-pkgconfig/</div>
     </div>
     <div class="license-meta">
       
@@ -382,9 +368,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/10/how-use-pkgconfig/" title="在 vcpkg 下如何使用 pkg-config">
+                      <a href="/2025/06/13/extract-aac/" title="AAC ADTS 格式分析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在 vcpkg 下如何使用 pkg-config</span>
+                        <span class="hidden-mobile">AAC ADTS 格式分析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -392,8 +378,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/09/ffmpeg-memory-model/" title="FFmpeg 内存模型">
-                        <span class="hidden-mobile">FFmpeg 内存模型</span>
+                      <a href="/2025/06/10/ffmpeg-demux/" title="FFmpeg 解封装解码">
+                        <span class="hidden-mobile">FFmpeg 解封装解码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

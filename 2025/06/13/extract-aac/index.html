@@ -19,27 +19,28 @@
   <meta name="author" content="Iris">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
+    <meta name="description" content="AAC ADTS 格式分析Advanced Audio Coding(⾼级⾳频解码)，是⼀种由MPEG-4标准定义的有损⾳频压缩格式，由Fraunhofer发展，Dolby, Sony和AT&amp;T是主要的贡献者。 ADTS全称是Audio Data Transport Stream。是AAC⾳频的传输流格式。AAC⾳频格式在MPEG-2（ISO-13318-7 2003）中有定义。AAC后来">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FFmpeg 解封装解码">
-<meta property="og:url" content="https://irisislove.github.io/2025/06/10/ffmpeg-demux/index.html">
+<meta property="og:title" content="AAC ADTS 格式分析">
+<meta property="og:url" content="https://irisislove.github.io/2025/06/13/extract-aac/index.html">
 <meta property="og:site_name" content="Iris&#39;s Blog">
-<meta property="og:description" content="FFmpeg 解封装解码解封装 封装格式相关函数 avformat_alloc_context(); 负责申请一个AVFormatContext结构的内存,并进行简单初始化 avformat_free_context(); 释放该结构里的所有东西以及该结构本身 avformat_close_input(); 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放 a">
+<meta property="og:description" content="AAC ADTS 格式分析Advanced Audio Coding(⾼级⾳频解码)，是⼀种由MPEG-4标准定义的有损⾳频压缩格式，由Fraunhofer发展，Dolby, Sony和AT&amp;T是主要的贡献者。 ADTS全称是Audio Data Transport Stream。是AAC⾳频的传输流格式。AAC⾳频格式在MPEG-2（ISO-13318-7 2003）中有定义。AAC后来">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
-<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image2.png">
-<meta property="article:published_time" content="2025-06-10T09:20:15.000Z">
-<meta property="article:modified_time" content="2025-06-10T09:46:33.342Z">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image1.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image2.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image3.png">
+<meta property="article:published_time" content="2025-06-13T06:35:23.000Z">
+<meta property="article:modified_time" content="2025-06-13T09:41:45.030Z">
 <meta property="article:author" content="Iris">
 <meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="音视频">
 <meta property="article:tag" content="ffmpeg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/emux/image1.png">
+<meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image1.png">
   
   
   
-  <title>FFmpeg 解封装解码 - Iris&#39;s Blog</title>
+  <title>AAC ADTS 格式分析 - Iris&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -193,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="FFmpeg 解封装解码"></span>
+            <span id="subtitle" data-typed-text="AAC ADTS 格式分析"></span>
           
         </div>
 
@@ -204,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-06-10 17:20" pubdate>
-          2025年6月10日 下午
+        <time datetime="2025-06-13 14:35" pubdate>
+          2025年6月13日 下午
         </time>
       </span>
     
@@ -216,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          258 字
+          456 字
         
       </span>
     
@@ -227,7 +228,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -264,30 +265,30 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">FFmpeg 解封装解码</h1>
+            <h1 id="seo-header">AAC ADTS 格式分析</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="FFmpeg-解封装解码"><a href="#FFmpeg-解封装解码" class="headerlink" title="FFmpeg 解封装解码"></a>FFmpeg 解封装解码</h1><h2 id="解封装"><a href="#解封装" class="headerlink" title="解封装"></a>解封装</h2><p><img src="/2025/03/21/file-io/emux/image1.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="封装格式相关函数"><a href="#封装格式相关函数" class="headerlink" title="封装格式相关函数"></a>封装格式相关函数</h2><ul>
-<li><code>avformat_alloc_context();</code> 负责申请一个AVFormatContext结构的内存,并进行简单初始化</li>
-<li><code>avformat_free_context();</code> 释放该结构里的所有东西以及该结构本身</li>
-<li><code>avformat_close_input();</code> 关闭解复用器，关闭后就不再需要使用avformat_free_context 进行释放</li>
-<li><code>avformat_open_input();</code> 打开输入视频文件</li>
-<li><code>avformat_find_stream_info();</code> 获取视频文件信息</li>
-<li><code>av_read_frame();</code> 读取音视频包</li>
-<li><code>avformat_seek_file();</code> 定位文件</li>
-<li><code>av_seek_frame();</code> 定位文件</li>
+                <h1 id="AAC-ADTS-格式分析"><a href="#AAC-ADTS-格式分析" class="headerlink" title="AAC ADTS 格式分析"></a>AAC ADTS 格式分析</h1><p>Advanced Audio Coding(⾼级⾳频解码)，是⼀种由MPEG-4标准定义的有损⾳频压缩格式，由Fraunhofer发展，Dolby, Sony和AT&amp;T是主要的贡献者。</p>
+<h2 id="ADTS"><a href="#ADTS" class="headerlink" title="ADTS"></a>ADTS</h2><p>全称是Audio Data Transport Stream。是AAC⾳频的传输流格式。AAC⾳频格式在MPEG-2（ISO-13318-7 2003）中有定义。AAC后来⼜被采⽤到MPEG-4标准中。这种格式的特征是它是⼀个有同步字的⽐特流，解码可以在这个流中任何位置开始。它的特征类似于mp3数据流格式。简单说，<strong>ADTS可以在任意帧解码，也就是说它每⼀帧都有头信息</strong>。</p>
+<p><img src="/2025/03/21/file-io/aac/image1.png" srcset="/img/loading.gif" lazyload alt="ADTS的一般格式，空白处表示前后帧"></p>
+<p>有的时候当你编码AAC裸流的时候，会遇到写出来的AAC⽂件并不能在PC和⼿机上播放，很⼤的可能就是AAC⽂件的每⼀帧⾥缺少了ADTS头信息⽂件的包装拼接。<br>只需要加⼊头⽂件ADTS即可。⼀个AAC原始数据块⻓度是可变的，对原始帧加上ADTS头进⾏ADTS的封装，就形成了ADTS帧。</p>
+<p>AAC⾳频⽂件的每⼀帧由ADTS Header和AAC Audio Data组成。结构体如下：<br><img src="/2025/03/21/file-io/aac/image2.png" srcset="/img/loading.gif" lazyload><br>注：ADTS Header的长度可能为7字节或9字节，protecttion_absent&#x3D;0时，9字节，protecttion_absent&#x3D;1时，为7字节</p>
+<p>每⼀帧的ADTS的头⽂件都包含了⾳频的采样率，声道，帧⻓度等信息，这样解码器才能解析读取。<br>⼀般情况下ADTS的头信息都是7个字节，分为2部分：</p>
+<ul>
+<li>adts_fixed_header()</li>
+<li>adts_variable_header()</li>
 </ul>
-<p><img src="/2025/03/21/file-io/emux/image2.png" srcset="/img/loading.gif" lazyload alt="解封装流程图"></p>
-<h2 id="FFmpeg-数据结构之间的关系"><a href="#FFmpeg-数据结构之间的关系" class="headerlink" title="FFmpeg 数据结构之间的关系"></a>FFmpeg 数据结构之间的关系</h2><h3 id="区分不同的码流"><a href="#区分不同的码流" class="headerlink" title="区分不同的码流"></a>区分不同的码流</h3><ul>
-<li>AVMEDIA_TYPE_VIDEO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0);</code></li>
-<li>AVMEDIA_TYPE_AUDIO 视频流: <code>videoIndex = av_find_best_stream(ic, AVMEDIA_TYPE_AUDIO, -1, -1, NULL, 0);</code></li>
+<p>其⼀为固定头信息，紧接着是可变头信息。固定头信息中的数据每⼀帧都相同，⽽可变头信息则在帧与帧之间可变。</p>
+<h2 id="adts-fixed-header"><a href="#adts-fixed-header" class="headerlink" title="adts_fixed_header"></a>adts_fixed_header</h2><p><img src="/2025/03/21/file-io/aac/image3.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>syncword: 同步头，总是为0xFFF，all bits must be 1，代表着一个ADTS帧的开始</li>
+<li>ID: MPEG标识符，0表示MPEG-4，1表示MPEG-2</li>
+<li>Layer: always: ‘00’</li>
+<li>protection_absent: 表示是否误码校验。Warning, set to 1 if there is no CRC and 0 if there is CRC</li>
+<li>profile: 表示使用哪个级别的ACC，如01 Low Complexity(LC) — AAC LC。有些芯片只支持ACC LC。</li>
 </ul>
-<p>AVPacket 里面也有一个 index 字段</p>
-<h2 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h2><p>avformat_open_input 和 avformat_find_stream_info 分别用于打开一个流和分析流信息。<br>在初始信息不足的情况下（比如FLV和H264文件），avformat_find_stream_info 接口需要在内部调用 read_frame_internal 接口读取流数据（音视频帧），然后再分析，设置核心数据结构 AVFomatContext。<br>由于需要读取数据包，avformat_find_stream_info 接口会带来很大的延迟。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/irisIsLove/LearnFFmpeg/tree/main/FFmpegDemux">解封装流程代码</a></p>
 
                 
               </div>
@@ -337,8 +338,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>FFmpeg 解封装解码</div>
-      <div>https://irisislove.github.io/2025/06/10/ffmpeg-demux/</div>
+      <div>AAC ADTS 格式分析</div>
+      <div>https://irisislove.github.io/2025/06/13/extract-aac/</div>
     </div>
     <div class="license-meta">
       
@@ -350,7 +351,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年6月10日</div>
+          <div>2025年6月13日</div>
         </div>
       
       
@@ -382,18 +383,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/10/how-use-pkgconfig/" title="在 vcpkg 下如何使用 pkg-config">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">在 vcpkg 下如何使用 pkg-config</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/06/09/ffmpeg-memory-model/" title="FFmpeg 内存模型">
-                        <span class="hidden-mobile">FFmpeg 内存模型</span>
+                      <a href="/2025/06/10/how-use-pkgconfig/" title="在 vcpkg 下如何使用 pkg-config">
+                        <span class="hidden-mobile">在 vcpkg 下如何使用 pkg-config</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
