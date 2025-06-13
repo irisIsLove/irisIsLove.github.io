@@ -52,13 +52,9 @@ ffmpeg provides pkg-config modules:
 
 ```cmake
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(AVCODEC REQUIRED libavcodec)
-pkg_check_modules(AVFORMAT REQUIRED libavformat)
+pkg_check_modules(FFmpeg REQUIRED IMPORTED_TARGET libavcodec libavformat libavutil)
 
-target_link_libraries(my_app PRIVATE
-    ${AVCODEC_LIBRARIES}
-    ${AVFORMAT_LIBRARIES}
-)
+target_link_libraries(my_app PRIVATE PkgConfig::FFmpeg)
 ```
 
 这样就可以精确控制 FFmpeg 的依赖项，而不会引入不必要的库
