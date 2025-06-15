@@ -29,12 +29,16 @@
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image1.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image2.png">
 <meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image3.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image4.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image5.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image6.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image7.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image8.png">
+<meta property="og:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image9.png">
 <meta property="article:published_time" content="2025-06-13T06:35:23.000Z">
-<meta property="article:modified_time" content="2025-06-13T09:41:45.030Z">
+<meta property="article:modified_time" content="2025-06-13T11:04:17.595Z">
 <meta property="article:author" content="Iris">
-<meta property="article:tag" content="C&#x2F;C++">
 <meta property="article:tag" content="音视频">
-<meta property="article:tag" content="ffmpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://irisislove.github.io/2025/03/21/file-io/aac/image1.png">
   
@@ -217,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          456 字
+          594 字
         
       </span>
     
@@ -228,7 +232,7 @@
         
         
         
-          4 分钟
+          5 分钟
         
       </span>
     
@@ -287,8 +291,23 @@
 <li>ID: MPEG标识符，0表示MPEG-4，1表示MPEG-2</li>
 <li>Layer: always: ‘00’</li>
 <li>protection_absent: 表示是否误码校验。Warning, set to 1 if there is no CRC and 0 if there is CRC</li>
-<li>profile: 表示使用哪个级别的ACC，如01 Low Complexity(LC) — AAC LC。有些芯片只支持ACC LC。</li>
+<li>profile: 表示使用哪个级别的ACC，如01 Low Complexity(LC) — AAC LC。有些芯片只支持ACC LC。<ul>
+<li>在MPEG-2 ACC中定义了三种：<br><img src="/2025/03/21/file-io/aac/image4.png" srcset="/img/loading.gif" lazyload><br>profile的值等于Audio Object Type的值减一<br>profile &#x3D; MPEG-4 Audio Object Type - 1<br><img src="/2025/03/21/file-io/aac/image5.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/03/21/file-io/aac/image6.png" srcset="/img/loading.gif" lazyload alt="avcodec中对profile的定义"></li>
 </ul>
+</li>
+<li>sampling_frequency_index: 表示使用的采样率下标，通过这个下标在Sampling Frequencies[]数组中查找得知采样率的值<br><img src="/2025/03/21/file-io/aac/image7.png" srcset="/img/loading.gif" lazyload></li>
+<li>channel_configuration: 表示声道数，比如2表示立体声双声道<br><img src="/2025/03/21/file-io/aac/image8.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h2 id="adts-variable-header"><a href="#adts-variable-header" class="headerlink" title="adts_variable_header"></a>adts_variable_header</h2><p><img src="/2025/03/21/file-io/aac/image9.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>frame_length: 一个ADTS帧的长度包括ADTS头和ACC原始流。<ul>
+<li>frame length, this value must include 7 or 9 bytes of header length: <code>$acc_frame_length = (protection_absent == 1 ? 7 : 9) + sizeof(AACFrame)</code></li>
+</ul>
+</li>
+<li>adts_buffer_fullness: 0x7FF 说明时码率可变的码流。</li>
+<li>number_of_raw_data_blocks_in_frame: 表示ADTS帧中有<code>number_of_raw_data_blocks_in_frame + 1</code>个ACC原始帧。所以说<code>number_of_raw_data_blocks_in_frame == 0</code>表示说ADTS帧中有一个ACC数据块</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://github.com/irisIsLove/LearnFFmpeg/tree/main/ExtractAac">ADTS 格式分析代码</a></p>
 
                 
               </div>
@@ -322,11 +341,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/C-C/" class="print-no-link">#C/C++</a>
-      
         <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" class="print-no-link">#音视频</a>
-      
-        <a href="/tags/ffmpeg/" class="print-no-link">#ffmpeg</a>
       
     </div>
   
@@ -382,6 +397,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2025/06/15/vscode-debug-qml/" title="在VS Code中调试QML文件">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在VS Code中调试QML文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
