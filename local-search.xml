@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Vcpkg 在 Manifest 模式下防止 CMake 重复加载</title>
+    <link href="/2025/10/15/vcpkg-manifest-cmake-config/"/>
+    <url>/2025/10/15/vcpkg-manifest-cmake-config/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Vcpkg-在-Manifest-模式下防止-CMake-重复加载"><a href="#Vcpkg-在-Manifest-模式下防止-CMake-重复加载" class="headerlink" title="Vcpkg 在 Manifest 模式下防止 CMake 重复加载"></a>Vcpkg 在 Manifest 模式下防止 CMake 重复加载</h1><p>在使用vcpkg的manifest模式下，每次加载cmake都会出发vcpkg的install命令，这导致笔者在编写代码的时候会很烦躁（不想使用集成模式是因为个人认为很多库基本只用一次两次了，没必要集成在系统里，我想的是要用的时候在装就是了）</p><p>好了，言归正传，每次都会出发的原因是CMake中有个cache变量为 <code>VCPKG_MANIFEST_INSTALL</code> 在使用Manifest模式后这个变量的值就为 ON ，每次加载CMake文件时就会检查这个值，所以我需要做的就是让这个值在我不需要刷新的时候为 OFF</p><p>下面就是解决方案：</p><ul><li>Vcpkg 的 Manifest 模式是通过<code>vcpkg.json</code>和<code>vcpkg-configuration.json</code>来控制安装的库</li><li>所以只要让CMake知道这两个发生文件没有改变就可以设置<code>VCPKG_MANIFEST_INSTALL</code>为OFF</li><li>确保文件是否发生改变可以通过获取文件的哈希值来判断，将上一次的哈希值保存在一个临时文件中就可以了</li></ul><p>下面是代码：</p><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-keyword">function</span>(check_file_modified INPUT_FILE OUTPUT_VALUE)<br>    <span class="hljs-keyword">set</span>(IS_MODIFIED <span class="hljs-keyword">OFF</span>)<br><br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">EXISTS</span> <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;&quot;</span>)<br>        <span class="hljs-keyword">file</span>(SHA256 <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;&quot;</span> CURRENT_HASHES)<br><br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">EXISTS</span> <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;.hashes&quot;</span>)<br>            <span class="hljs-keyword">file</span>(READ <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;.hashes&quot;</span> PREVIOUS_HASHES)<br><br>            <span class="hljs-keyword">if</span>(<span class="hljs-keyword">NOT</span> <span class="hljs-string">&quot;$&#123;CURRENT_HASHES&#125;&quot;</span> <span class="hljs-keyword">STREQUAL</span> <span class="hljs-string">&quot;$&#123;PREVIOUS_HASHES&#125;&quot;</span>)<br>                <span class="hljs-keyword">file</span>(WRITE <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;.hashes&quot;</span> <span class="hljs-string">&quot;$&#123;CURRENT_HASHES&#125;&quot;</span>)<br>                <span class="hljs-keyword">set</span>(IS_MODIFIED <span class="hljs-keyword">ON</span>)<br>            <span class="hljs-keyword">endif</span>()<br>        <span class="hljs-keyword">else</span>()<br>            <span class="hljs-keyword">file</span>(WRITE <span class="hljs-string">&quot;$&#123;INPUT_FILE&#125;.hashes&quot;</span> <span class="hljs-string">&quot;$&#123;CURRENT_HASHES&#125;&quot;</span>)<br>            <span class="hljs-keyword">set</span>(IS_MODIFIED <span class="hljs-keyword">ON</span>)<br>        <span class="hljs-keyword">endif</span>()<br>    <span class="hljs-keyword">endif</span>()<br><br>    <span class="hljs-keyword">set</span>(<span class="hljs-variable">$&#123;OUTPUT_VALUE&#125;</span> <span class="hljs-variable">$&#123;IS_MODIFIED&#125;</span> PARENT_SCOPE)<br><span class="hljs-keyword">endfunction</span>()<br><br>check_file_modified(<span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/vcpkg.json VCPKG_IS_MODIFIED)<br>check_file_modified(<span class="hljs-variable">$&#123;CMAKE_SOURCE_DIR&#125;</span>/vcpkg-configuration.json VCPKG_CONFIG_IS_MODIFIED)<br><br><span class="hljs-keyword">if</span>(VCPKG_IS_MODIFIED <span class="hljs-keyword">OR</span> VCPKG_CONFIG_IS_MODIFIED)<br>    <span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;vcpkg configuration changed - enabling VCPKG_MANIFEST_INSTALL&quot;</span>)<br>    <span class="hljs-keyword">set</span>(VCPKG_MANIFEST_INSTALL <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">else</span>()<br>    <span class="hljs-keyword">message</span>(STATUS <span class="hljs-string">&quot;vcpkg configuration unchanged - disabling VCPKG_MANIFEST_INSTALL&quot;</span>)<br>    <span class="hljs-keyword">set</span>(VCPKG_MANIFEST_INSTALL <span class="hljs-keyword">OFF</span>)<br><span class="hljs-keyword">endif</span>()<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CMake</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Clangd 常用文件 (.clang-format 和 .clang-tidy)</title>
     <link href="/2025/09/11/clangd-config-file/"/>
     <url>/2025/09/11/clangd-config-file/</url>
