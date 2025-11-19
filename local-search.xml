@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>C++ Module 使用</title>
+    <link href="/2025/11/19/c-module/"/>
+    <url>/2025/11/19/c-module/</url>
+    
+    <content type="html"><![CDATA[<h1 id="C-Module-使用"><a href="#C-Module-使用" class="headerlink" title="C++ Module 使用"></a>C++ Module 使用</h1><h2 id="main-cpp-源码"><a href="#main-cpp-源码" class="headerlink" title="main.cpp 源码"></a>main.cpp 源码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">import</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">auto</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> -&gt; <span class="hljs-type">int</span></span><br><span class="hljs-function"></span>&#123;<br>    std::<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Hello, world!&quot;</span>);<br>    std::vector&lt;<span class="hljs-type">int</span>&gt; v&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125;;<br>    std::<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;&#123;&#125;&quot;</span>, v);<br><br>    <span class="hljs-keyword">auto</span> start = std::chrono::system_clock::<span class="hljs-built_in">now</span>();<br>    std::<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;UCT time: &#123;:%Y-%m-%d %H:%M:%S&#125;&quot;</span>, start);<br>    std::<span class="hljs-built_in">println</span>(<span class="hljs-string">&quot;Local time: &#123;:%Y-%m-%d %H:%M:%S %Z&#125;&quot;</span>,<br>                 std::chrono::zoned_time&#123;std::chrono::<span class="hljs-built_in">current_zone</span>(), start&#125;);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="g-命令行使用"><a href="#g-命令行使用" class="headerlink" title="g++ 命令行使用"></a>g++ 命令行使用</h2><p>先要进行模块的预编译</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ -std=c++23 -fmodules -fmodule-only -c -fsearch-include-path bits/std.cc<br></code></pre></td></tr></table></figure><p>然后在编译源文件即可</p><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">g</span><span class="hljs-literal">++</span> <span class="hljs-literal">-</span><span class="hljs-comment">std=c</span><span class="hljs-literal">++</span><span class="hljs-comment">23</span> <span class="hljs-literal">-</span><span class="hljs-comment">fmodules main</span><span class="hljs-string">.</span><span class="hljs-comment">cpp</span> <span class="hljs-literal">-</span><span class="hljs-comment">o main</span><br></code></pre></td></tr></table></figure><h2 id="CMake使用"><a href="#CMake使用" class="headerlink" title="CMake使用"></a>CMake使用</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs CMake"><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">4.1</span>.<span class="hljs-number">2</span>)<br><span class="hljs-keyword">set</span>(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD <span class="hljs-string">&quot;d0edc3af-4c50-42ea-a356-e2862fe7a444&quot;</span>) <span class="hljs-comment"># 这串玛去github或者gitlab上招对应的cmake版本</span><br><br><span class="hljs-keyword">project</span>(ModuleTest)<br><br><span class="hljs-keyword">set</span>(CMAKE_CXX_MODULE_STD <span class="hljs-keyword">ON</span>)<br><span class="hljs-keyword">set</span>(CMAKE_CXX_STANDARD <span class="hljs-number">23</span>)<br><br><span class="hljs-keyword">add_executable</span>(ModuleTest main.cpp)<br><span class="hljs-keyword">target_link_libraries</span>(ModuleTest stdc++exp) <span class="hljs-comment"># std::println 在mingw中需要这个库</span><br></code></pre></td></tr></table></figure><h2 id="注意！"><a href="#注意！" class="headerlink" title="注意！"></a>注意！</h2><p>貌似vscode中的微软c++插件对module的支持不好，clangd对自家的编译器支持很好，但是gcc就不能用了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C/C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Vcpkg 在 Manifest 模式下防止 CMake 重复加载</title>
     <link href="/2025/10/15/vcpkg-manifest-cmake-config/"/>
     <url>/2025/10/15/vcpkg-manifest-cmake-config/</url>
